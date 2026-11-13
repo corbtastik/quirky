@@ -3,45 +3,7 @@ title: "The Great Western Loop"
 date: 2023-08-15
 tags: ["travel", "south-dakota", "wyoming", "colorado", "road-trip", "nature"]
 description: "From the faces of Rushmore to the alien vibes of Devils Tower and the peaks of Estes Park."
-post_images:
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2637.jpg"
-    description: "Grilling steaks outdoors"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2645.jpg"
-    description: "Clouds painted overhead"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2658.jpg"
-    description: "Yellow wildflowers blooming"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2666.jpg"
-    description: "Firewheel flowers popping"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2671.jpg"
-    description: "Wide open plains"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2685.jpg"
-    description: "Green valley vista"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2686.jpg"
-    description: "Rolling green hills"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2691.jpg"
-    description: "Pine tree paradise"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2700.jpg"
-    description: "Forest floor views"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2703.jpg"
-    description: "Overlooking the ridge"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2706.jpg"
-    description: "Nature's quiet corner"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2715.jpg"
-    description: "Cozy log cabin"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2725.jpg"
-    description: "Porch view peeping"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2746.jpg"
-    description: "Devils Tower rising"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2757.jpg"
-    description: "Close Encounters vibes"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2763.jpg"
-    description: "Alien rock formation"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2778.jpg"
-    description: "Meadow near tower"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2786.jpg"
-    description: "Tunnel view driving"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2798.jpg"
-    description: "Endless pine horizons"
+sd_images:
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2802.jpg"
     description: "Peeking at Presidents"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2806.jpg"
@@ -76,6 +38,63 @@ post_images:
     description: "Big fluffy bison"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2961.jpg"
     description: "Prairie dog views"
+wy_images:
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2746.jpg"
+    description: "Devils Tower rising"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2757.jpg"
+    description: "Close Encounters vibes"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2763.jpg"
+    description: "Alien rock formation"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2778.jpg"
+    description: "Meadow near tower"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3031.jpg"
+    description: "Small town streets"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3040.jpg"
+    description: "Wyoming neon signs"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3042.jpg"
+    description: "Elks Lodge 1726"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3082.jpg"
+    description: "Theater lights on"
+co_images:
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3084.jpg"
+    description: "Rushing river water"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3088.jpg"
+    description: "Purple blazing star"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3089.jpg"
+    description: "Rocky stream bed"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3100.jpg"
+    description: "Orange flower burst"
+more_images:
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2637.jpg"
+    description: "Grilling steaks outdoors"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2645.jpg"
+    description: "Clouds painted overhead"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2658.jpg"
+    description: "Yellow wildflowers blooming"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2666.jpg"
+    description: "Firewheel flowers popping"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2671.jpg"
+    description: "Wide open plains"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2685.jpg"
+    description: "Green valley vista"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2686.jpg"
+    description: "Rolling green hills"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2691.jpg"
+    description: "Pine tree paradise"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2700.jpg"
+    description: "Forest floor views"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2703.jpg"
+    description: "Overlooking the ridge"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2706.jpg"
+    description: "Nature's quiet corner"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2715.jpg"
+    description: "Cozy log cabin"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2725.jpg"
+    description: "Porch view peeping"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2786.jpg"
+    description: "Tunnel view driving"
+  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2798.jpg"
+    description: "Endless pine horizons"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2963.jpg"
     description: "Golden hour plains"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2989.jpg"
@@ -86,24 +105,8 @@ post_images:
     description: "Storm over stone"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3014.jpg"
     description: "Moody mountain skies"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3031.jpg"
-    description: "Small town streets"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3040.jpg"
-    description: "Wyoming neon signs"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3042.jpg"
-    description: "Elks Lodge 1726"
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3061.jpg"
     description: "Pastel sunset gradient"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3082.jpg"
-    description: "Theater lights on"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3084.jpg"
-    description: "Rushing river water"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3088.jpg"
-    description: "Purple blazing star"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3089.jpg"
-    description: "Rocky stream bed"
-  - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_3100.jpg"
-    description: "Orange flower burst"
 ---
 
 There is nothing quite like a road trip through the American West. We packed the
@@ -131,6 +134,8 @@ Seeing [Washington](https://en.wikipedia.org/wiki/George_Washington),
 is surreal. We found a great spot where the cave frames the monument perfectly
 (check the gallery below!).
 
+{% lightbox "sd_images" %}
+
 ### Wyoming: Close Encounters
 
 Crossing into Wyoming, the terrain shifted. The absolute highlight was [Devils
@@ -143,6 +148,8 @@ hexagonal columns really are.
 We spent some time exploring the small towns nearby, soaking in the neon signs and
 old-school architecture. It felt like stepping back in time.
 
+{% lightbox "wy_images" %}
+
 ### Colorado: Estes Park
 
 We rounded out the trip in [Estes
@@ -153,6 +160,8 @@ crisp, the rivers were rushing, and the wildflowers were putting on a show. It w
 the perfect way to unwind after miles of driving. From grilling steaks at the
 cabin to watching the sunset paint the sky in pastels, this trip had it all.
 
+{% lightbox "co_images" %}
+
 Here is the full visual our adventure.
 
-{% lightbox "post_images" %}
+{% lightbox "more_images" %}
