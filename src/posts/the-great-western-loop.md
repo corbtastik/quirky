@@ -109,59 +109,65 @@ more_images:
     description: "Pastel sunset gradient"
 ---
 
-There is nothing quite like a road trip through the American West. We packed the
-car, prepped the grill, and set off on a loop that took us through the [Black
+Nothing beats a road trip through the American West. We packed the car. We
+prepped the grill. Then we drove a long loop. It ran through the [Black
 Hills](https://en.wikipedia.org/wiki/Black_Hills) of [South
-Dakota](https://en.wikipedia.org/wiki/South_Dakota), the alien landscapes of
-[Wyoming](https://en.wikipedia.org/wiki/Wyoming), and the majestic peaks of
+Dakota](https://en.wikipedia.org/wiki/South_Dakota), across the alien country of
+[Wyoming](https://en.wikipedia.org/wiki/Wyoming), and up into the peaks of
 [Colorado](https://en.wikipedia.org/wiki/Colorado).
 
 ### South Dakota: Custer & Rushmore
 
-Our first stop was the legendary [Custer State
-Park](https://en.wikipedia.org/wiki/Custer_State_Park). The wildlife loop did not
-disappoint—we got up close and personal with the "fluffy cows"
-([Bison](https://en.wikipedia.org/wiki/American_bison)) that rule the road here.
-The landscape is endless rolling hills, thick pine forests, and winding tunnels
-that cut right through the granite.
+First stop was [Custer State
+Park](https://en.wikipedia.org/wiki/Custer_State_Park). The wildlife loop
+delivered. We met the "fluffy cows"
+([Bison](https://en.wikipedia.org/wiki/American_bison)) that own the road out
+here. They take their time. You wait. You grin.
 
-Of course, no trip to SD is complete without visiting the big guys. [Mount
-Rushmore](https://en.wikipedia.org/wiki/Mount_Rushmore) is iconic for a reason.
-Seeing [Washington](https://en.wikipedia.org/wiki/George_Washington),
+The hills roll on and on. The pines grow thick. The tunnels bore straight
+through granite.
+
+You cannot skip the big guys. [Mount
+Rushmore](https://en.wikipedia.org/wiki/Mount_Rushmore) earns its fame.
+[Washington](https://en.wikipedia.org/wiki/George_Washington),
 [Jefferson](https://en.wikipedia.org/wiki/Thomas_Jefferson),
-[Roosevelt](https://en.wikipedia.org/wiki/Theodore_Roosevelt), and
-[Lincoln](https://en.wikipedia.org/wiki/Abraham_Lincoln) carved into the mountain
-is surreal. We found a great spot where the cave frames the monument perfectly
-(check the gallery below!).
+[Roosevelt](https://en.wikipedia.org/wiki/Theodore_Roosevelt) and
+[Lincoln](https://en.wikipedia.org/wiki/Abraham_Lincoln) stare out of the rock.
+It stops you for a minute.
+
+We found a cave that frames the whole thing. Look for it below.
 
 {% lightbox "sd_images" %}
 
 ### Wyoming: Close Encounters
 
-Crossing into Wyoming, the terrain shifted. The absolute highlight was [Devils
-Tower](https://en.wikipedia.org/wiki/Devils_Tower). It rises out of the prairie
-like something from another planet—which explains why [*Close Encounters of the
-Third Kind*](https://en.wikipedia.org/wiki/Close_Encounters_of_the_Third_Kind)
-made it famous. Walking the base trail gives you a sense of just how massive those
-hexagonal columns really are.
+The land changed at the Wyoming line. [Devils
+Tower](https://en.wikipedia.org/wiki/Devils_Tower) was the highlight. It juts out
+of flat prairie like a prop from another planet. [*Close Encounters of the Third
+Kind*](https://en.wikipedia.org/wiki/Close_Encounters_of_the_Third_Kind) made it
+famous. Fair enough.
 
-We spent some time exploring the small towns nearby, soaking in the neon signs and
-old-school architecture. It felt like stepping back in time.
+Walk the base trail. The hexagonal columns climb and climb. A photo cannot carry
+the size of them.
+
+We poked around the small towns nearby. Neon signs. Old brick. Lodge halls with
+their numbers out front. It felt like stepping back in time.
 
 {% lightbox "wy_images" %}
 
 ### Colorado: Estes Park
 
-We rounded out the trip in [Estes
-Park](https://en.wikipedia.org/wiki/Estes_Park,_Colorado), the gateway to [Rocky
+We finished in [Estes
+Park](https://en.wikipedia.org/wiki/Estes_Park,_Colorado), the gate to [Rocky
 Mountain National
-Park](https://en.wikipedia.org/wiki/Rocky_Mountain_National_Park). The air was
-crisp, the rivers were rushing, and the wildflowers were putting on a show. It was
-the perfect way to unwind after miles of driving. From grilling steaks at the
-cabin to watching the sunset paint the sky in pastels, this trip had it all.
+Park](https://en.wikipedia.org/wiki/Rocky_Mountain_National_Park). The air turned
+crisp. The rivers ran loud. The wildflowers showed off.
+
+After all those miles, it was the right place to stop. Steaks on the grill. A
+sunset in pastels. This trip had it all.
 
 {% lightbox "co_images" %}
 
-Here is the full visual our adventure.
+The full adventure!
 
 {% lightbox "more_images" %}
