@@ -14,24 +14,23 @@ parks:
 
 ## The Myth and The Reality
 
-For decades, American schoolchildren were taught that **Abner Doubleday**
-invented baseball in Cooperstown, New York, in 1839. It's a great story—a Civil
-War hero inventing the national pastime in a cow pasture.
+For decades, schools taught that **Abner Doubleday** invented baseball.
+Cooperstown, New York. 1839. It is a lovely story. A Civil War hero dreams up
+the national pastime in a cow pasture.
 
-**It is also completely false.**
+**It is also false.**
 
-The real history of baseball is an iterative process, much like software
-development. It evolved from older bat-and-ball games like *cricket* and
-*rounders*.
+Nobody invented baseball. It evolved, the way software does. It grew out of
+older bat-and-ball games like *cricket* and *rounders*.
 
 ![Vintage Baseball Team](https://placehold.co/800x400/2c3e50/ecf0f1?text=Vintage+Baseball+Team+1860s)
 
-*Figure 1: Early baseball clubs often prioritized social gathering over athletic competition.*
+*Figure 1: Early clubs came for the company as much as the contest.*
 
 ### The Alexander Cartwright Commit (v1.0)
 
-If baseball has a "Lead Developer," it is **Alexander Cartwright**. In 1845, he
-codified the **Knickerbocker Rules**, which established:
+Every project has a lead developer. Baseball had **Alexander Cartwright**. In
+1845 he wrote down the **Knickerbocker Rules**. They gave us:
 
 * Diamond-shaped field
 * Three strikes for an out
@@ -41,8 +40,7 @@ codified the **Knickerbocker Rules**, which established:
 
 ## Eras of the Game
 
-Baseball history is distinct enough that it can be categorized into "versions"
-or eras.
+Baseball history splits into versions. Call them eras.
 
 | Era | Timeframe | Characteristics | Notable Figure |
 | :--- | :---: | :--- | :--- |
@@ -61,12 +59,10 @@ or eras.
 
 ## The Code Behind the Game (Sabermetrics)
 
-Baseball is the most data-rich sport in existence. In the modern era, we don't
-just look at Batting Average; we look at **WAR** (Wins Above Replacement) and
-**OPS+**.
+No sport carries more data than baseball. Batting Average no longer cuts it. We
+read **WAR** (Wins Above Replacement) and **OPS+** instead.
 
-If we were to calculate a player's *On-base Plus Slugging* (OPS) in JavaScript,
-it might look like this:
+Here is *On-base Plus Slugging* in JavaScript.
 
 ```javascript
 /**
@@ -97,21 +93,21 @@ console.log(calculateOPS(150, 80, 5, 500, 5, 250));
 
 ## The Cathedral of Green
 
-One of the unique aspects of baseball is that **no two fields are the same**. In
-basketball or football, the dimensions are standardized. In baseball, the
-outfield walls can be different heights, distances, and shapes.
+**No two fields are the same.** A basketball court is a basketball court. A
+football field never changes. A ballpark does as it pleases. The walls run high
+or low, near or far, and bend where they like.
 
 {% imageGrid "parks", 3 %}
 
 ### Unwritten Rules
 
-Baseball is famous for its "soft code"—rules that aren't in the rulebook but are
-strictly enforced by the players.
+Baseball runs on soft code. These rules sit in no rulebook. The players enforce
+them anyway.
 
 1. Don't bunt to break up a no-hitter.
 2. Don't steal a base when you are winning by 10 runs.
 3. Never walk across the pitcher's mound.
 
-Whether you enjoy the slow pace of a pitcher's duel or the excitement of a
-walk-off home run, baseball remains a mirror of American history—complex,
-evolving, and deeply statistical.
+Maybe you love a pitcher's duel. Maybe you wait nine innings for a walk-off.
+Either way, baseball holds a mirror up to America. Tangled, always changing, and
+full of numbers.
