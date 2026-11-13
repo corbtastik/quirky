@@ -7,6 +7,8 @@
  *   1. the light/dark toggle (the palette picker is palette.js, in <head>)
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
+ *   4. the edit lock, which owns the state and nothing else
+ *   5. dragging the nav and the controls to either side, stream only
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -231,6 +233,161 @@
     // ------------------------------------------------------------------
     // Back to top
     // ------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // Edit lock
+    //
+    // Locked on every load. Nothing is stored: an affordance that unlocks
+    // itself because you left it open last time is the wrong default.
+    //
+    // All this owns is the state. It puts data-edit="unlocked" on <html> and
+    // fires quirky:editlock, so whatever editing is eventually wired up can
+    // listen or style against the attribute without touching this.
+    // ------------------------------------------------------------------
+    function initEditLock() {
+        var button = document.getElementById('edit-lock');
+        if (!button) return;
+
+        var icon = button.querySelector('.material-icons');
+        var root = document.documentElement;
+        var unlocked = false;
+
+        function paint() {
+            // The icon is the state, not the action - see controls.njk.
+            icon.textContent = unlocked ? 'lock_open' : 'lock';
+            button.setAttribute('aria-pressed', unlocked ? 'false' : 'true');
+            button.setAttribute('aria-label', unlocked ? 'Editing unlocked' : 'Editing locked');
+            button.setAttribute('title', unlocked
+                ? 'Editing unlocked - click to lock'
+                : 'Editing locked - click to unlock');
+        }
+
+        function flip() {
+            unlocked = !unlocked;
+            if (unlocked) root.setAttribute('data-edit', 'unlocked');
+            else root.removeAttribute('data-edit');
+            paint();
+            document.dispatchEvent(new CustomEvent('quirky:editlock', {
+                detail: unlocked ? 'unlocked' : 'locked'
+            }));
+        }
+
+        // The markup already says locked and carries no data-edit, so there
+        // is nothing to reconcile here. An earlier version cleared the
+        // attribute defensively, which meant any state set before this ran
+        // was wiped on load.
+        paint();
+        button.addEventListener('click', flip);
+    }
+
+    // ------------------------------------------------------------------
+    // Editable layout - the stream only
+    //
+    // While the lock is open, the nav column and the control stack can be
+    // dragged to either side of the window. Each is one attribute on <body>;
+    // the CSS in _controls.scss does the moving.
+    //
+    // The arrangement is remembered, the lock is not. Unlock, rearrange,
+    // lock: the layout you chose survives the reload, and the page does not
+    // come back in an editable state you forgot you left it in.
+    // ------------------------------------------------------------------
+    function initLayoutEdit() {
+        var body = document.body;
+        // Scoped to the stream by the class index.njk already sets. Other
+        // pages get the lock but nothing to drag.
+        if (!body.classList.contains('is-stream')) return;
+
+        var nav = document.querySelector('main[role="main"] > header[role="banner"]');
+        var controls = document.querySelector('.yolo-sticky-top-right');
+        if (!nav || !controls) return;
+
+        var KEY = 'quirky-layout';
+        var layout = { nav: 'left', controls: 'right' };
+        try {
+            var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+            if (saved && (saved.nav === 'left' || saved.nav === 'right') &&
+                (saved.controls === 'left' || saved.controls === 'right')) {
+                layout = saved;
+            }
+        } catch (e) {}
+
+        function apply() {
+            body.setAttribute('data-nav', layout.nav);
+            body.setAttribute('data-controls', layout.controls);
+            try { localStorage.setItem(KEY, JSON.stringify(layout)); } catch (e) {}
+        }
+
+        var hint = document.createElement('div');
+        hint.className = 'quirky-drop-hint';
+        hint.hidden = true;
+        body.appendChild(hint);
+
+        var dragging = null;
+
+        function sideAt(x) {
+            return x < window.innerWidth / 2 ? 'left' : 'right';
+        }
+
+        function unlocked() {
+            return document.documentElement.getAttribute('data-edit') === 'unlocked';
+        }
+
+        [[nav, 'nav'], [controls, 'controls']].forEach(function (pair) {
+            var el = pair[0], key = pair[1];
+            el.classList.add('quirky-draggable');
+
+            el.addEventListener('dragstart', function (e) {
+                if (!unlocked()) { e.preventDefault(); return; }
+                dragging = key;
+                el.classList.add('is-dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                // Firefox will not start a drag without data on the transfer.
+                try { e.dataTransfer.setData('text/plain', key); } catch (ex) {}
+            });
+
+            el.addEventListener('dragend', function () {
+                dragging = null;
+                el.classList.remove('is-dragging');
+                hint.hidden = true;
+            });
+        });
+
+        document.addEventListener('dragover', function (e) {
+            if (!dragging) return;
+            // Without this the drop event never fires.
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            hint.hidden = false;
+            hint.setAttribute('data-side', sideAt(e.clientX));
+        });
+
+        document.addEventListener('drop', function (e) {
+            if (!dragging) return;
+            e.preventDefault();
+            layout[dragging] = sideAt(e.clientX);
+            apply();
+            hint.hidden = true;
+        });
+
+        // A link and an image are draggable to begin with, and dragging one
+        // out of the nav would win over dragging the nav. Turn those off so
+        // the column itself is what moves.
+        function setDraggable(on) {
+            nav.draggable = on;
+            controls.draggable = on;
+            Array.prototype.forEach.call(
+                nav.querySelectorAll('a, img'),
+                function (child) { child.draggable = false; });
+        }
+
+        setDraggable(unlocked());
+        document.addEventListener('quirky:editlock', function (e) {
+            setDraggable(e.detail === 'unlocked');
+            if (e.detail === 'locked') hint.hidden = true;
+        });
+
+        apply();
+    }
+
     function initToTop() {
         var link = document.querySelector('.yolo-to-top');
         if (!link) return;
@@ -244,6 +401,8 @@
         initThemeToggle();
         initNow();
         initSearch();
+        initEditLock();
+        initLayoutEdit();
         initToTop();
     });
 })();

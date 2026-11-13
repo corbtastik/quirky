@@ -323,6 +323,36 @@
     color: var(--quiet-color);
   }
 
+  // The edit lock, painted like the light/dark toggle above it so the column
+  // reads as one set of controls.
+  //
+  // Unlocked takes the accent colour. The icon alone carries the state, and
+  // an open padlock at a glance is not that different from a closed one -
+  // the colour is what makes it obvious the page is in an unusual mode.
+  .quirky-icon-button {
+    color: var(--secondary-color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--tertiary-color);
+    }
+  }
+
+  &[data-edit="unlocked"] .quirky-icon-button {
+    color: var(--tertiary-color);
+  }
+
+  // Drag handles and the drop target, both in the accent so they read as a
+  // mode rather than as part of the page.
+  .quirky-draggable {
+    outline-color: var(--tertiary-color);
+  }
+
+  .quirky-drop-hint {
+    background-color: var(--tertiary-color);
+    opacity: 0.1;
+  }
+
   #results-container li.selected {
     background-color: var(--primary-container-color);
   }
