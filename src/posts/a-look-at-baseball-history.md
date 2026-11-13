@@ -91,9 +91,9 @@ football field never changes. A ballpark does as it pleases. The walls run high
 or low, near or far, and bend where they like.
 
 <div class="columns is-mobile">
-<div class="column">{% image { src: "/assets/images/fenway.jpg", description: "Fenway Park" } %}</div>
-<div class="column">{% image { src: "/assets/images/wrigley-field.jpg", description: "Wrigley Field" } %}</div>
-<div class="column">{% image { src: "/assets/images/arlington-stadium.jpg", description: "Arlington Stadium" } %}</div>
+<div class="column">{% image { src: "/assets/images/fenway.jpg", description: "Fenway Park", classes: "square" } %}</div>
+<div class="column">{% image { src: "/assets/images/wrigley-field.jpg", description: "Wrigley Field", classes: "square" } %}</div>
+<div class="column">{% image { src: "/assets/images/arlington-stadium.jpg", description: "Arlington Stadium", classes: "square" } %}</div>
 </div>
 
 ### Unwritten Rules
