@@ -144,3 +144,30 @@
   margin-left: auto;
   margin-right: 0;
 }
+
+// ----------------------------------------------------------------------------
+// Keeping the page out from under the controls
+//
+// The control column floats over the page and takes the outer $controls-gutter
+// of the window. Pin the page to the edge the controls are on and the content
+// runs underneath them - on the stream it is the date column that disappears.
+//
+// Only two of the six combinations collide, so only those two reserve the
+// gutter. The other four keep a true zero margin.
+//
+// Nothing moves on its own here. The side swap still says where the chrome is,
+// and the alignment still says where the page is; this only stops the two
+// sitting on top of each other.
+// ----------------------------------------------------------------------------
+
+// Controls on the right, which is the default, and the page pinned right.
+html:not([data-layout="mirrored"])[data-pull="right"] main[role="main"],
+html:not([data-layout="mirrored"])[data-pull="right"] .quirky-wide {
+  margin-right: $controls-gutter;
+}
+
+// Controls swapped to the left, and the page pinned left.
+html[data-layout="mirrored"][data-pull="left"] main[role="main"],
+html[data-layout="mirrored"][data-pull="left"] .quirky-wide {
+  margin-left: $controls-gutter;
+}
