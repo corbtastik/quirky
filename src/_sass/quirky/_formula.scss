@@ -1,0 +1,50 @@
+// ----------------------------------------------------------------------------
+// Stacked formulas
+//
+// A .formula is a label and an expression; a .fraction inside it is a
+// numerator over a denominator, divided by a rule.
+//
+// The markup for these came across from the source site, which never carried
+// the stylesheet to go with it - the numerator and denominator are both
+// spans, so without this they render inline and run together. "OBP = H + BB +
+// HBP AB + BB + HBP + SF" cannot be read as a fraction by anyone.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-family-monospace);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.formula-label {
+  font-weight: $weight-bold;
+}
+
+// The column is what stacks the two halves; inline-flex keeps the whole
+// fraction on the baseline of the label beside it.
+.fraction {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.fraction .numerator {
+  padding: 0 0.6rem 0.25rem;
+}
+
+// The rule is the division sign.
+.fraction .denominator {
+  padding: 0.25rem 0.6rem 0;
+  border-top: 1px solid;
+}
+
+.formula var {
+  font-style: italic;
+}

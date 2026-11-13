@@ -334,6 +334,16 @@
     }
   }
 
+  // The fraction bar. Quiet rather than full-strength text: it is a divider,
+  // not a character.
+  .fraction .denominator {
+    border-top-color: var(--quiet-color);
+  }
+
+  .formula-label {
+    color: var(--heading-color, var(--on-primary-color));
+  }
+
   #results-container li.selected {
     background-color: var(--primary-container-color);
   }
