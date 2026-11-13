@@ -7,7 +7,7 @@
  *   1. the light/dark toggle (the palette picker is palette.js, in <head>)
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
- *   4. the side swap, which mirrors the stream page's layout
+ *   4. the side swap, which mirrors the page layout
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -242,16 +242,14 @@
     // The choice is remembered, so a page you mirrored comes back mirrored.
     // ------------------------------------------------------------------
     function initSideSwap() {
-        var body = document.body;
-        // The button is hidden off the stream; this makes sure it is also
-        // inert there, rather than relying on the CSS alone.
-        if (!body.classList.contains('is-stream')) return;
-
+        var root = document.documentElement;
         var button = document.getElementById('side-swap');
         if (!button) return;
         var icon = button.querySelector('.material-icons');
 
         // Everything that ends up somewhere else when the page mirrors.
+        // The wide layout (life in weeks) has no nav column and no section,
+        // so those come back null there and only the chrome moves.
         var movers = [
             document.querySelector('main[role="main"] > header[role="banner"]'),
             document.querySelector('main[role="main"] > section'),
@@ -259,9 +257,11 @@
             document.querySelector('.yolo-sticky-bottom-right')
         ].filter(Boolean);
 
+        // theme.js already restored the stored choice in <head>, so the
+        // attribute on <html> is the state - reading it back beats reading
+        // storage twice and risking the two disagreeing.
         var KEY = 'quirky-layout';
-        var mirrored = false;
-        try { mirrored = localStorage.getItem(KEY) === 'mirrored'; } catch (e) {}
+        var mirrored = root.getAttribute('data-layout') === 'mirrored';
 
         function reduceMotion() {
             return window.matchMedia &&
@@ -303,7 +303,7 @@
 
             // One forced reflow for the whole set, so every element starts
             // from its offset in the same frame.
-            void body.offsetWidth;
+            void document.body.offsetWidth;
 
             moved.forEach(function (el) {
                 el.addEventListener('transitionend', function done(e) {
@@ -330,8 +330,8 @@
         }
 
         function setLayout() {
-            if (mirrored) body.setAttribute('data-layout', 'mirrored');
-            else body.removeAttribute('data-layout');
+            if (mirrored) root.setAttribute('data-layout', 'mirrored');
+            else root.removeAttribute('data-layout');
         }
 
         button.addEventListener('click', function () {
@@ -341,9 +341,8 @@
             try { localStorage.setItem(KEY, mirrored ? 'mirrored' : 'default'); } catch (e) {}
         });
 
-        // Restoring a stored choice is not a swap the reader asked to watch,
-        // so the first paint is instant.
-        setLayout();
+        // The layout is already correct - theme.js set it before the first
+        // paint. Only the button needs bringing into line with it.
         paint();
     }
 

@@ -77,8 +77,9 @@ header[role="banner"] {
   header[role="banner"] {
     // Stacked, the nav occupies the top of the page - which is where the
     // fixed theme controls sit. Reserve their column so wrapped labels do not
-    // run underneath them.
-    padding-right: 3.25rem;
+    // run underneath them. _controls.scss moves the reservation to the other
+    // side when the page is mirrored.
+    padding-right: $controls-gutter;
 
     ul#side-nav {
       border-bottom: 1px solid var(--secondary-container-color);

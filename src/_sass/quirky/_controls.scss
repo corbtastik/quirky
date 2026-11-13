@@ -1,3 +1,4 @@
+@use "layout" as *;
 // ----------------------------------------------------------------------------
 // Sticky control chrome, this site's own
 //
@@ -36,34 +37,40 @@
 }
 
 // ----------------------------------------------------------------------------
-// Side swap (the stream only)
+// Side swap (every page)
 //
-// One attribute on <body> mirrors the page: the nav column moves to the
-// right of the flex row, and the fixed chrome moves to the opposite corner.
-// The button sets a string; everything below does the moving.
+// One attribute on <html> mirrors the page: the nav column moves to the
+// other end of the flex row and the fixed chrome moves to the opposite
+// corners. The button sets a string; everything below does the moving.
+//
+// The attribute is on <html> rather than <body> so theme.js can restore a
+// stored choice in <head>, before the first paint. On <body> it could only
+// be set after the body existed, which meant every page flashed the default
+// arrangement before correcting itself.
 // ----------------------------------------------------------------------------
 
-// The button does nothing off the stream, so it is not offered there. The
-// stream class is on <body>, which is an ancestor of the control column.
 .quirky-side-swap {
-  display: none;
   line-height: 1;
-}
-
-.is-stream .quirky-side-swap {
-  display: block;
 }
 
 // main is a flex row, so moving the nav is a direction flip rather than a
 // reordering - the section keeps its flex-grow and needs no rule of its own.
-.is-stream[data-layout="mirrored"] main[role="main"] {
-  flex-direction: row-reverse;
+//
+// Only above the stacking breakpoint. Below it the nav is already a
+// horizontal strip above the content, and reversing a wrapped column does
+// not put it on the right - it puts it underneath, which is not a swap of
+// sides but a different page.
+@media screen and (min-width: $break-stack + 0.0625rem) {
+  [data-layout="mirrored"] main[role="main"] {
+    flex-direction: row-reverse;
+  }
 }
 
 // Both corners of the fixed chrome, not just the top one. Mirroring the page
 // and leaving the back-to-top button behind on the right reads as a bug
-// rather than as a choice.
-.is-stream[data-layout="mirrored"] .yolo-sticky-top-right {
+// rather than as a choice. These apply at every width - a corner is still a
+// corner on a phone.
+[data-layout="mirrored"] .yolo-sticky-top-right {
   right: auto;
   left: 1rem;
   // The column is right-aligned by default; in the left corner it has to
@@ -71,7 +78,7 @@
   align-items: flex-start;
 }
 
-.is-stream[data-layout="mirrored"] .yolo-sticky-bottom-right {
+[data-layout="mirrored"] .yolo-sticky-bottom-right {
   right: auto;
   left: 1rem;
 }
@@ -92,5 +99,15 @@
 @media (prefers-reduced-motion: reduce) {
   .is-gliding {
     transition: none;
+  }
+}
+
+// Stacked, _nav.scss reserves a column on the right of the nav strip for the
+// fixed controls. Mirrored they are in the left corner, so the reservation
+// has to follow them or the first row of links runs under the icons.
+@media screen and (max-width: $break-stack) {
+  [data-layout="mirrored"] header[role="banner"] {
+    padding-right: 0;
+    padding-left: $controls-gutter;
   }
 }

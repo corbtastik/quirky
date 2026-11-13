@@ -38,6 +38,12 @@ $measure: 55rem;
 // Shared because it has to be the same number in four files to work at all.
 $row-inset: 0.75rem;
 
+// Stacked, the nav runs across the top of the page and the fixed controls
+// sit over one of its corners. This is the column reserved for them, so a
+// wrapped label does not run underneath the icons. Shared because the side
+// swap has to move the reservation to whichever corner they are in.
+$controls-gutter: 3.25rem;
+
 // ----------------------------------------------------------------------------
 // Yolo scales the root font up to 1.25rem on tablet and wider, which suits its
 // single-page demos. This is a reading site, so put the root back to 16px and
