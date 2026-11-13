@@ -46,7 +46,7 @@ demos, webinars, competitive positioning.
 ### MinIO — Technologist {:#role-minio}
 *October 2026 – Present*
 
-*Still to be written.*
+Making miracles with MinIO.
 
 ---
 
