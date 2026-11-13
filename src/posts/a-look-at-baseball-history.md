@@ -23,9 +23,9 @@ the national pastime in a cow pasture.
 Nobody invented baseball. It evolved, the way software does. It grew out of
 older bat-and-ball games like *cricket* and *rounders*.
 
-![Vintage Baseball Team](https://placehold.co/800x400/2c3e50/ecf0f1?text=Vintage+Baseball+Team+1860s)
+![The 1869 Cincinnati Red Stockings](/assets/images/baseball-team.jpg)
 
-*Figure 1: Early clubs came for the company as much as the contest.*
+*The 1869 Cincinnati Red Stockings.*
 
 ### The Alexander Cartwright Commit (v1.0)
 
