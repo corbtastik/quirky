@@ -96,12 +96,14 @@ section.post {
   h1.title {
     font-size: 1.875rem;
     margin-top: 0;
+    margin-bottom: 0;
   }
 
   h2.subtitle {
     font-size: 1.5rem;
     font-weight: $weight-light;
     margin-top: 0;
+    margin-bottom: 0;
     font-family: var(--font-family-primary);
   }
 
@@ -109,8 +111,16 @@ section.post {
   // a single page whose headings are the structure; in an article the body
   // text is the structure, and a 3rem h1 two lines under a 1.875rem page
   // title reads as though the page has two titles.
+  // The bottom margin is the point of this rule as much as the top one.
+  //
+  // With no margin-bottom, the gap under a heading was whatever the next
+  // element happened to bring with it. A paragraph brought 0.5rem; a list, a
+  // blockquote, an image or a bare <div> brought nothing at all and sat
+  // against the heading. Setting it here puts a floor under every case:
+  // margins between siblings collapse, so an element with a larger margin of
+  // its own is unaffected, and everything else is lifted to this.
   h1, h2, h3, h4, h5, h6 {
-    margin: 1.5rem 0 0 0;
+    margin: 1.5rem 0 1rem 0;
     line-height: 1.2;
   }
 
