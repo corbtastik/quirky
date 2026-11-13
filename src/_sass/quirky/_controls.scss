@@ -65,8 +65,19 @@
   cursor: grab;
   outline-style: dashed;
   outline-width: 2px;
-  outline-offset: 6px;
+  outline-offset: 4px;
   border-radius: 4px;
+}
+
+// An outline is painted outside the border box, so an element sitting hard
+// against the scrollport has that side of its handle clipped away. The nav
+// sticks at top: 0, which cost it its top edge entirely.
+//
+// Both draggables need (offset + width) of clearance on every side. The
+// control stack already has it from its 1rem inset; the nav gets it here,
+// and only while unlocked, so the normal layout is untouched.
+[data-edit="unlocked"] .is-stream header[role="banner"] {
+  top: 0.5rem;
 }
 
 [data-edit="unlocked"] .quirky-draggable.is-dragging {
