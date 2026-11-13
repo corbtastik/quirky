@@ -203,19 +203,55 @@ the startup log.
 The four drives form one erasure set. MinIO splits each object into shards and
 spreads them across every drive in the set. Some shards are parity.
 
-```text
-              object
-                |
-    +-----------+-----------+-----------+
-    |           |           |           |
-  shard       shard       shard       shard
-    |           |           |           |
-  data1       data2       data3       data4
-    +-----------+-----------+-----------+
-                |
-          one erasure set
-    lose a drive, the object survives
-```
+<svg class="diagram" viewBox="0 0 680 276" role="img"
+     aria-label="One object is split into four shards. Each shard is written to its own drive, mnt data 1 through 4. The four drives form one erasure set, so losing a drive does not lose the object.">
+  <g class="dg-note">
+    <rect x="250" y="12" width="180" height="48" rx="6"/>
+    <text class="dg-strong" x="340" y="34" text-anchor="middle">object</text>
+    <text class="dg-small"  x="340" y="50" text-anchor="middle">split on write</text>
+  </g>
+  <path class="dg-line" d="M340 60 V76"/>
+  <path class="dg-line" d="M118 76 H562"/>
+  <path class="dg-line" d="M118 76 V98" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M266 76 V98" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M414 76 V98" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M562 76 V98" marker-end="url(#dg-tip3)"/>
+  <g class="dg-box">
+    <rect x="58" y="98" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="118" y="122" text-anchor="middle">shard</text>
+    <rect x="206" y="98" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="266" y="122" text-anchor="middle">shard</text>
+    <rect x="354" y="98" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="414" y="122" text-anchor="middle">shard</text>
+    <rect x="502" y="98" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="562" y="122" text-anchor="middle">shard</text>
+  </g>
+  <path class="dg-line" d="M118 136 V158" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M266 136 V158" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M414 136 V158" marker-end="url(#dg-tip3)"/>
+  <path class="dg-line" d="M562 136 V158" marker-end="url(#dg-tip3)"/>
+  <g class="dg-box">
+    <rect x="58" y="158" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="118" y="182" text-anchor="middle">/mnt/data1</text>
+    <rect x="206" y="158" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="266" y="182" text-anchor="middle">/mnt/data2</text>
+    <rect x="354" y="158" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="414" y="182" text-anchor="middle">/mnt/data3</text>
+    <rect x="502" y="158" width="120" height="38" rx="5"/>
+    <text class="dg-mono" x="562" y="182" text-anchor="middle">/mnt/data4</text>
+  </g>
+  <path class="dg-line" d="M118 210 V218 H562 V210"/>
+  <path class="dg-line" d="M340 218 V228"/>
+  <text x="340" y="244" text-anchor="middle">one erasure set</text>
+  <text class="dg-small" x="340" y="262" text-anchor="middle">lose a drive, the object survives</text>
+  <defs>
+    <marker id="dg-tip3" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path class="dg-arrow" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+</svg>
+<span class="diagram-caption">One object, four shards, one shard per drive.</span>
 
 The formatting log says `quorum: 3`. Three of the four drives have to agree
 before the pool will format. The same idea protects reads later.
