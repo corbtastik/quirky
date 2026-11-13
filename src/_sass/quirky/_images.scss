@@ -103,3 +103,19 @@
     padding-top: 0.4rem;
   }
 }
+
+// ----------------------------------------------------------------------------
+// Opting an image out of the click-to-scale behaviour
+//
+// yolo.js binds a click to every .image on the page that toggles a .max class,
+// which drops the image to 70% of its box. That suits a lone illustration you
+// want to shrink; it does not suit a row of photographs, where one of them
+// shrinking leaves a hole in the row.
+//
+// pointer-events stops the handler ever firing, which is the only way to opt
+// out without editing the vendored script that binds it. Scoped to the class,
+// so every other .image on the site keeps the behaviour.
+// ----------------------------------------------------------------------------
+img.image.no-zoom {
+  pointer-events: none;
+}
