@@ -12,6 +12,16 @@
             <span id="theme-toggle" class="material-icons md-36" role="button"
                   tabindex="0" title="Light / dark" aria-label="Light / dark">dark_mode</span>
         </div>
+        {# Home. Second in the column, under the light/dark toggle, as asked.
+           A link rather than a button, because that is what it is - it
+           borrows .quirky-icon-button only for the chrome reset, which strips
+           a button's styling and is harmless on an anchor. #}
+        <div class="quirky-home">
+            <a href="{{ '/' | relative_url }}" class="quirky-icon-button"
+               title="Home" aria-label="Home">
+                <span class="material-icons md-36" aria-hidden="true">home</span>
+            </a>
+        </div>
         {# The list is built by palette.js from the same themes.json the build
            reads, so this stays a button and an empty box. #}
         <div id="theme-picker" class="yolo-theme-picker">
