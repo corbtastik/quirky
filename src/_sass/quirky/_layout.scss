@@ -207,10 +207,13 @@ hr {
   }
 }
 
+// The rule that used to sit above this is gone, and with it the 3rem its own
+// margins contributed. The gap is kept here instead, so removing the line did
+// not also pull the footer up against the end of the page.
 .quirky-footer {
   text-align: right;
   font-size: 0.8125rem;
-  margin-top: 3rem;
+  margin-top: 5rem;
 
   p {
     margin: 0;
