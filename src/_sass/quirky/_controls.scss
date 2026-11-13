@@ -50,7 +50,6 @@
 // ----------------------------------------------------------------------------
 
 .quirky-home,
-.quirky-pull-left,
 .quirky-side-swap {
   line-height: 1;
 }
@@ -115,15 +114,33 @@
 }
 
 // ----------------------------------------------------------------------------
-// Pull left
+// Page alignment
 //
-// Both page containers centre themselves with `margin: 2rem auto`. Setting the
-// left margin to zero and letting the right stay auto pins the site against
-// the left edge of the window. The padding inside stays, so the text is not
-// flush to the glass.
+// Both page containers centre themselves with `margin: 2rem auto`. Dropping
+// the margin on one side and leaving the other auto pins the site to that
+// edge. Middle needs no rule - it is what the containers already do.
+//
+// The padding inside stays in every case, so the text is never flush to the
+// glass.
 // ----------------------------------------------------------------------------
+
+// The three sit closer to each other than to the controls above, so they read
+// as one set of choices rather than three unrelated buttons.
+.quirky-align {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1;
+}
+
 [data-pull="left"] main[role="main"],
 [data-pull="left"] .quirky-wide {
   margin-left: 0;
   margin-right: auto;
+}
+
+[data-pull="right"] main[role="main"],
+[data-pull="right"] .quirky-wide {
+  margin-left: auto;
+  margin-right: 0;
 }

@@ -8,7 +8,7 @@
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
  *   4. the side swap, which mirrors the page layout
- *   5. pull left, which pins the page to the left edge
+ *   5. page alignment: middle, left or right
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -348,35 +348,36 @@
     }
 
     // ------------------------------------------------------------------
-    // Pull left
+    // Page alignment
     //
-    // Drops the auto side margins that centre the page. One attribute on
-    // <html>; _controls.scss does the moving. theme.js puts it back before
-    // the first paint, so a pinned page does not start centred and jump.
+    // Middle, left or right. Middle is what the containers do on their own,
+    // so it has no CSS; the attribute is still set, so the control can show
+    // which one is in force. theme.js puts it back before the first paint.
     // ------------------------------------------------------------------
-    function initPullLeft() {
+    function initAlign() {
         var root = document.documentElement;
-        var button = document.getElementById('pull-left');
-        if (!button) return;
+        var buttons = document.querySelectorAll('.quirky-align .quirky-icon-button');
+        if (!buttons.length) return;
 
         var KEY = 'quirky-pull';
-        var pulled = root.getAttribute('data-pull') === 'left';
 
-        function paint() {
-            button.setAttribute('aria-pressed', pulled ? 'true' : 'false');
-            button.setAttribute('title', pulled ? 'Centre the site' : 'Pin the site to the left');
-            button.setAttribute('aria-label', button.getAttribute('title'));
+        function apply(choice) {
+            root.setAttribute('data-pull', choice);
+            buttons.forEach(function(b) {
+                b.setAttribute('aria-pressed',
+                    b.getAttribute('data-align') === choice ? 'true' : 'false');
+            });
+            try { localStorage.setItem(KEY, choice); } catch (e) {}
         }
 
-        button.addEventListener('click', function() {
-            pulled = !pulled;
-            if (pulled) root.setAttribute('data-pull', 'left');
-            else root.removeAttribute('data-pull');
-            try { localStorage.setItem(KEY, pulled ? 'left' : 'centre'); } catch (e) {}
-            paint();
+        buttons.forEach(function(b) {
+            b.addEventListener('click', function() {
+                apply(b.getAttribute('data-align'));
+            });
         });
 
-        paint();
+        var current = root.getAttribute('data-pull');
+        apply(current === 'left' || current === 'right' ? current : 'center');
     }
 
     function initToTop() {
@@ -393,7 +394,7 @@
         initNow();
         initSearch();
         initSideSwap();
-        initPullLeft();
+        initAlign();
         initToTop();
     });
 })();

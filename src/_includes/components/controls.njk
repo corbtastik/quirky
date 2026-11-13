@@ -50,14 +50,24 @@
                 <span class="material-icons md-36" aria-hidden="true">chevron_left</span>
             </button>
         </div>
-        {# Pull left. Last in the column. Drops the auto side margins that
-           centre the page, so the site sits against the left edge of the
-           window. One attribute on <html>, like the side swap. #}
-        <div class="quirky-pull-left">
-            <button type="button" id="pull-left" class="quirky-icon-button"
-                    aria-pressed="false" aria-label="Pin the site to the left"
-                    title="Pin the site to the left">
+        {# Page alignment. Middle, left, right - in that order, middle
+           being what the site has always done. Each sets data-pull on
+           <html>; _controls.scss drops the margin on the matching side. #}
+        <div class="quirky-align">
+            <button type="button" id="align-center" class="quirky-icon-button"
+                    data-align="center" aria-pressed="true"
+                    aria-label="Centre the site" title="Centre the site">
+                <span class="material-icons md-36" aria-hidden="true">align_horizontal_center</span>
+            </button>
+            <button type="button" id="align-left" class="quirky-icon-button"
+                    data-align="left" aria-pressed="false"
+                    aria-label="Pin the site left" title="Pin the site left">
                 <span class="material-icons md-36" aria-hidden="true">align_horizontal_left</span>
+            </button>
+            <button type="button" id="align-right" class="quirky-icon-button"
+                    data-align="right" aria-pressed="false"
+                    aria-label="Pin the site right" title="Pin the site right">
+                <span class="material-icons md-36" aria-hidden="true">align_horizontal_right</span>
             </button>
         </div>
     </div>

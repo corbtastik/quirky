@@ -4,7 +4,7 @@
  *
  *   - the light/dark attribute on <html>
  *   - the side-swap layout, also on <html>
- *   - whether the site is pinned to the left edge
+ *   - which edge the site is aligned to, if any
  *
  * Both are attributes rather than classes because they are read by CSS alone.
  * The toggles that set them live in assets/js/quirky.js, which runs after the
@@ -29,7 +29,9 @@
         root.setAttribute('data-layout', 'mirrored');
     }
 
-    if (stored('quirky-pull') === 'left') {
-        root.setAttribute('data-pull', 'left');
-    }
+    // center is the default and needs no CSS of its own, but the attribute
+    // is set either way so the matching control can show as active.
+    var pull = stored('quirky-pull');
+    root.setAttribute('data-pull',
+        (pull === 'left' || pull === 'right') ? pull : 'center');
 })();

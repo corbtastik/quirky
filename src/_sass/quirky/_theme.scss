@@ -369,9 +369,12 @@
     color: var(--secondary-color);
   }
 
-  // Pinned left is a mode the page is in, so the control takes the accent
-  // while it is on.
-  &[data-pull="left"] #pull-left {
+  // Whichever alignment is in force takes the accent. The :not covers a
+  // first visit, before anything has been stored and the attribute set.
+  &[data-pull="center"] #align-center,
+  &:not([data-pull]) #align-center,
+  &[data-pull="left"] #align-left,
+  &[data-pull="right"] #align-right {
     color: var(--tertiary-color);
   }
 
