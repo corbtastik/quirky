@@ -6,7 +6,13 @@
   nav column and the content keep the widths they would have had.
 #}
 <div class="yolo-sticky-controls">
-    <div class="yolo-sticky-top-right">
+    {#- A toolbar, not seven loose buttons. The role earns its keep: quirky.js
+        gives the group a single tab stop and moves between the controls with
+        the arrow keys, so a keyboard user reaches the page in one Tab rather
+        than seven. The back-to-top stays out of it - that is navigation, not
+        a setting, and it lives in the other corner. -#}
+    <div class="yolo-sticky-top-right" role="toolbar"
+         aria-label="Site controls" aria-orientation="vertical">
         <div class="yolo-theme-toggle">
             {# Matches the default light mode; quirky.js re-seeds it from the stored mode. #}
             <span id="theme-toggle" class="material-icons md-36" role="button"
@@ -53,19 +59,19 @@
         {# Page alignment. Middle, left, right - in that order, middle
            being what the site has always done. Each sets data-pull on
            <html>; _controls.scss drops the margin on the matching side. #}
-        <div class="quirky-align">
+        <div class="quirky-align" role="radiogroup" aria-label="Page alignment">
             <button type="button" id="align-center" class="quirky-icon-button"
-                    data-align="center" aria-pressed="true"
+                    data-align="center" role="radio" aria-checked="true"
                     aria-label="Centre the site" title="Centre the site">
                 <span class="material-icons md-36" aria-hidden="true">align_horizontal_center</span>
             </button>
             <button type="button" id="align-left" class="quirky-icon-button"
-                    data-align="left" aria-pressed="false"
+                    data-align="left" role="radio" aria-checked="false"
                     aria-label="Pin the site left" title="Pin the site left">
                 <span class="material-icons md-36" aria-hidden="true">align_horizontal_left</span>
             </button>
             <button type="button" id="align-right" class="quirky-icon-button"
-                    data-align="right" aria-pressed="false"
+                    data-align="right" role="radio" aria-checked="false"
                     aria-label="Pin the site right" title="Pin the site right">
                 <span class="material-icons md-36" aria-hidden="true">align_horizontal_right</span>
             </button>

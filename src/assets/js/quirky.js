@@ -9,6 +9,7 @@
  *   3. filtering the stream as you type
  *   4. the side swap, which mirrors the page layout
  *   5. page alignment: middle, left or right
+ *   6. the control toolbar's roving tab stop
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -364,7 +365,7 @@
         function apply(choice) {
             root.setAttribute('data-pull', choice);
             buttons.forEach(function(b) {
-                b.setAttribute('aria-pressed',
+                b.setAttribute('aria-checked',
                     b.getAttribute('data-align') === choice ? 'true' : 'false');
             });
             try { localStorage.setItem(KEY, choice); } catch (e) {}
@@ -378,6 +379,72 @@
 
         var current = root.getAttribute('data-pull');
         apply(current === 'left' || current === 'right' ? current : 'center');
+    }
+
+    // ------------------------------------------------------------------
+    // The control toolbar
+    //
+    // The controls sit before <main> in the document, so a keyboard user had
+    // to pass all seven of them to reach the page. A toolbar is one tab stop:
+    // Tab moves past the group, and the arrow keys move within it.
+    //
+    // The role in the markup promises this behaviour, which is why the
+    // behaviour lives here rather than the role sitting on its own.
+    // ------------------------------------------------------------------
+    function initToolbar() {
+        var bar = document.querySelector('.yolo-sticky-top-right');
+        if (!bar) return;
+
+        /** The controls, in document order, skipping the ones not on show.
+            The palette menu's 68 options live inside this element too; they
+            belong to the open menu, not to the toolbar. */
+        function items() {
+            return Array.prototype.filter.call(
+                bar.querySelectorAll('button, a[href], [role="button"]'),
+                function(el) {
+                    return !el.closest('.yolo-themes-menu') &&
+                           el.getClientRects().length > 0;
+                });
+        }
+
+        function setStop(el) {
+            items().forEach(function(i) { i.tabIndex = (i === el) ? 0 : -1; });
+        }
+
+        bar.addEventListener('keydown', function(e) {
+            // An open palette menu owns its own keys.
+            if (e.target.closest('.yolo-themes-menu')) return;
+
+            var list = items();
+            var at = list.indexOf(document.activeElement);
+            if (at < 0) return;
+
+            var to = null;
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                to = list[(at + 1) % list.length];
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                to = list[(at - 1 + list.length) % list.length];
+            } else if (e.key === 'Home') {
+                to = list[0];
+            } else if (e.key === 'End') {
+                to = list[list.length - 1];
+            }
+            if (!to) return;
+
+            e.preventDefault();
+            setStop(to);
+            to.focus();
+        });
+
+        // Whatever you used last stays the way back in.
+        bar.addEventListener('focusin', function(e) {
+            if (e.target.closest('.yolo-themes-menu')) return;
+            var list = items();
+            if (list.indexOf(e.target) >= 0) setStop(e.target);
+        });
+
+        var first = items()[0];
+        if (first) setStop(first);
     }
 
     function initToTop() {
@@ -395,6 +462,7 @@
         initSearch();
         initSideSwap();
         initAlign();
+        initToolbar();
         initToTop();
     });
 })();
