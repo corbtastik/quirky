@@ -5,11 +5,12 @@ tags: ["tutorial", "bash", "linux"]
 description: "A little ditty about bash"
 ---
 
-This is a one-page reference for the top Bash commands and tricks. It covers everything from basic file operations to intermediate shell scripting.
+One page of the Bash I reach for most. File operations at the top, shell
+scripting at the bottom.
 
 ## File Operations
 
-Essential commands for manipulating files.
+The ones you will use every day.
 
 | Command | Description |
 | :--- | :--- |
@@ -26,7 +27,7 @@ Essential commands for manipulating files.
 
 ## Directory Operations
 
-Navigating the filesystem.
+Getting around.
 
 | Command | Description |
 | :--- | :--- |
@@ -40,7 +41,7 @@ Navigating the filesystem.
 
 ## Disk, CPU, and Memory
 
-Checking system resources.
+What the box is doing.
 
 | Command | Description |
 | :--- | :--- |
@@ -53,7 +54,7 @@ Checking system resources.
 
 ## Process Management
 
-Viewing and controlling running programs.
+What is running, and how to stop it.
 
 | Command | Description |
 | :--- | :--- |
@@ -68,7 +69,7 @@ Viewing and controlling running programs.
 
 ## Users and Environment
 
-Who are you and where are you?
+Who you are and where you are.
 
 | Command | Description |
 | :--- | :--- |
@@ -83,7 +84,7 @@ Who are you and where are you?
 
 ## Network & Host Info
 
-Connectivity and identity.
+Who you are on the wire.
 
 | Command | Description |
 | :--- | :--- |
@@ -111,22 +112,55 @@ Connectivity and identity.
 
 # Bash Scripting Basics
 
-Top syntax patterns for writing `.sh` scripts.
+Bash is a glue language. Here is what the glue looks like.
 
-## Variables & I/O
+## A Script Worth Keeping
+
+This one archives a directory and throws away the old copies. It is short, but
+it leans on most of what makes Bash useful.
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
+# Archive a directory, then keep only the newest few archives.
+set -euo pipefail
 
-# Definition (no spaces!)
-NAME="John"
-COUNT=5
+SRC="${1:-.}"                 # what to back up (default: here)
+KEEP="${2:-3}"                # how many archives to keep
+DEST="$HOME/backups"
 
-# Usage
-echo "Hello, $NAME"
-echo "Count is ${COUNT}"
+die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 
-# Reading Input
-read -p "Enter your age: " AGE
-echo "You are $AGE years old."
+[ -d "$SRC" ] || die "no such directory: $SRC"
+mkdir -p "$DEST"
+
+name=$(basename "$(cd "$SRC" && pwd)")
+stamp=$(date +%Y%m%d-%H%M%S)
+archive="$DEST/$name-$stamp.tar.gz"
+
+tar -czf "$archive" -C "$SRC" .
+printf 'wrote %s (%s)\n' "$archive" "$(du -h "$archive" | cut -f1)"
+
+# Oldest first past the keep limit, deleted one at a time.
+pruned=0
+while IFS= read -r old; do
+  rm -f "$old"
+  printf 'pruned %s\n' "$old"
+  pruned=$((pruned + 1))
+done < <(ls -1t "$DEST/$name"-*.tar.gz | tail -n +$((KEEP + 1)))
+
+printf 'kept %d, pruned %d\n' "$KEEP" "$pruned"
 ```
+
+Seven things are doing the work there.
+
+| Line | What it shows |
+| :--- | :--- |
+| `set -euo pipefail` | Stop on an error, an unset variable, or a failed pipe. |
+| `${1:-.}` | Use the argument, or fall back to a default. |
+| `die() { ...; }` | A function, writing to stderr and exiting. |
+| `[ -d "$SRC" ] \|\| die ...` | Test, then run the right side only on failure. |
+| `$(basename ...)` | Command substitution, nested two deep. |
+| `done < <(ls -1t ...)` | Process substitution, so the counter survives the loop. |
+| `$((pruned + 1))` | Arithmetic, no `expr` needed. |
+
+Run it with no arguments and it backs up the current directory, keeping three.
