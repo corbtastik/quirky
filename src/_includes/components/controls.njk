@@ -22,20 +22,22 @@
             </button>
             <ul id="palette-menu" class="yolo-themes-menu" hidden></ul>
         </div>
-        {# Edit lock. Third in the column, so it lands under the palette - the
-           container is a flex column with a gap and needs no help stacking.
+        {# Side swap. Third in the column, so it lands under the palette -
+           the container is a flex column with a gap and needs no help
+           stacking.
 
-           Locked is the default on every load, and deliberately not stored:
-           an edit affordance that remembers it was left open is a worse
-           default than one you have to open each time. The icon shows the
-           current state rather than the action, which is the opposite of the
-           light/dark toggle above it - a closed padlock reads as "locked"
-           to everyone, where a padlock meaning "click to lock" does not. #}
-        <div class="quirky-edit-lock">
-            <button type="button" id="edit-lock" class="quirky-icon-button"
-                    aria-pressed="true" aria-label="Editing locked"
-                    title="Editing locked - click to unlock">
-                <span class="material-icons md-36" aria-hidden="true">lock</span>
+           The arrow points the way the chrome is about to move: < sends the
+           controls to the left corner and the nav to the right, > puts both
+           back. Same convention as the light/dark toggle above it, where the
+           icon is the action rather than the state.
+
+           It only does anything on the stream, so _controls.scss only shows
+           it there. #}
+        <div class="quirky-side-swap">
+            <button type="button" id="side-swap" class="quirky-icon-button"
+                    aria-pressed="false" aria-label="Swap the sides"
+                    title="Swap the sides">
+                <span class="material-icons md-36" aria-hidden="true">chevron_left</span>
             </button>
         </div>
     </div>

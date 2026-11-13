@@ -36,66 +36,42 @@
 }
 
 // ----------------------------------------------------------------------------
-// Editable layout (the stream only, and only while the lock is open)
+// Side swap (the stream only)
 //
-// Two things can move: the nav column, between the left and right of the
-// flex row, and the control stack, between the two top corners. Both are a
-// single attribute on <body>, so the drag handler only has to set a string
-// and the layout follows.
+// One attribute on <body> mirrors the page: the nav column moves to the
+// right of the flex row, and the fixed chrome moves to the opposite corner.
+// The button sets a string; everything below does the moving.
 // ----------------------------------------------------------------------------
+
+// The button does nothing off the stream, so it is not offered there. The
+// stream class is on <body>, which is an ancestor of the control column.
+.quirky-side-swap {
+  display: none;
+  line-height: 1;
+}
+
+.is-stream .quirky-side-swap {
+  display: block;
+}
 
 // main is a flex row, so moving the nav is a direction flip rather than a
 // reordering - the section keeps its flex-grow and needs no rule of its own.
-.is-stream[data-nav="right"] main[role="main"] {
+.is-stream[data-layout="mirrored"] main[role="main"] {
   flex-direction: row-reverse;
 }
 
-.is-stream[data-controls="left"] .yolo-sticky-top-right {
+// Both corners of the fixed chrome, not just the top one. Mirroring the page
+// and leaving the back-to-top button behind on the right reads as a bug
+// rather than as a choice.
+.is-stream[data-layout="mirrored"] .yolo-sticky-top-right {
   right: auto;
   left: 1rem;
-  // The column is right-aligned by default; moved to the left corner it has
-  // to align the other way or the icons hang off the wrong edge of a
-  // ragged column.
+  // The column is right-aligned by default; in the left corner it has to
+  // align the other way or a ragged column hangs off the wrong edge.
   align-items: flex-start;
 }
 
-// The handles only exist while unlocked. Outline rather than border, so
-// nothing reflows when it appears.
-[data-edit="unlocked"] .quirky-draggable {
-  cursor: grab;
-  outline-style: dashed;
-  outline-width: 2px;
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-// An outline is painted outside the border box, so an element sitting hard
-// against the scrollport has that side of its handle clipped away. The nav
-// sticks at top: 0, which cost it its top edge entirely.
-//
-// Both draggables need (offset + width) of clearance on every side. The
-// control stack already has it from its 1rem inset; the nav gets it here,
-// and only while unlocked, so the normal layout is untouched.
-[data-edit="unlocked"] .is-stream header[role="banner"] {
-  top: 0.5rem;
-}
-
-[data-edit="unlocked"] .quirky-draggable.is-dragging {
-  opacity: 0.45;
-  cursor: grabbing;
-}
-
-// Which half the drop will land in. Fixed and pointer-events: none, so it
-// never swallows the drop it is advertising.
-.quirky-drop-hint {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 50vw;
-  z-index: 40;
-  pointer-events: none;
-
-  &[hidden] { display: none; }
-  &[data-side="left"]  { left: 0; }
-  &[data-side="right"] { left: 50vw; }
+.is-stream[data-layout="mirrored"] .yolo-sticky-bottom-right {
+  right: auto;
+  left: 1rem;
 }
