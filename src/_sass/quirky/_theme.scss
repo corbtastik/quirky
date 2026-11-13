@@ -369,6 +369,31 @@
     color: var(--secondary-color);
   }
 
+  // The code toolbar. The header is a panel over the block, not a coloured
+  // bar: three icons and a label sitting quietly on top of the code.
+  .code-wrapper {
+    border-color: var(--secondary-container-color);
+  }
+
+  .code-header {
+    background-color: var(--primary-container-color);
+    color: var(--on-primary-container-color);
+    border-bottom-color: var(--secondary-container-color);
+  }
+
+  .code-action:hover,
+  .code-action:focus-visible {
+    background-color: var(--secondary-container-color);
+  }
+
+  .code-action.is-done {
+    color: var(--tertiary-color);
+  }
+
+  .code-action.is-failed {
+    color: var(--link-color);
+  }
+
   #results-container li.selected {
     background-color: var(--primary-container-color);
   }

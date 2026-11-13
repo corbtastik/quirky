@@ -1,0 +1,89 @@
+// ----------------------------------------------------------------------------
+// The code block toolbar
+//
+// A bar over every block carrying its label and three actions: download, copy
+// and collapse. code-toolbar.js builds the markup; this draws it.
+//
+// The wrapper clips its corners, so the header and the block below it read as
+// one panel rather than two stacked boxes.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.code-wrapper {
+  margin: 1.5rem 0;
+  border: 1px solid;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+
+// The block brings its own rounding and spacing from the syntax layer; inside
+// the wrapper that would show as a corner inside a corner.
+.code-wrapper > .highlighter-rouge {
+  margin: 0;
+  border-radius: 0;
+}
+
+.code-wrapper.is-collapsed > .highlighter-rouge {
+  display: none;
+}
+
+// A hairline under the header. Without it the bar and the block share an
+// edge and read as one box with a label floating in it.
+.code-header {
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.85rem;
+  font-family: var(--font-family-secondary);
+  font-size: 0.8125rem;
+}
+
+.code-lang {
+  font-weight: $weight-bold;
+  opacity: 0.85;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.code-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+// Quiet until you want them, which keeps three icons over every block from
+// competing with the code itself.
+.code-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 0.25em;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+
+  // Holding the feedback icon at full strength for its second and a half.
+  &.is-done,
+  &.is-failed {
+    opacity: 1;
+  }
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
