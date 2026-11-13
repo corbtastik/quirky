@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------------
+# The side nav, in order. One entry per line of the left-hand column.
+#
+# url      internal path, matched against the current page to set `active`
+# external absolute URL instead of `url`; rendered with the external-link style
+#          and opened in a new tab
+# -----------------------------------------------------------------------------
+- label: Quirky Blog
+  url: /
+- label: Tags
+  url: /tags/
+- label: My Life in Weeks
+  url: /life-in-weeks/
+- label: Curriculum Vitae
+  url: /cv/
+- label: GitHub
+  url: /github/
+- label: About
+  url: /about/
+- label: RSS
+  url: /atom.xml

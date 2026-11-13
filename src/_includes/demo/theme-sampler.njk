@@ -1,0 +1,16 @@
+{# Theme pills, generated from _data/themes.json so adding a theme there is the
+   only edit needed. Clicks are handled by assets/ext/js/theme-sampler.js.
+
+   The loop tags trim preceding whitespace ({%-) so the output carries no blank
+   lines: this include lands inside Markdown, and a blank line would end the raw
+   HTML block, leaving Markdown to wrap the rest in <p> tags. #}
+<div id="theme-sampler" class="theme-sampler">
+{%- for group in themes.groups %}
+    <h4 class="no-toc">{{ group.label }}</h4>
+    <div class="theme-pills">
+{%- for theme in group.themes %}
+        <span class="yolo-pill theme-pill" data-theme="{{ theme.id }}">{{ theme.id }}</span>
+{%- endfor %}
+    </div>
+{%- endfor %}
+</div>

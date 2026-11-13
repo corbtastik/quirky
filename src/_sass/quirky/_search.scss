@@ -1,0 +1,110 @@
+// ----------------------------------------------------------------------------
+// Stream search
+//
+// Typing filters the stream in place. The results take over the same column
+// the list occupies, with a rule down the left so it is clear you are looking
+// at a subset rather than the whole thing.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+@use "layout" as *;
+
+#search-container {
+  margin: 1rem 0 0 0;
+  padding: 0;
+}
+
+input#search-input[type="text"] {
+  outline: none;
+  // Inputs are content-box by default, so a width of 100% measured the
+  // column and then added the padding on top - the box finished 2rem past
+  // the rules and the rows it sits above. Counting the padding inside the
+  // 100% is what makes it the same width as the column rather than merely
+  // look close to it.
+  box-sizing: border-box;
+  // Horizontal padding is $row-inset, not a round 1rem: this is what places
+  // the placeholder and the typed text on the same inner edge as the titles
+  // in the rows below.
+  padding: 0.75rem $row-inset;
+  width: 100%;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-family: inherit;
+  font-size: 1rem;
+  -webkit-appearance: none;
+
+  &::placeholder {
+    opacity: 0.6;
+  }
+}
+
+ul#results-container {
+  list-style: none;
+  margin: 1rem 0 0 0;
+  padding: 0;
+
+  // Only shown once there is something to show - see quirky.js.
+  //
+  // The rule hangs in the gutter rather than indenting the results: the
+  // padding that clears it is pulled back by an equal negative margin, so
+  // the titles and dates stay on the same edges as the rows they replace.
+  // Indented, the results were the one block in the column that did not
+  // line up with the rest.
+  &.visible {
+    border-left: 1px solid var(--secondary-container-color);
+    padding-left: 1rem;
+    // The border counts too - pull back the padding and the 1px, or the
+    // results land a pixel right of everything else.
+    margin-left: calc(-1rem - 1px);
+  }
+
+  li {
+    padding: 0.3rem $row-inset 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    time {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// The row the arrow keys have moved to. Painted on the <li> so the whole row
+// lights up, not just the title, and the date stays part of what is selected.
+#results-container li.selected {
+  border-radius: $border-radius-sm;
+  margin: 0 -0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+// The link itself takes focus, so give it a ring. Default outlines land tight
+// against the text and read as damage next to the row fill.
+#results-container li a:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.search-no-results {
+  padding: 0.75rem 0;
+  font-size: 0.9375rem;
+}
+
+// The query, marked up inside a result title.
+mark {
+  background: var(--secondary-container-color);
+  color: var(--on-secondary-container-color);
+  padding: 0 0.1em;
+  border-radius: 0.15em;
+}

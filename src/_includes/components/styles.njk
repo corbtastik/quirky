@@ -1,0 +1,17 @@
+<!-- Fonts. _data/fonts.yml lists only the families the theme variables
+     actually name - adding a family there is what makes it available to
+     --font-family-* overrides. -->
+{% if fonts | size > 0 %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={% for font in fonts %}{{ font.name | replace(' ', '+') }}{% if font.weights %}:{% endif %}{{ font.weights | remove(' ') }}{% if not loop.last %}|{% endif %}{% endfor %}&display=swap">
+{% endif %}
+<!-- Material Icons, for the sticky controls -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- brand.css is the selected theme expanded into custom properties;
+     main.css is the framework plus this site's own layout. -->
+<link rel="stylesheet" href="{{ '/css/brand.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
+{% for css_name in ext_css %}
+<link rel="stylesheet" href="{{ ('/assets/ext/css/' + css_name + '.css') | relative_url }}">
+{% endfor %}

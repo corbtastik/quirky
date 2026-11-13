@@ -1,0 +1,84 @@
+// ----------------------------------------------------------------------------
+// Click to enlarge
+//
+// yolo.js toggles `.max` on any `.image` that is clicked. Yolo's own `.max`
+// rules size the enlarged image with `width: 100%` AND `height: 100%`, while
+// keeping the thumbnail's forced `aspect-ratio` and `object-fit: cover`.
+//
+// Both halves of that go wrong in this layout:
+//
+//   - `height: 100%` is a percentage against the image's containing block,
+//     which is #page-content - a box whose own height is its content, this
+//     image included. Chrome settles that circularity at the full article
+//     height, so a 256x192 photo becomes a 256x3006 slot and `cover` crops
+//     the photo into a sliver. That is the stretching.
+//   - on the square, thumbnail and circle classes the same rules resolve to
+//     the size the image already had, so clicking them does nothing at all.
+//
+// A click should show the whole photo, at the width of the column, in the
+// photo's own proportions - so drop all three thumbnail-time constraints (the
+// forced ratio, the crop, the percentage height) rather than trying to pick
+// better percentages. Height is left `auto`, which means it is recomputed from
+// the width rather than animated, and so follows the glide below for free.
+//
+// Specificity: the framework's generated rules are `img.is-256-by-192.max`,
+// which is (0,2,1). `.yolo-themed img.max` is also (0,2,1), and the quirky
+// layer is @use'd after the framework in css/main.scss, so source order
+// settles the tie. Nothing here needs !important.
+//
+// This fixes a bug in the framework's own _images.scss and is kept out here so
+// src/_sass/yolo stays a clean copy of upstream. Worth fixing there too.
+// ----------------------------------------------------------------------------
+
+// The glide. The framework already sets `transition-duration: 1s` on img and
+// leaves `transition-property` at `all`; this names the properties the zoom
+// actually moves and gives it an ease-out curve, so the image slows as it
+// arrives instead of stopping dead.
+//
+// Only `width` is really animated. `height` is `auto` on an enlarged image, so
+// it is recomputed from the width on every frame and tracks it exactly - which
+// is what keeps the photo in proportion all the way through the zoom rather
+// than only at the ends.
+.yolo-themed img {
+  transition-property: width, height, border-radius;
+  transition-duration: 1.2s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yolo-themed img.max {
+  // Fill the column, and let the photo's intrinsic ratio decide the height.
+  width: 100%;
+  height: auto;
+
+  // `auto` hands sizing back to the image's own dimensions. Without this the
+  // thumbnail's 4/3, 16/9 or 1/1 box ratio still wins and the photo is cropped.
+  aspect-ratio: auto;
+
+  // With the box now matching the photo's ratio there is nothing to crop, but
+  // say so explicitly: `cover` is what did the cropping before.
+  object-fit: contain;
+
+  // The per-size rules each set their own radius; one radius for every
+  // enlarged image instead. Circles opt back out below.
+  border-radius: 0.5em;
+}
+
+// ----------------------------------------------------------------------------
+// Circles stay circles
+//
+// A circle is the one case where the thumbnail's box ratio is the point, so
+// the rule above is exactly wrong for it: dropping to the photo's own 3:4
+// would enlarge it into an oval. Keep the square box and the 50% radius, and
+// keep `cover` - which crops to fill the circle rather than squashing the
+// photo into it, so the picture is still undistorted.
+//
+// `[class*="is-circle-"]` catches the whole generated family (is-circle-16 up
+// to is-circle-512) without restating it. With `.yolo-themed` and `.max` that
+// is (0,3,1), comfortably above both the framework's rules and the one above.
+// ----------------------------------------------------------------------------
+.yolo-themed img.circle.max,
+.yolo-themed img[class*="is-circle-"].max {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+}

@@ -1,0 +1,46 @@
+{#
+  The career band at the top of the CV.
+
+  One block per role, positioned along a shared time axis - a flattened
+  cousin of the life-in-weeks grid: same idea of giving a span of years a
+  shape you can take in at a glance, with one block per job instead of one
+  box per week.
+
+  Each block links to that role's heading further down the page, so the band
+  doubles as a contents list. Blocks are sized by how long the job lasted, so
+  the narrow ones cannot hold a label; every block carries its full details in
+  `title` (which works with no JavaScript) and in data attributes that
+  assets/ext/js/cv.js reads to fill the caption line below the band.
+
+  Geometry comes from src/_data/career.js - see careerRoles.yml for the dates.
+#}
+<figure class="career" aria-labelledby="career-caption">
+    <div class="career-track">
+        {%- for role in career.roles %}
+        <a class="career-block{% if role.uncertainEnd %} is-uncertain{% endif %}{% if role.ongoing %} is-current{% endif %}"
+           href="#{{ role.id }}"
+           style="left: {{ role.left }}%; width: {{ role.width }}%"
+           title="{{ role.employer }} — {{ role.title }} ({{ role.from }} to {{ role.to }}, {{ role.duration }})"
+           data-employer="{{ role.employer }}"
+           data-title="{{ role.title }}"
+           data-span="{{ role.from }} to {{ role.to }} &middot; {{ role.duration }}">
+            {%- if role.showLabel %}
+            <span class="career-block-label">{{ role.employer }}</span>
+            {%- endif %}
+        </a>
+        {%- endfor %}
+    </div>
+
+    <div class="career-axis" aria-hidden="true">
+        {%- for tick in career.ticks %}
+        <span class="career-tick" style="left: {{ tick.left }}%">{{ tick.year }}</span>
+        {%- endfor %}
+    </div>
+
+    {#- The resting text is the summary; cv.js swaps in a role's details on
+        hover or focus and puts this back on the way out. -#}
+    <figcaption id="career-caption" class="career-caption"
+                data-default="{{ career.roles | size }} roles &middot; {{ career.startYear }}&ndash;{{ career.endYear }} &middot; {{ career.years }} years">
+        {{ career.roles | size }} roles &middot; {{ career.startYear }}&ndash;{{ career.endYear }} &middot; {{ career.years }} years
+    </figcaption>
+</figure>

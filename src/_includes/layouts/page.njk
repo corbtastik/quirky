@@ -1,0 +1,9 @@
+---
+layout: layouts/base.njk
+sectionClass: post
+---
+{# A prose page - About, the CV, 404. The title is rendered here rather than in
+   the body so every page gets the same one, in the same place. #}
+<h1 class="title">{{ title }}</h1>
+{% if subtitle %}<h2 class="subtitle">{{ subtitle }}</h2>{% endif %}
+{{ content | safe }}

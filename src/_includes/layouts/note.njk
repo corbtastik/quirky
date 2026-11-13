@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+sectionClass: post
+navActive: /
+---
+{#
+  One note, hosted here.
+
+  Notes that live somewhere else set `external` in their front matter and
+  `permalink: false` with it, so they never reach this layout - they are
+  links in the stream and nothing more.
+#}
+<h1 class="title">{{ title }}</h1>
+{% if description %}<h2 class="subtitle">{{ description }}</h2>{% endif %}
+{{ content | safe }}
+{#- `topics` drops the "note" tag that put this file in the stream, leaving
+    only the ones worth showing. -#}
+{%- set topics = tags | topics %}
+<div class="meta">
+    <time datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date('MMMM D, YYYY') }}</time>
+    {%- if topics | size > 0 %}
+    &middot; tagged
+    {%- for topic in topics %}
+    <a href="{{ ('/tag/' + topic + '/') | relative_url }}">{{ topic }}</a>{% if not loop.last %},{% endif %}
+    {%- endfor %}
+    {%- endif %}
+</div>

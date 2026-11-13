@@ -1,0 +1,9 @@
+---
+layout: layouts/base.njk
+wide: true
+---
+{# Life in weeks keeps the site's measure but wants the whole of it: the
+   week grid has no use for a nav column beside it, and the page does not read
+   as part of the stream, so the nav is swapped for a "site / page"
+   breadcrumb. #}
+{{ content | safe }}

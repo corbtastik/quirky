@@ -1,0 +1,187 @@
+// ----------------------------------------------------------------------------
+// The stream
+//
+// One row per note: title on the left, date hard right, description under it.
+// The title truncates rather than wrapping, which is what keeps a long row
+// from pushing the date out of alignment with the rows above and below it.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+@use "layout" as *;
+
+section.posts {
+  h1 {
+    font-size: 1.875rem;
+    margin: 0 0 0.75rem 0;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0.5rem 0 1rem 0;
+  }
+}
+
+ul.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 0;
+}
+
+// The whole note is the link, the same treatment a repository row gets on
+// /github/ - see _repos.scss.
+//
+// The band is the column, exactly: same edges as the search bar above it and
+// the year rules between the groups. It used to bleed 0.75rem past them on
+// each side, which read as a misalignment against the search bar sitting
+// right above it.
+//
+// The padding takes the title and the date in to the column's inner edge, so
+// the tint has room around the words. The band itself does not move: no
+// negative margin, so its edges stay on the outer edge with the search field
+// and the year rules. See $row-inset in _layout.scss.
+.post-item {
+  display: block;
+  padding: 0.45rem $row-inset;
+  margin: 0;
+  border-radius: $border-radius-sm;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    // Beats the framework's `a:hover` underline, which would otherwise run
+    // under the date and the description too, since the property inherits.
+    text-decoration: none;
+  }
+
+  // Only the title underlines, so the row reads as one link with a heading
+  // rather than three separate ones.
+  &:hover .post-title,
+  &:focus-visible .post-title {
+    text-decoration: underline;
+  }
+}
+
+// Title left, date hard right. The row is its own element rather than the
+// <li>, so a note's description can live inside the same list item and still
+// sit below the row instead of in it.
+.post-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .post-title {
+    font-weight: $weight-semibold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  time {
+    padding-left: 1rem;
+    white-space: nowrap;
+    // Tabular figures so the dates form a true column rather than jittering
+    // by a pixel or two per row.
+    font-variant-numeric: tabular-nums;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+}
+
+// No measure of its own. The summary takes the column, the same as the rule
+// above it and the row it belongs to - a max-width here would hold only once
+// the column grew past it, and then the summaries alone would be short.
+.post-list .post-description {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  margin: 0.125rem 0 1rem 0;
+}
+
+// Years break the scroll into something you can navigate by eye.
+.post-list .post-year {
+  display: block;
+  margin: 2rem 0 0.5rem 0;
+  font-family: var(--font-family-secondary);
+  font-size: 0.8125rem;
+  font-weight: $weight-bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--secondary-container-color);
+  // The rule is the box, so it keeps the full column; only the year itself
+  // comes in to meet the titles below it.
+  padding: 0 $row-inset 0.25rem;
+
+  &:first-child {
+    margin-top: 0.5rem;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Sticky stream chrome (the home page only, via `bodyClass: is-stream`)
+//
+// The nav column and the search bar follow you down 33 notes. Position sticky
+// rather than fixed, so both stay inside the layout and need no spacer to
+// stand in for the space they used to take.
+//
+// Two things make the nav work. `align-self: flex-start` stops the flex row
+// stretching it to the full height of the stream - a stretched item fills its
+// containing block and so has nowhere to travel. And the stick is relative to
+// <main>, its parent, so the nav scrolls away naturally at the end of the
+// list instead of hanging over the footer.
+// ----------------------------------------------------------------------------
+.is-stream {
+  // No travel before the stick. <main> normally opens with 2rem of margin and
+  // 1rem of padding, so the nav and the search bar began 48px down and slid up
+  // to meet the top edge on the first flick of the wheel - the bump.
+  //
+  // Removing both puts them at top: 0 to begin with, so they are already where
+  // they will stay and nothing moves. The spacing is not lost, just relocated:
+  // the nav and the stream head each carry their own padding, which travels
+  // with them instead of being page margin they have to cross.
+  main[role="main"] {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  header[role="banner"] {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    // Above the stream rows it overlaps, below the fixed theme controls.
+    z-index: 5;
+  }
+
+  .stream-head {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    // Pulled out to the section's padding edge and padded back in, so the
+    // rows passing underneath are covered to the full width of the column
+    // rather than showing in the gutters.
+    margin: -1rem -1rem 0;
+    padding: 1rem 1rem 0.6rem;
+  }
+}
+
+// Below the breakpoint the nav is a horizontal strip across the top. Sticking
+// that would pin two or three lines of links to the roof of a phone screen
+// and leave very little behind it, so only the search bar stays.
+@media screen and (max-width: $break-stack) {
+  .is-stream header[role="banner"] {
+    position: static;
+  }
+}
+
+// The date and clock line at the top of the stream.
+.quirky-now {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  padding: 0 $row-inset;
+  font-variant-numeric: tabular-nums;
+}

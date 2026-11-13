@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{#
+  Base page shell.
+
+  The structure mirrors the site this layout was modelled on: a single <main>
+  flex row holding the nav column and one <section>. The nav is narrow and set
+  against a rule; the section takes everything else. Below $break-stack the two
+  stack and the nav turns into a horizontal strip.
+
+  Two variants, selected by `wide`:
+    normal  nav column + section       (the stream, notes, pages)
+    wide    no nav column, same measure as main  (life in weeks)
+
+  Leaf layouts set `sectionClass` to pick between the two content styles:
+    posts   a list - tight rows, dates on the right
+    post    prose - wider measure, headings, paragraphs
+#}
+<html lang="en" class="yolo-themed">
+{% include "components/head.njk" %}
+{#- `bodyClass` lets one page opt into behaviour the rest does not want -
+    the stream uses it to make the nav and the search bar stick. -#}
+<body id="quirky-site"{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  {% include "components/controls.njk" %}
+  {% if wide %}
+  <div id="quirky-wide" class="quirky-wide">
+    <header class="quirky-wide-header">
+      <h1 class="header-title">
+        <a href="{{ '/' | relative_url }}">{{ settings.name }}</a>
+        <span class="header-title-sep">/</span>
+        <span class="header-title-page">{{ title }}</span>
+      </h1>
+    </header>
+    {{ content | safe }}
+  </div>
+  {% else %}
+  <main role="main">
+    <header role="banner">
+      {% include "components/nav.njk" %}
+    </header>
+    <section class="{{ sectionClass | default('post') }}">
+      <div id="page-content" class="page-content">
+        {{ content | safe }}
+      </div>
+      <footer>
+        {% include "components/footer.njk" %}
+      </footer>
+    </section>
+  </main>
+  {% endif %}
+  {% include "components/scripts.njk" %}
+</body>
+</html>

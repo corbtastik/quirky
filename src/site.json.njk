@@ -1,0 +1,27 @@
+---
+permalink: /site.json
+eleventyExcludeFromCollections: true
+---
+{#- Site metadata, served as a file.
+
+    assets/ext/js/custom.js fetches this when the Site Info buttons on
+    /posts/custom-javascript/ are clicked - once with XMLHttpRequest, once
+    with the Fetch API - and renders it as a list. Both handlers report a
+    failure to console.error only, so without this file the buttons look
+    fine and do nothing at all.
+
+    Built with `dump` on every value rather than by quoting them inline: a
+    stray quote or backslash in a setting would otherwise produce a document
+    that parses as nothing. The shape matches yolo-11ty's own /site.json,
+    because custom.js reads these exact keys. -#}
+{
+  "name": {{ settings.name | dump | safe }},
+  "title": {{ settings.title | dump | safe }},
+  "description": {{ settings.description | dump | safe }},
+  "version": {{ (settings.version | default(build.version)) | dump | safe }},
+  "brand": {
+    "theme": {{ settings.brand.theme | dump | safe }},
+    "syntax": {{ settings.brand.syntax | dump | safe }}
+  },
+  "buildDate": {{ build.date | dump | safe }}
+}

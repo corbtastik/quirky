@@ -1,0 +1,31 @@
+---
+pagination:
+  data: collections.tagPages
+  size: 1
+  alias: tag
+permalink: "/tag/{{ tag.name }}/"
+layout: layouts/list.njk
+eleventyComputed:
+  title: "{{ tag.name }}"
+  description: "Notes tagged {{ tag.name }}."
+navActive: /tags/
+---
+{#
+  One page per tag, newest first.
+
+  Paginating a collection at size 1 is how a page per item is built in
+  Eleventy - collections.tagPages already carries each tag's own notes, so
+  this template never has to filter.
+#}
+<div class="tag-heading">
+    <h1>{{ tag.name }}</h1>
+    <span class="tag-count">{{ tag.count }} note{% if tag.count != 1 %}s{% endif %}</span>
+</div>
+
+<p><a href="{{ '/tags/' | relative_url }}">&larr; all tags</a></p>
+
+<ul class="post-list">
+    {%- for note in tag.notes %}
+    {%- include "components/note-row.njk" %}
+    {%- endfor %}
+</ul>

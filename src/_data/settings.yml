@@ -1,0 +1,65 @@
+# -----------------------------------------------------------------------------
+# Quirky site settings. see: .eleventy.js for 11ty settings
+# -----------------------------------------------------------------------------
+# baseurl: the sub-path the site is served from, for example: /notes
+# url:     the origin, used by the feeds and the sitemap where a relative
+#          path is no use
+# -----------------------------------------------------------------------------
+baseurl: ""
+url: "https://quirky.example.com"
+
+name: Quirky Blog
+# Reported by /site.json, which the Custom JavaScript post reads. Falls back
+# to the git tag in `build.version` when this is not set.
+version: v1.0
+title: Quirky Blog
+description: Notes
+author: Corbs
+
+# -----------------------------------------------------------------------------
+# Brand. Every colour on the page comes from one of the themes in
+# _data/themes.json - see src/css/brand.scss for how it is expanded. `theme`
+# paints the site, `syntax` paints code blocks; they are separate so a site can
+# mix two. The palette icon lets a reader try any of the others at runtime.
+# -----------------------------------------------------------------------------
+brand:
+  theme: minio
+  syntax: minio
+
+# The round portrait at the top of the nav column. Comment it out and the
+# nav simply starts with its first link.
+logo: assets/images/avatar.png
+
+# -----------------------------------------------------------------------------
+# The /github/ page. Repositories are read from the GitHub API at build time
+# and cached in _cache/github-repos.json - see src/_data/repos.js.
+# -----------------------------------------------------------------------------
+github:
+  user: corbtastik
+  # Forks are public but they are someone else's work. Flip to true to list them.
+  includeForks: false
+  # Archived repositories stay in the list, labelled. Flip to false to drop them.
+  includeArchived: true
+  # How long a cached copy is reused before asking GitHub again. Keeps
+  # `eleventy --serve` from spending the hourly API allowance on rebuilds.
+  cacheMinutes: 60
+
+# Profiles. Shown as links in the nav footer; omit one and it disappears.
+profiles:
+  github: https://github.com/corbtastik
+
+# -----------------------------------------------------------------------------
+# The stream on the home page
+# -----------------------------------------------------------------------------
+stream:
+  # How many notes the home page lists before "older notes" paging kicks in.
+  # Buster's own page lists every note on one scroll; keep this high to match.
+  perPage: 500
+
+# -----------------------------------------------------------------------------
+# Life in weeks. One box per week lived, from `born` to `born + years`.
+# -----------------------------------------------------------------------------
+weeks:
+  # Day of month is a placeholder - September 1973 was all that was given.
+  born: 1973-09-01
+  years: 90

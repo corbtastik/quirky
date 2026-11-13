@@ -1,0 +1,361 @@
+// ----------------------------------------------------------------------------
+// Colour bindings for this site's own components.
+//
+// Nothing here picks a colour. Every rule points at one of the custom
+// properties brand.css expands out of the selected theme, which is what lets
+// the palette picker repaint the whole site at runtime - the week grid
+// included - without any of these rules knowing which theme is on.
+//
+// The token set comes from assets/ext/js/theme-vars.js:
+//   --primary-color / --on-primary-color              page, body text
+//   --primary-container-color / --on-...              raised surfaces
+//   --secondary-color / --on-secondary-color          headings
+//   --secondary-container-color / --on-...            rules, chips, highlights
+//   --tertiary-color / --on-tertiary-color            the accent
+//   --link-color                                     links
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.yolo-themed {
+  // Derived colour. Declared twice: a plain token first, then the color-mix()
+  // that refines it. A browser without color-mix() keeps the first
+  // declaration and still gets a usable page.
+  //
+  // --quiet-color is body text faded toward the page, for datelines, counts
+  // and footers. Yolo uses --tertiary-color for that, but tertiary is the
+  // accent - in a theme like star-lord it is a hot pink, which is the one
+  // thing supporting text should not be.
+  --quiet-color: var(--on-primary-color);
+  --quiet-color: color-mix(in srgb, var(--on-primary-color) 58%, var(--primary-color));
+
+  // The tint under a hovered row, shared by the stream and the repository
+  // list so the two are identical by construction rather than by coincidence.
+  //
+  // --primary-container-color was the obvious choice and is the wrong one:
+  // in this theme it is #F9FAFC against a #FFFFFF page, a contrast of
+  // 1.04:1, which is no tint at all. A touch of the brand colour gives
+  // 1.17:1 - still quiet, but there.
+  --row-hover: var(--primary-container-color);
+  --row-hover: color-mix(in srgb, var(--secondary-color) 10%, var(--primary-color));
+
+  // No underlines at rest, anywhere. Links are told apart by colour, which
+  // every theme keeps well clear of the body ink - see the contrast table in
+  // the README. The framework's own `a:hover` underline is left in place as
+  // the non-colour cue, so a link still announces itself on hover and on
+  // keyboard focus; nav links, chips, repository rows and career blocks each
+  // opt out of that individually, because those are shapes rather than runs
+  // of text.
+  //
+  // The `:not(.repo-row):not(.career-block)` carve-outs that used to live
+  // here went with the rule they were exceptions to.
+
+  // Links off the site. A different hue from --link-color so you can see
+  // where a row is about to take you before you click it.
+  a.external-link {
+    color: var(--secondary-color);
+
+    &:hover,
+    &:focus {
+      color: var(--tertiary-color);
+    }
+  }
+
+  // Quiet text: datelines, counts, footers, captions.
+  .meta,
+  .meta a,
+  .quirky-footer,
+  .quirky-now,
+  .tag-grid-item small,
+  .tag-heading .tag-count,
+  .repo-pushed,
+  .repo-stat,
+  .repo-flag,
+  .weeks-legend,
+  .search-no-results,
+  figcaption,
+  .post-list .post-description {
+    color: var(--quiet-color);
+  }
+
+  .quirky-footer a {
+    color: var(--quiet-color);
+  }
+
+  // Dates in a listing sit beside the title, so they take the same quiet
+  // treatment rather than competing with it.
+  .post-list li time,
+  #results-container li time {
+    color: var(--quiet-color);
+  }
+
+  // The row is the link now, so the colour moves off the <a> and onto the
+  // title - otherwise the date and the description would be link-coloured too.
+  .post-item {
+    color: var(--on-primary-color);
+  }
+
+  .post-title {
+    color: var(--link-color);
+  }
+
+  // A note that lives somewhere else. Same distinction the nav draws between
+  // internal and outgoing links.
+  .post-item.is-external .post-title {
+    color: var(--secondary-color);
+  }
+
+  .post-item:hover,
+  .post-item:focus-visible,
+  .repo-row:hover,
+  .repo-row:focus-visible {
+    background-color: var(--row-hover);
+  }
+
+  .post-list .post-year {
+    color: var(--secondary-color);
+  }
+
+  // Career band. Two alternating fills so neighbouring jobs stay apart; both
+  // are brand colours rather than a scale, because the blocks encode duration
+  // and position, not rank - a gradient would imply an order that is not there.
+  .career-track {
+    background-color: var(--primary-container-color);
+  }
+
+  .career-block {
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+
+    &:nth-child(even) {
+      background-color: var(--tertiary-color);
+      color: var(--on-tertiary-color);
+    }
+
+    // The current role, in body-text ink rather than a brand colour, so it
+    // reads as "you are here" against the alternating fills behind it. Same
+    // specificity as the nth-child rule above, so it has to come after it.
+    &.is-current {
+      background-color: var(--on-primary-color);
+      color: var(--primary-color);
+    }
+  }
+
+  .career-tick,
+  .career-caption {
+    color: var(--quiet-color);
+  }
+
+  .career-caption b {
+    color: var(--on-primary-color);
+  }
+
+  section.cv hr {
+    background-color: var(--secondary-container-color);
+  }
+
+  // A repository row. The row itself is the link, so the name carries the
+  // link colour and the rest of the row stays body text - otherwise a stack
+  // of rows is a wall of link-coloured type.
+  .repo-row {
+    color: var(--on-primary-color);
+  }
+
+  .repo-name {
+    color: var(--link-color);
+  }
+
+  .repo-description {
+    color: var(--on-primary-color);
+  }
+
+  .repo-language {
+    color: var(--secondary-color);
+  }
+
+  .repo-topic {
+    background-color: var(--secondary-container-color);
+    color: var(--on-secondary-container-color);
+  }
+
+  // Tag chips. Filled by default, accent on hover - the same pill treatment
+  // Yolo uses for its own tags.
+  .tag-pill {
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+
+    &:hover,
+    &:focus {
+      background-color: var(--tertiary-color);
+      color: var(--on-tertiary-color);
+    }
+  }
+
+  // Life in weeks. The three marks are deliberately different weights: a wash
+  // for the 1,500 weeks of employment, a solid accent for the 54 birthdays,
+  // and a filled label for the dozen weeks a job began.
+  .week.week-work {
+    background-color: var(--secondary-container-color);
+    background-color: var(--wk-work);
+  }
+
+  .week.week-job {
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+  }
+
+  // Schooling is the third channel, in body ink rather than a brand colour so
+  // it reads apart from the violet of work and the crimson of a birthday.
+  //
+  // Named here because three of them are needed: 267 weeks are school AND
+  // work, and those cannot simply take the school colour - that would punch a
+  // nine-year hole in the employment band during exactly the years both were
+  // true. They get a fill of their own instead.
+  --wk-work: color-mix(in srgb, var(--secondary-color) 22%, var(--primary-color));
+  --wk-school: color-mix(in srgb, var(--on-primary-color) 20%, var(--primary-color));
+  --wk-both: color-mix(in srgb, var(--secondary-color) 26%,
+             color-mix(in srgb, var(--on-primary-color) 30%, var(--primary-color)));
+
+  .week.week-school {
+    background-color: var(--secondary-container-color);
+    background-color: var(--wk-school);
+  }
+
+  // Listed after the two single-state rules so it wins the tie on source
+  // order; all three are (0,3,0).
+  .week.week-work.week-school {
+    background-color: var(--wk-both);
+  }
+
+  .week.week-school-start {
+    background-color: var(--on-primary-color);
+    color: var(--primary-color);
+  }
+
+  .weeks-legend-school i {
+    background-color: var(--wk-school);
+  }
+
+  .weeks-legend-both i {
+    background-color: var(--wk-both);
+  }
+
+  .week.week-birthday:not(.week-event):not(.week-job) {
+    background-color: var(--tertiary-color);
+  }
+
+  .weeks-legend-work i {
+    background-color: var(--wk-work);
+  }
+
+  .weeks-legend-job i {
+    background-color: var(--secondary-color);
+  }
+
+  .weeks-legend-birthday i {
+    background-color: var(--tertiary-color);
+  }
+
+  // ------------------------------------------------------------------
+  // Page titles
+  //
+  // --title-color and --subtitle-color are derived per theme in
+  // assets/ext/js/theme-vars.js, not picked here, because the right answer
+  // is conditional: most themes give headings their own colour, but twenty
+  // of the 136 theme/mode pairs set it to the body text, and a stylesheet
+  // cannot test for that. Deriving it in the shared mapping means the build
+  // and the palette picker reach the same answer.
+  //
+  // h1 only. h2 to h6 keep --secondary-color, so a page reads title, then
+  // headings, then prose.
+  // ------------------------------------------------------------------
+  main[role="main"] section h1,
+  .quirky-wide-header .header-title,
+  .quirky-wide-header .header-title a {
+    color: var(--title-color);
+  }
+
+  section.post h2.subtitle {
+    color: var(--subtitle-color);
+  }
+
+  // Inline SVG diagrams. Painted from the theme so a diagram follows the
+  // palette picker instead of being a fixed picture on a changing page.
+  //
+  // Every text colour below is paired with the surface it sits on: labels in
+  // a filled box get the box's own on-colour, labels anywhere else get the
+  // page's. Nothing here depends on one colour working on two backgrounds.
+  .diagram .dg-box rect,
+  .diagram .dg-note rect {
+    fill: var(--primary-container-color);
+    stroke: var(--secondary-container-color);
+  }
+
+  .diagram .dg-box text,
+  .diagram .dg-note text {
+    fill: var(--on-primary-container-color);
+  }
+
+  // Labels drawn straight onto the page rather than onto a panel.
+  .diagram text {
+    fill: var(--on-primary-color);
+  }
+
+  // The accent is the edge only. The fill above still carries the box, so a
+  // theme whose accent sits close to its background loses the emphasis, not
+  // the box.
+  .diagram .dg-note rect {
+    stroke: var(--tertiary-color);
+  }
+
+  // Connectors take --quiet-color, not the container tint: a container tint
+  // is chosen to sit under text, so a 1.5px line drawn in it all but vanishes
+  // on both the light and the dark side of most themes.
+  .diagram .dg-frame,
+  .diagram .dg-line {
+    stroke: var(--quiet-color);
+  }
+
+  .diagram .dg-arrow {
+    fill: var(--quiet-color);
+  }
+
+  .diagram-caption {
+    color: var(--quiet-color);
+  }
+
+  #results-container li.selected {
+    background-color: var(--primary-container-color);
+  }
+
+  // Opaque, or the stream shows through the search bar as it scrolls under.
+  .is-stream .stream-head {
+    background-color: var(--primary-color);
+  }
+
+  input#search-input[type="text"] {
+    background-color: var(--primary-container-color);
+    color: var(--on-primary-container-color);
+
+    &:focus {
+      box-shadow: inset 0 0 0 2px var(--tertiary-color);
+    }
+  }
+
+  hr {
+    background-color: var(--secondary-container-color);
+    border: 0;
+  }
+
+  // The breadcrumb on a full-bleed page.
+  .quirky-wide-header .header-title {
+    color: var(--secondary-color);
+
+    a {
+      color: var(--secondary-color);
+    }
+  }
+
+  blockquote {
+    font-style: italic;
+  }
+}

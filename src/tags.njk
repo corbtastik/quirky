@@ -1,0 +1,24 @@
+---
+layout: layouts/list.njk
+title: Tags
+permalink: /tags/
+description: Every topic, and how much has collected under it.
+---
+{# The topic index. Counts come from the same collection the stream renders,
+   so a tag cannot show a number the stream has no notes for. #}
+<h1>Tags</h1>
+
+<p>
+    The same notes as the <a href="{{ '/' | relative_url }}">stream</a>, sorted
+    by what they are about instead of by when they were written. A note can
+    carry several tags, so these add up to more than the stream does.
+</p>
+
+<div class="tag-grid">
+    {%- for tag in collections.allTags %}
+    <div class="tag-grid-item">
+        <a href="{{ ('/tag/' + tag.name + '/') | relative_url }}">{{ tag.name }}</a>
+        <small>{{ tag.count }}</small>
+    </div>
+    {%- endfor %}
+</div>

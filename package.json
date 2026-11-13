@@ -1,0 +1,28 @@
+{
+  "name": "quirky-11ty",
+  "version": "1.0.0",
+  "description": "A notes site - chronological stream, topic piles, life in weeks - built on the Yolo styling framework",
+  "main": ".eleventy.js",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "static-site",
+    "notes",
+    "digital-garden"
+  ],
+  "author": "Corbs",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "js-yaml": "^4.1.0",
+    "markdown-it": "^14.0.0",
+    "markdown-it-attrs": "^4.1.6",
+    "nunjucks": "^3.2.4",
+    "sass": "^1.69.0"
+  }
+}

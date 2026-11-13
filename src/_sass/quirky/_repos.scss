@@ -1,0 +1,120 @@
+// ----------------------------------------------------------------------------
+// The GitHub page
+//
+// A stack of rows, one repository each, where the whole row is the link. The
+// rows are flush to the column and separated by a rule rather than drawn as
+// cards: the list runs to dozens of entries, and dozens of cards reads as
+// clutter where dozens of ruled rows read as an index.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.repo-list {
+  list-style: none;
+  margin: 1.5rem 0 0 0;
+  padding: 0;
+
+  li + li .repo-row {
+    border-top: 1px solid var(--secondary-container-color);
+  }
+}
+
+// The row is an <a>, so it has to be told to behave like a block.
+.repo-row {
+  display: block;
+  padding: 0.85rem 0.75rem;
+  margin: 0 -0.75rem;          // bleed the hover tint past the text column
+  border-radius: $border-radius-sm;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  // The tint itself is --row-hover, set in _theme.scss and shared with the
+  // stream's rows.
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  // Only the name underlines on hover, so the row reads as one link with a
+  // title rather than as several separate ones.
+  &:hover .repo-name,
+  &:focus-visible .repo-name {
+    text-decoration: underline;
+  }
+}
+
+.repo-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.repo-name {
+  font-weight: $weight-bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-pushed {
+  font-size: 0.8125rem;
+  // Tabular figures so the dates form a column down the right-hand edge.
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.repo-description {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+}
+
+.repo-language {
+  font-family: var(--font-family-secondary);
+  font-weight: $weight-semibold;
+}
+
+.repo-stat {
+  font-variant-numeric: tabular-nums;
+}
+
+// "archived" and "fork" - a state, so outlined rather than filled, to keep it
+// distinct from a topic.
+.repo-flag {
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--secondary-container-color);
+  border-radius: $border-radius-pill;
+  font-family: var(--font-family-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+}
+
+.repo-topic {
+  padding: 0.05rem 0.5rem;
+  border-radius: $border-radius-pill;
+  font-family: var(--font-family-secondary);
+  font-size: 0.6875rem;
+}
+
+@media screen and (max-width: 30rem) {
+  .repo-head {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .repo-name {
+    white-space: normal;
+  }
+}

@@ -1,0 +1,148 @@
+// ----------------------------------------------------------------------------
+// Sidebar support
+// ----------------------------------------------------------------------------
+@use "../core/responsiveness" as *;
+
+$sidebar-width: 18rem;
+
+// One measure, everywhere.
+//
+// The column is this wide on the hub and on a page, with the sidebar open or
+// collapsed. Collapsing only recentres it; nothing resizes. The width used to
+// drop to 38rem beside the sidebar and spring back to 48rem without it, so
+// every move around the site reflowed the text.
+$content-measure: 48rem;
+
+// Where the container's left edge lands when it is centred at $content-measure.
+//
+// The collapsed state used to say `margin-left: auto`. That centres correctly
+// but a browser cannot interpolate a length to `auto`, so the container
+// teleported while the sidebar slid - the jump you see when the toggle is
+// clicked. This is the same position written as a length, which animates.
+//
+// max() floors it at zero: $content-measure is 960px at tablet font size,
+// wider than the 769px breakpoint, so the raw calc goes negative on narrow
+// screens and would drag the column off the left edge. Quoted so Sass emits
+// CSS max() rather than trying to resolve it at build time.
+$centred-offset: #{"max(0px, calc((100% - " + $content-measure + ") / 2))"};
+
+.sidebar {
+  padding-top: 1rem;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width 0.3s ease, transform 0.3s ease;
+  border-style: none;
+  > .close {
+    position: absolute;
+    top: 0;
+    font-size: 36px;
+    &:is(:hover) {
+      cursor: pointer;
+    }
+  }
+  .sidebar-logo {
+    padding: 0.5rem 1.5rem 1.5rem;
+  }
+  #toc-sidebar {
+    padding-bottom: 4rem;
+  }
+}
+
+
+// Default: sidebar on left
+.sidebar-left .sidebar {
+  left: 0;
+  right: auto;
+}
+
+
+.sidebar-left .sidebar > .close {
+  right: 25px;
+  margin-left: 50px;
+}
+
+// Sidebar on right
+.sidebar-right .sidebar {
+  right: 0;
+  left: auto;
+}
+
+
+.sidebar-right .sidebar > .close {
+  left: 25px;
+  margin-right: 50px;
+}
+
+// Hidden state - left sidebar
+.sidebar-left.sidebar-hidden .sidebar {
+  transform: translateX(-100%);
+}
+
+.sidebar-left.sidebar-hidden .container {
+  max-width: $content-measure;
+  margin-left: auto;
+}
+
+// Hidden state - right sidebar
+.sidebar-right.sidebar-hidden .sidebar {
+  transform: translateX(100%);
+}
+
+.sidebar-right.sidebar-hidden .container {
+  max-width: $content-measure;
+  margin-right: auto;
+}
+
+@include mobile {
+  .container {
+    max-width: $content-measure;
+  }
+  .sidebar {
+    width: 1rem;
+  }
+  .yolo-sidebar-toggle {
+    display: none;
+  }
+}
+
+@include tablet {
+  // Left sidebar
+  .sidebar-left .container {
+    max-width: $content-measure;
+    margin-left: $sidebar-width;
+    margin-right: auto;
+    // max-width is in here as insurance. It no longer changes between the
+    // two states, but if a site ever sets them apart it will travel with the
+    // margin instead of snapping on frame one.
+    transition: margin-left 0.3s ease, max-width 0.3s ease;
+  }
+  .sidebar-left .sidebar {
+    width: $sidebar-width;
+  }
+
+  // Only from tablet up, where the toggle exists and the column actually
+  // moves. Below that the sidebar is a 1rem sliver and the toggle is hidden,
+  // so `auto` from the rule above is both correct and never animated.
+  .sidebar-left.sidebar-hidden .container {
+    margin-left: $centred-offset;
+  }
+
+  // Right sidebar
+  .sidebar-right .container {
+    max-width: $content-measure;
+    margin-right: $sidebar-width;
+    margin-left: auto;
+    transition: margin-right 0.3s ease, max-width 0.3s ease;
+  }
+  .sidebar-right .sidebar {
+    width: $sidebar-width;
+  }
+
+  .sidebar-right.sidebar-hidden .container {
+    margin-right: $centred-offset;
+  }
+}

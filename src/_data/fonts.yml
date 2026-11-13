@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+# Google Fonts to load.
+#
+# Keep this to the families the theme variables actually name - every entry is
+# another stylesheet the browser has to fetch before text can paint. The three
+# below are what assets/ext/js/theme-vars.js maps to
+# --font-family-primary / -secondary / -monospace.
+# -----------------------------------------------------------------------------
+- name: "Space Mono"
+  weights: "0,400;0,700;1,400;1,700"
+- name: "Montserrat"
+  weights: "400,400i,700,700i"
+- name: "Source Code Pro"
+  weights: "400,400i,700,700i"

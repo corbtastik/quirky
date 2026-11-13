@@ -1,0 +1,44 @@
+# -----------------------------------------------------------------------------
+# quirky-11ty - development image
+#
+#   podman build -t quirky-dev -f Containerfile-dev .
+#   podman run --rm -it -p 8080:8080 \
+#     -v "$PWD/src:/app/src:Z" quirky-dev
+#
+# Runs Eleventy's own server with watch. Mount src over the copy baked in and
+# edits on the host rebuild inside the container; drop the -v and it serves
+# whatever was there at build time.
+#
+# `:Z` relabels the mount for SELinux. Harmless on macOS, required on Fedora
+# and friends - without it the container cannot read the directory.
+# -----------------------------------------------------------------------------
+
+FROM docker.io/library/node:22-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+# `--force` is doing one specific job. package-lock.json pins fsevents, which
+# chokidar lists under optionalDependencies but which npm recorded in the lock
+# as required with os: ["darwin"], so a plain `npm ci` on Linux dies with
+# EBADPLATFORM. --force waives that platform check and nothing else: the lock
+# is still installed exactly as written, so the build stays reproducible.
+# fsevents is a macOS file-watching shim; Linux uses inotify and never wants it.
+RUN npm ci --force
+
+COPY . .
+
+EXPOSE 8080
+
+# `--serve` already watches; `--watch` as well is redundant.
+#
+# A caveat for macOS and Windows: podman runs containers inside a Linux VM and
+# bind mounts reach it over virtiofs, which does not forward file-change
+# events. The watcher runs fine - an edit made inside the container rebuilds
+# in under two seconds - but an edit made on the host is never announced, so
+# nothing happens. Verified both ways. On Linux, where podman runs containers
+# directly, host edits do come through.
+#
+# So: on macOS, use this image to run the site, and `npm run serve` on the
+# host when you want live reload while editing.
+CMD ["npx", "eleventy", "--serve", "--port=8080"]

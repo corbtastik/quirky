@@ -1,0 +1,178 @@
+// ----------------------------------------------------------------------------
+// The CV page
+//
+// Two jobs: the career band at the top, and giving a long run of roles enough
+// structure that it can be skimmed rather than only read.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+// ----------------------------------------------------------------------------
+// Career band
+//
+// Blocks are absolutely positioned on a relative track, each given a `left`
+// and `width` as a percentage of the whole span. Percentages rather than a
+// flex row because the axis has to stay true: a year in 1998 must be the same
+// width as a year in 2024, and flex would stretch the short jobs to fit.
+// ----------------------------------------------------------------------------
+.career {
+  margin: 0 0 2rem 0;
+}
+
+.career-track {
+  position: relative;
+  height: 2.6rem;
+  width: 100%;
+  border-radius: $border-radius-sm;
+  background-color: var(--primary-container-color);
+  overflow: hidden;
+}
+
+.career-block {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+  // A one-year job is about 3% of thirty years, which is a few pixels. Give
+  // every block a floor so the short ones stay clickable; the distortion is
+  // smaller than the pointer it has to catch.
+  min-width: 10px;
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: filter 0.15s ease, transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+    filter: brightness(1.12);
+    // Lifts without changing the block's width, so the axis never shifts
+    // under the pointer.
+    transform: scaleY(1.08);
+    z-index: 2;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 1px;
+  }
+}
+
+.career-block-label {
+  font-family: var(--font-family-secondary);
+  font-size: 0.6875rem;
+  font-weight: $weight-semibold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// The job you are in now. A role a month old is a quarter of one percent of
+// thirty years, so it would otherwise be a sliver you could not pick out -
+// and it is the one block a reader most wants to find. Give it its own fill
+// and a floor wide enough to see. The axis lies by a few pixels at the very
+// end; the alternative is a current role nobody can see.
+.career-block.is-current {
+  min-width: 22px;
+}
+
+// A role whose end date is not settled. Hatching rather than a solid fill, so
+// the block reads as an estimate at a glance.
+.career-block.is-uncertain {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 5px,
+    rgba(255, 255, 255, 0.28) 5px 10px
+  );
+}
+
+.career-axis {
+  position: relative;
+  height: 1.1rem;
+  margin-top: 0.25rem;
+}
+
+.career-tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-family-secondary);
+  white-space: nowrap;
+}
+
+.career-caption {
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  // Fixed height: the caption swaps between the summary and a role's details
+  // on hover, and letting it reflow would nudge the whole page as the pointer
+  // crossed the band.
+  min-height: 1.4em;
+}
+
+.career-caption b {
+  font-weight: $weight-bold;
+}
+
+// ----------------------------------------------------------------------------
+// The CV body
+// ----------------------------------------------------------------------------
+
+// Role headings. The accent rule on the left gives the eye a column to run
+// down, which is what makes eleven roles skimmable.
+section.cv h3 {
+  margin-top: 1.75rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--tertiary-color);
+  font-size: 1.125rem;
+}
+
+// The dates line under each role heading, set by the markdown as emphasis.
+section.cv h3 + p em {
+  font-family: var(--font-family-secondary);
+  font-size: 0.8125rem;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+section.cv h3 + p {
+  margin-top: 0.15rem;
+  margin-bottom: 0.6rem;
+}
+
+// The dividers between roles. The site's default <hr> is a centred 70% rule,
+// which reads as a section break; between roles it wants to be full width and
+// quiet, closer to a ruled list than a chapter end.
+section.cv hr {
+  width: 100%;
+  margin: 1.75rem 0 0 0;
+  height: 1px;
+  border: 0;
+  opacity: 0.55;
+}
+
+// The labelled blocks under "What I work with" - the lead-in is bold, so give
+// it room and keep each block tight.
+section.cv h2 {
+  margin-top: 2.25rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--secondary-container-color);
+}
+
+section.cv ul {
+  margin-top: 0.4rem;
+}
+
+@media screen and (max-width: 30rem) {
+  .career-track {
+    height: 2.2rem;
+  }
+
+  // Labels stop fitting long before the blocks stop being useful.
+  .career-block-label {
+    display: none;
+  }
+}

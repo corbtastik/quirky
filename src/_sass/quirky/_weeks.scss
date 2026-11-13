@@ -1,0 +1,253 @@
+// ----------------------------------------------------------------------------
+// Life in weeks
+//
+// One box per week lived. Empty weeks are a fixed small square; a week with a
+// headline grows to fit its text, which is what gives the grid its ragged,
+// readable rhythm - the busy stretches of a life are visibly wider.
+//
+// A flex row per decade, wrapping, rather than a grid: the boxes are
+// deliberately different widths, so there is no column structure to honour.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.life-in-weeks {
+  p {
+    max-width: 55rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.weeks-decade {
+  margin-bottom: 1.5rem;
+}
+
+// The decade label sticks while you scroll its decade, so you always know
+// which ten years you are looking at.
+.weeks-decade-title {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 0 0.5rem 0;
+  padding: 0.4rem 0;
+  font-size: 1.25rem;
+  background-color: var(--primary-color);
+}
+
+.weeks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+// Marked weeks are <button>s so they are reachable by keyboard; the resets
+// here are what make a button look like the plain <div> weeks beside it.
+.week {
+  appearance: none;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  color: inherit;
+  box-sizing: border-box;
+  height: 2em;
+  min-width: 2em;
+  max-width: 22em;
+  padding: 2px 5px;
+  border: 1px solid var(--secondary-container-color);
+  border-radius: 2px;
+  font-size: 0.6875rem;
+  line-height: calc(2em - 6px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;
+}
+
+// Employment. A wash rather than a fill: 1,500 weeks at this strength reads
+// as a band running through the grid, where a solid colour would bury the
+// birthdays and events sitting on top of it.
+.week.week-work {
+  border-color: transparent;
+}
+
+// Schooling. Its own fill, like employment - see _theme.scss for why the
+// weeks that are both get a third colour rather than one of these two.
+.week.week-school {
+  border-color: transparent;
+}
+
+// The week a term began, labelled like a job start.
+.week.week-school-start {
+  cursor: pointer;
+  font-weight: $weight-semibold;
+  border-color: transparent;
+
+  &:hover {
+    border-color: var(--link-color);
+  }
+}
+
+// The week a job began. Labelled, like a life event, but its own colour so
+// the two kinds of marker stay apart.
+.week.week-job {
+  cursor: pointer;
+  font-weight: $weight-semibold;
+
+  &:hover {
+    border-color: var(--link-color);
+  }
+}
+
+// A birthday. Every one of them, and not every 52nd box - a year is 52.18
+// weeks, so they drift rightward through the grid. Painted as a solid square
+// where the week is otherwise plain.
+.week.week-birthday:not(.week-event):not(.week-job) {
+  border-color: transparent;
+}
+
+// On a labelled week the fill is already taken, so the birthday shows as a
+// ring inside it instead of replacing the colour.
+.week.week-birthday.week-event,
+.week.week-birthday.week-job {
+  box-shadow: inset 0 0 0 2px var(--tertiary-color);
+}
+
+// A week with something in it. Clickable, and it carries its own text.
+.week.week-event {
+  border-color: var(--tertiary-color);
+  background-color: var(--secondary-container-color);
+  color: var(--on-secondary-container-color);
+  cursor: pointer;
+  font-weight: $weight-semibold;
+
+  &:hover {
+    border-color: var(--link-color);
+  }
+}
+
+.week.week-open {
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 2px var(--link-color);
+}
+
+// Weeks not yet lived. Fading them is enough; the fill is left alone so a
+// birthday still to come stays a dimmed birthday rather than reverting to a
+// plain square. There are 36 of those on the grid.
+.week.week-future {
+  opacity: 0.45;
+}
+
+.week.week-future:not(.week-birthday):not(.week-event):not(.week-job) {
+  background-color: var(--primary-container-color);
+}
+
+// The age marker that opens each decade.
+.week-age {
+  box-sizing: border-box;
+  height: 2em;
+  padding: 2px 6px;
+  font-size: 0.6875rem;
+  line-height: calc(2em - 6px);
+  white-space: nowrap;
+  font-family: var(--font-family-secondary);
+  font-weight: $weight-bold;
+  flex: 0 0 auto;
+}
+
+// The detail panel for the week you clicked. One panel, reused, docked to the
+// bottom of the window - a popover per week would mean 4,700 of them.
+.weeks-detail {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  border-radius: $border-radius-md;
+  border: 2px solid var(--tertiary-color);
+  background-color: var(--primary-container-color);
+  color: var(--on-primary-container-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  &[hidden] { display: none; }
+
+  h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.0625rem;
+  }
+
+  .weeks-detail-date {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+}
+
+.weeks-detail-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.6rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: inherit;
+}
+
+.weeks-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0 1.5rem 0;
+  font-size: 0.8125rem;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  i {
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    border: 1px solid var(--secondary-container-color);
+    border-radius: 2px;
+  }
+
+  .weeks-legend-event i {
+    border-color: var(--tertiary-color);
+    background-color: var(--secondary-container-color);
+  }
+
+  .weeks-legend-job i {
+    border-color: transparent;
+  }
+
+  .weeks-legend-school i,
+  .weeks-legend-both i {
+    border-color: transparent;
+  }
+
+  .weeks-legend-work i {
+    border-color: transparent;
+  }
+
+  .weeks-legend-birthday i {
+    border-color: transparent;
+  }
+
+  .weeks-legend-future i {
+    background-color: var(--primary-container-color);
+    opacity: 0.45;
+  }
+}

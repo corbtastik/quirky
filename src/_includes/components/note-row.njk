@@ -1,0 +1,26 @@
+{#
+  One row in a list of notes. Used by the stream and by every tag page, so the
+  two cannot drift apart.
+
+  The whole row is the <a>, the way a repository row is on /github/: a tint
+  that lights up on hover should mean the thing under the pointer is clickable,
+  and a tint covering a row whose title alone was the link would be lying.
+  <a> is transparent content, so everything inside is spans - no <p>, no nested
+  interactive elements.
+
+  Expects `note` in context.
+#}
+{%- set external = note.data.external %}
+<li>
+    <a class="post-item{% if external %} is-external{% endif %}"
+       href="{% if external %}{{ external }}{% else %}{{ note.url | relative_url }}{% endif %}"
+       {%- if external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+        <span class="post-row">
+            <span class="post-title">{{ note.data.title }}</span>
+            <time datetime="{{ note.date | date('YYYY-MM-DD') }}">{{ note.date | date('MM-DD-YYYY') }}</time>
+        </span>
+        {%- if note.data.description %}
+        <span class="post-description">{{ note.data.description }}</span>
+        {%- endif %}
+    </a>
+</li>

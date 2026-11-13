@@ -1,0 +1,107 @@
+// ----------------------------------------------------------------------------
+// The side nav
+//
+// A column of left-aligned labels set against a vertical rule, so the rule
+// reads as the edge of the content rather than a box around the nav. Below
+// $break-stack the list goes horizontal and the rule moves underneath.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+@use "layout" as *;
+
+header[role="banner"] {
+  // The round portrait above the links. Square box plus a 50% radius and
+  // `cover`, so a non-square source is cropped to the circle rather than
+  // squashed into it.
+  .nav-logo {
+    display: block;
+    margin-bottom: 1rem;
+    line-height: 0;
+
+    img {
+      width: 6rem;
+      height: 6rem;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      // The base img rule carries the zoom glide; nothing here resizes, so
+      // leave it out rather than pay for a transition that never runs.
+      transition: none;
+    }
+  }
+
+  ul#side-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0 2rem 0.2rem 0;
+    text-align: left;
+  }
+
+  // Scoped to the list on purpose. A bare `a` in here also matches the
+  // portrait's anchor, which then collected the chip padding, the radius and
+  // the hover fill - the portrait is a picture, not a label, and wants none
+  // of it.
+  ul#side-nav a {
+    text-decoration: none;
+    padding: 0.3125rem;
+    border-radius: 0.3125rem;
+    white-space: nowrap;
+    // Block, not inline-block, so the hover chip fills its <li> rather than
+    // shrinking to the label. The column is sized by its longest entry, so
+    // every chip comes out the same width and the highlight stops looking
+    // ragged as the pointer runs down the list.
+    display: block;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      background-color: var(--secondary-container-color);
+      color: var(--on-secondary-container-color);
+    }
+  }
+
+  // Where you are. Bold plus a filled chip, so it survives being read at a
+  // glance in either light or dark mode.
+  ul#side-nav a.active {
+    font-weight: $weight-bold;
+    background-color: var(--secondary-container-color);
+    color: var(--on-secondary-container-color);
+  }
+}
+
+@media screen and (max-width: $break-stack) {
+  header[role="banner"] {
+    // Stacked, the nav occupies the top of the page - which is where the
+    // fixed theme controls sit. Reserve their column so wrapped labels do not
+    // run underneath them.
+    padding-right: 3.25rem;
+
+    ul#side-nav {
+      border-bottom: 1px solid var(--secondary-container-color);
+      padding-bottom: 1rem;
+    }
+
+    li {
+      display: inline;
+      margin-right: 1rem;
+      line-height: 2;
+    }
+
+    ul#side-nav a {
+      display: inline-block;
+    }
+
+    .nav-logo {
+      margin-bottom: 0.75rem;
+
+      img {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+}

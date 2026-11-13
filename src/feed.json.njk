@@ -1,0 +1,28 @@
+---
+permalink: /feed.json
+eleventyExcludeFromCollections: true
+layout: false
+---
+{#- JSON Feed 1.1. Built with `dump` on every value so a quote or a backslash
+    in a title cannot break the document. -#}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ settings.name | dump | safe }},
+  "description": {{ settings.description | dump | safe }},
+  "home_page_url": {{ ('/' | absolute_url) | dump | safe }},
+  "feed_url": {{ ('/feed.json' | absolute_url) | dump | safe }},
+  "authors": [{ "name": {{ settings.author | dump | safe }} }],
+  "items": [
+    {%- for note in collections.notes %}
+    {%- set link = note.data.external if note.data.external else (note.url | absolute_url) %}
+    {
+      "id": {{ link | dump | safe }},
+      "url": {{ link | dump | safe }},
+      "title": {{ note.data.title | dump | safe }},
+      "summary": {{ (note.data.description | default('')) | dump | safe }},
+      "date_published": {{ (note.date | date) | dump | safe }},
+      "tags": {{ (note.data.tags | topics) | dump | safe }}
+    }{% if not loop.last %},{% endif %}
+    {%- endfor %}
+  ]
+}

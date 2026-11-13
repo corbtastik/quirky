@@ -1,0 +1,8 @@
+{#- Settings the browser needs: where "home" is, and the baseurl the
+    client-side search has to prefix onto internal links. -#}
+<script>
+  window.QuirkyConfig = {
+    home: {{ ('/' | relative_url) | dump | safe }},
+    baseurl: {{ (settings.baseurl | default('')) | dump | safe }}
+  };
+</script>

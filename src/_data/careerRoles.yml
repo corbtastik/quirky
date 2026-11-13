@@ -1,0 +1,85 @@
+# -----------------------------------------------------------------------------
+# The career band at the top of /cv/.
+#
+# One entry per role, oldest first. src/_data/career.js turns these into the
+# positioned blocks the timeline draws; the prose on the page is written by
+# hand in src/cv.md, so if you change a date here change it there too.
+#
+# start / end  "YYYY-MM". Use `end: present` for the job you are in now - the
+#              timeline runs it to the current month and relabels it. Leave
+#              `end` empty for a role whose end date is not settled: it runs
+#              up to the next role's start and is marked as unconfirmed rather
+#              than given an invented month.
+# id           the heading it scrolls to when clicked, without the #
+# -----------------------------------------------------------------------------
+- employer: Corning
+  title: Software Developer
+  start: "1997-01"
+  end: "2003-01"
+  id: earlier-work
+
+- employer: G-Systems
+  title: Software Developer
+  start: "2003-01"
+  end: "2004-01"
+  id: earlier-work
+
+- employer: Raytheon
+  title: Software Engineer
+  start: "2004-01"
+  end: "2006-01"
+  id: earlier-work
+
+- employer: SAIC
+  title: Senior Software Engineer
+  start: "2006-01"
+  end: "2007-01"
+  id: earlier-work
+
+- employer: PDX Inc.
+  title: Principal Enterprise Architect
+  start: "2007-01"
+  end: "2015-04"
+  id: role-pdx
+
+- employer: Apptricity
+  title: VP of Software Development
+  start: "2015-04"
+  end: "2016-12"
+  id: role-apptricity
+
+- employer: Pivotal
+  title: Senior Platform Architect
+  start: "2016-12"
+  end: "2019-12"
+  id: role-pivotal
+
+- employer: MongoDB
+  title: Senior Solutions Architect
+  start: "2019-12"
+  end: "2020-11"
+  id: role-mongodb-2019
+
+- employer: Charles Schwab
+  title: Enterprise Architect
+  start: "2020-11"
+  end: "2022-03"
+  id: role-schwab
+
+- employer: Red Hat
+  title: Senior Application Architect
+  start: "2022-04"
+  end: "2025-05"
+  id: role-redhat
+
+- employer: MongoDB
+  title: Advisory Solutions Architect
+  start: "2025-05"
+  end: "2026-10"
+  id: role-mongodb-2025
+
+- employer: MinIO
+  title: Technologist
+  start: "2026-10"
+  end: present
+  id: role-minio

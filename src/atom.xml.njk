@@ -1,0 +1,33 @@
+---
+permalink: /atom.xml
+eleventyExcludeFromCollections: true
+layout: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ settings.name }}</title>
+  <subtitle>{{ settings.description }}</subtitle>
+  <link href="{{ '/atom.xml' | absolute_url }}" rel="self"/>
+  <link href="{{ '/' | absolute_url }}"/>
+  <updated>{% if collections.notes | size %}{{ collections.notes[0].date | date }}{% else %}{{ build.date }}{% endif %}</updated>
+  <id>{{ '/' | absolute_url }}</id>
+  <author><name>{{ settings.author }}</name></author>
+  {%- for note in collections.notes %}
+  {#- A note written elsewhere points at where it actually lives, so the feed
+      is the same stream the home page shows rather than only the local part. -#}
+  {%- set link = note.data.external if note.data.external else (note.url | absolute_url) %}
+  <entry>
+    <title>{{ note.data.title }}</title>
+    <link href="{{ link }}"/>
+    <id>{{ link }}</id>
+    <updated>{{ note.date | date }}</updated>
+    <published>{{ note.date | date }}</published>
+    {%- if note.data.description %}
+    <summary>{{ note.data.description }}</summary>
+    {%- endif %}
+    {%- for topic in note.data.tags | topics %}
+    <category term="{{ topic }}"/>
+    {%- endfor %}
+  </entry>
+  {%- endfor %}
+</feed>

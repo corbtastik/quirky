@@ -1,0 +1,29 @@
+{#
+  The side nav. One <li> per entry in _data/nav.yml, in that order.
+
+  `active` marks where you are. A page may set `navActive` in front matter to
+  point at the entry it belongs under - a single note sets it to "/" so the
+  stream stays lit while you read, rather than no entry being lit at all.
+#}
+{% set activeUrl = navActive | default(page.url) %}
+<nav role="navigation">
+    {%- if settings.logo %}
+    {#- Links home like the site title does, so the obvious click works.
+        Deliberately not given the `image` class: that is yolo.js's hook for
+        click-to-enlarge, and a portrait that zooms instead of navigating
+        would be a surprise. -#}
+    <a class="nav-logo" href="{{ '/' | relative_url }}" aria-label="{{ settings.name }}, home">
+        <img src="{{ settings.logo | relative_url }}" alt="{{ settings.name }}"
+             width="400" height="400" loading="lazy">
+    </a>
+    {%- endif %}
+    <ul id="side-nav">
+        {%- for item in nav %}
+        {%- if item.external %}
+        <li><a href="{{ item.external }}" target="_blank" rel="noopener noreferrer" class="external-link">{{ item.label }}</a></li>
+        {%- else %}
+        <li><a href="{{ item.url | relative_url }}"{% if item.url == activeUrl %} class="active"{% endif %}>{{ item.label }}</a></li>
+        {%- endif %}
+        {%- endfor %}
+    </ul>
+</nav>

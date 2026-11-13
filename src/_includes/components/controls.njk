@@ -1,0 +1,31 @@
+{#
+  Yolo's sticky chrome: light/dark on one axis, colour palette on the other.
+
+  It is position: fixed and pointer-events: none except on the buttons
+  themselves, so it floats over the layout without taking part in it - the
+  nav column and the content keep the widths they would have had.
+#}
+<div class="yolo-sticky-controls">
+    <div class="yolo-sticky-top-right">
+        <div class="yolo-theme-toggle">
+            {# Matches the default light mode; quirky.js re-seeds it from the stored mode. #}
+            <span id="theme-toggle" class="material-icons md-36" role="button"
+                  tabindex="0" title="Light / dark" aria-label="Light / dark">dark_mode</span>
+        </div>
+        {# The list is built by palette.js from the same themes.json the build
+           reads, so this stays a button and an empty box. #}
+        <div id="theme-picker" class="yolo-theme-picker">
+            <button type="button" id="palette-toggle" class="yolo-palette-toggle"
+                    aria-label="Colour theme" aria-expanded="false"
+                    aria-controls="palette-menu" title="Colour theme">
+                <span class="material-icons md-36" aria-hidden="true">palette</span>
+            </button>
+            <ul id="palette-menu" class="yolo-themes-menu" hidden></ul>
+        </div>
+    </div>
+    <div class="yolo-sticky-bottom-right">
+        <a href="#" class="yolo-to-top" title="Back to top" aria-label="Back to top">
+            <span class="material-icons md-36">keyboard_double_arrow_up</span>
+        </a>
+    </div>
+</div>

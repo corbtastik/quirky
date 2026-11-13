@@ -1,0 +1,42 @@
+---
+layout: layouts/list.njk
+title: Quirky Blog
+permalink: /
+# Sticks the nav column and the search bar - see _sass/quirky/_stream.scss.
+bodyClass: is-stream
+---
+{#
+  The stream: everything written, newest first, on one scroll.
+
+  Notes hosted here link to their own page; notes written somewhere else link
+  straight out and are marked as external. Both come from the same collection,
+  so the stream is a record of what was written rather than a list of what
+  this site happens to host.
+#}
+{#- Wrapped so the clock and the search box stick as one block. Two sticky
+    siblings would each pin at top: 0 and overlap each other. -#}
+<div class="stream-head">
+    <div class="quirky-now">
+        <span id="quirky-date"></span>
+        <span id="quirky-time"></span>
+    </div>
+
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search&hellip;" autocomplete="off"
+               aria-label="Search notes" aria-controls="results-container">
+    </div>
+</div>
+<ul id="results-container" aria-live="polite"></ul>
+
+<ul class="post-list" id="stream">
+    {%- for group in collections.notesByYear %}
+    <li class="post-year" aria-hidden="true">{{ group.year }}</li>
+    {%- for note in group.notes %}
+    {%- include "components/note-row.njk" %}
+    {%- endfor %}
+    {%- endfor %}
+</ul>
+
+{#- The search index. Inlined rather than fetched: the stream is the only page
+    that searches, and it already carries every title on it. -#}
+<script id="quirky-search-index" type="application/json">{{ collections.searchIndex | dump | safe }}</script>

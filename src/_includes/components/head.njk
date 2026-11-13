@@ -1,0 +1,34 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page metadata. `title` is the page's own front matter; the stream and
+         the other top-level pages set it, so the tab says where you are. -->
+    <title>{% if title and title != settings.name %}{{ title }} &middot; {{ settings.name }}{% else %}{{ settings.name }} &middot; {{ settings.description }}{% endif %}</title>
+    <meta name="description" content="{{ description | default(settings.description) }}">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+    <meta property="og:site_name" content="{{ settings.name }}">
+    <meta property="og:title" content="{{ title | default(settings.name) }}">
+    <meta property="og:description" content="{{ description | default(settings.description) }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="{% if layout == 'layouts/note.njk' %}article{% else %}website{% endif %}">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="alternate" type="application/atom+xml" title="{{ settings.name }}" href="{{ '/atom.xml' | relative_url }}">
+    <link rel="alternate" type="application/json" title="{{ settings.name }}" href="{{ '/feed.json' | relative_url }}">
+    <link rel="sitemap" type="application/xml" title="sitemap" href="{{ '/sitemap.xml' | relative_url }}">
+
+    <!-- Pre-body JavaScript. These run in <head>, before the first paint, so
+         a stored light/dark mode and a stored palette are already applied
+         when the page appears instead of flashing the compiled-in theme. -->
+    {% include "components/config.njk" %}
+    <script src="{{ '/assets/js/utils.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+    <script>window.YoloPalettes = {{ themes | dump | safe }};</script>
+    <script src="{{ '/assets/ext/js/theme-vars.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/palette.js' | relative_url }}"></script>
+
+    {% include "components/styles.njk" %}
+</head>

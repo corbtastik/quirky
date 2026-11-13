@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Schooling, drawn as spans on /life-in-weeks/ the same way careerRoles.yml is.
+#
+# Months are the academic-year convention - September to June - because the
+# years were given without them. Correct any of them here and the grid follows.
+#
+# label   printed in the box the span starts in, so keep it short
+# detail  shown in the panel when that box is clicked
+# -----------------------------------------------------------------------------
+- label: Elementary school
+  start: "1980-09"
+  end: "1986-06"
+
+- label: Middle school
+  start: "1986-09"
+  end: "1989-06"
+
+- label: High school
+  start: "1989-09"
+  end: "1992-06"
+
+- label: Tarrant County College
+  detail: Associate of Science, Semiconductor Manufacturing Technology
+  start: "1997-09"
+  end: "1999-06"
+
+- label: UT Arlington
+  detail: Bachelor of Science, Computer Science
+  start: "2000-09"
+  end: "2003-06"
+
+- label: SMU
+  detail: Graduate studies, Software Engineering
+  start: "2004-09"
+  end: "2005-06"

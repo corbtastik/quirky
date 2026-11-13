@@ -1,0 +1,9 @@
+<div class="quirky-footer">
+    <hr>
+    <p>
+        {{ settings.name }} &middot; built {{ build.date }}
+        {%- for name, url in settings.profiles %}
+        &middot; <a href="{{ url }}" target="_blank" rel="noopener noreferrer" class="external-link">{{ name }}</a>
+        {%- endfor %}
+    </p>
+</div>

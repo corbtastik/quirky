@@ -1,0 +1,77 @@
+---
+layout: layouts/list.njk
+title: GitHub
+permalink: /github/
+description: Public repositories, newest work first.
+---
+{#
+  One row per public repository, read from the GitHub API at build time - see
+  src/_data/repos.js for the fetch, the cache and the filtering.
+
+  The whole row is the link, not just the name: a row that looks clickable but
+  only responds on four words of it is the kind of thing you notice once and
+  resent afterwards. <a> may wrap flow content, so everything inside is spans
+  and the anchor stays valid.
+#}
+<h1>GitHub</h1>
+
+{%- if repos | size > 0 %}
+<p>
+    {{ repos | size }} public repositories, most recently pushed first. Each
+    row opens the repository on
+    <a href="https://github.com/{{ settings.github.user }}" target="_blank" rel="noopener noreferrer" class="external-link">github.com/{{ settings.github.user }}</a>.
+</p>
+
+<ul class="repo-list">
+    {%- for repo in repos %}
+    <li>
+        <a class="repo-row" href="{{ repo.url }}" target="_blank" rel="noopener noreferrer">
+            <span class="repo-head">
+                <span class="repo-name">{{ repo.name }}</span>
+                <span class="repo-pushed">{{ repo.pushed | date('MM-DD-YYYY') }}</span>
+            </span>
+
+            {%- if repo.description %}
+            <span class="repo-description">{{ repo.description }}</span>
+            {%- endif %}
+
+            <span class="repo-meta">
+                {%- if repo.language %}
+                <span class="repo-language">{{ repo.language }}</span>
+                {%- endif %}
+                {#- Zeroes are noise on an account whose repositories are
+                    mostly tools rather than projects chasing stars. -#}
+                {%- if repo.stars > 0 %}
+                <span class="repo-stat">&#9733; {{ repo.stars }}</span>
+                {%- endif %}
+                {%- if repo.forks > 0 %}
+                <span class="repo-stat">forks {{ repo.forks }}</span>
+                {%- endif %}
+                {%- if repo.isArchived %}
+                <span class="repo-flag">archived</span>
+                {%- endif %}
+                {%- if repo.isFork %}
+                <span class="repo-flag">fork</span>
+                {%- endif %}
+                {%- for topic in repo.topics %}
+                <span class="repo-topic">{{ topic }}</span>
+                {%- endfor %}
+            </span>
+        </a>
+    </li>
+    {%- endfor %}
+</ul>
+{%- else %}
+{#- repos.js returns [] when GitHub cannot be reached and no cache exists.
+    Say so, rather than rendering an empty list that looks like an account
+    with nothing in it. -#}
+<p>
+    The repository list could not be loaded at build time. It is read from the
+    GitHub API and cached in <code>_cache/github-repos.json</code>; see
+    <code>src/_data/repos.js</code>.
+</p>
+<p>
+    In the meantime, the repositories are at
+    <a href="https://github.com/{{ settings.github.user | default('corbtastik') }}" target="_blank" rel="noopener noreferrer" class="external-link">github.com/{{ settings.github.user | default('corbtastik') }}</a>.
+</p>
+{%- endif %}

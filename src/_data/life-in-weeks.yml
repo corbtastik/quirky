@@ -1,0 +1,66 @@
+# -----------------------------------------------------------------------------
+# Life in weeks.
+#
+# One entry per week worth remembering. The template draws a box for every
+# week between settings.weeks.born and born + settings.weeks.years; a week
+# that matches an entry here gets the headline printed in it instead of being
+# left blank.
+#
+# date      any day in the week the thing happened (the template snaps it to
+#           the start of that week)
+# headline  the short text printed in the box - keep it to a few words
+# description  optional, shown when the box is clicked
+# -----------------------------------------------------------------------------
+- date: 1973-09-01
+  headline: Born
+  description: Arrived, loudly, and started keeping track.
+
+
+- date: 1985-06-20
+  headline: First computer
+  description: A beige box, a blinking cursor, and no idea what to type.
+
+
+- date: 1991-03-14
+  headline: First paid programming job
+  description: Wrote a database for a hardware store. It mostly worked.
+
+
+
+
+- date: 2003-10-13
+  headline: Started writing things down
+  description: The beginning of the stream that became this site.
+
+- date: 2006-04-24
+  headline: Moved across the country
+
+- date: 2009-01-19
+  headline: Learned to say no
+  description: Took about thirty years and one burnout.
+
+- date: 2012-04-15
+  headline: Wrote down what I believe
+  description: One Sunday afternoon, put the whole lot on paper and started revising it.
+
+- date: 2014-11-10
+  headline: Became a parent
+  description: Every assumption about time was immediately revised.
+
+- date: 2017-06-05
+  headline: Shipped something that mattered
+
+- date: 2019-09-24
+  headline: Wrote a book
+  description: Turns out a book is just a very long note with an index.
+
+- date: 2020-03-16
+  headline: The world stopped
+  description: Everything moved indoors and the stream got longer.
+
+- date: 2023-01-09
+  headline: Started over, on purpose
+
+- date: 2026-01-05
+  headline: Rebuilt this site
+  description: Eleventy, the Yolo styling framework, and far too much care about margins.

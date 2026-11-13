@@ -1,0 +1,74 @@
+// ----------------------------------------------------------------------------
+// Tags
+//
+// The tag index is a plain auto-fill grid: two columns on a phone, as many as
+// fit after that, so no breakpoints have to be maintained as topics are added.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.25rem 1rem;
+  margin: 1.5rem 0;
+}
+
+.tag-grid-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  overflow: hidden;
+
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // The note count. Small and quiet - it is a hint about weight, not a label.
+  small {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+}
+
+// A row of tag chips.
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.25rem 0 1rem 0;
+}
+
+.tag-pill {
+  display: inline-block;
+  padding: 0.05rem 0.55rem;
+  border-radius: $border-radius-pill;
+  font-family: var(--font-family-secondary);
+  font-size: 0.6875rem;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+// A tag page's heading: the topic, and how many notes carry it.
+.tag-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  h1 {
+    margin: 0;
+  }
+
+  .tag-count {
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,80 @@
+---
+layout: layouts/wide.njk
+title: Life in Weeks
+permalink: /life-in-weeks/
+description: Every week alive, as a little box.
+ext_js: [weeks]
+---
+{#
+  Every week between settings.weeks.born and born + settings.weeks.years, one
+  box each, grouped into decades. The grid itself comes from _data/weeksGrid.js
+  - see that file for why the date arithmetic does not live here.
+
+  Weeks carrying a headline print it and open a detail panel on click; the
+  rest are blank squares. assets/ext/js/weeks.js wires up the panel.
+#}
+<section class="life-in-weeks">
+    <p>
+        My life, where each week I have been alive is a little box. Inspired by
+        <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_blank" rel="noopener noreferrer" class="external-link">this post</a>
+        by Tim Urban. When something meaningful happens - for better or for
+        worse - I make a note of it in
+        <a href="https://github.com/corbtastik/quirky-11ty/blob/main/src/_data/life-in-weeks.yml" target="_blank" rel="noopener noreferrer" class="external-link">a data file</a>,
+        so I can see how much of a life is shaped by a handful of weeks.
+    </p>
+
+    <p>
+        {{ weeksGrid.livedWeeks }} weeks lived of {{ weeksGrid.totalWeeks }} drawn,
+        starting {{ weeksGrid.bornLabel }}. {{ weeksGrid.birthdayCount }} birthdays,
+        {{ weeksGrid.schoolWeeks }} weeks at school across
+        {{ weeksGrid.schoolCount }} of them,
+        {{ weeksGrid.employedWeeks }} weeks at work across
+        {{ weeksGrid.roleCount }} jobs, and {{ weeksGrid.eventCount }} weeks with
+        something else worth noting. Click a labelled week to read it.
+    </p>
+
+    <div class="weeks-legend">
+        <span class="weeks-legend-plain"><i></i> a week</span>
+        <span class="weeks-legend-birthday"><i></i> a birthday</span>
+        <span class="weeks-legend-school"><i></i> at school</span>
+        <span class="weeks-legend-work"><i></i> at work</span>
+        <span class="weeks-legend-both"><i></i> both</span>
+        <span class="weeks-legend-job"><i></i> a job started</span>
+        <span class="weeks-legend-event"><i></i> something happened</span>
+        <span class="weeks-legend-future"><i></i> not yet</span>
+    </div>
+
+    {%- for decade in weeksGrid.decades %}
+    <div class="weeks-decade">
+        <h2 class="weeks-decade-title">{{ decade.label }}</h2>
+        <div class="weeks-row">
+            <div class="week-age">{{ decade.ageLabel }}</div>
+            {#- `classes` and `title` are assembled in _data/weeksGrid.js: a week
+                can be a life event, the start of a job, employment, a birthday
+                and still to come, all at once. -#}
+            {%- for week in decade.weeks %}
+            {%- if week.headline %}
+            <button type="button"
+                    class="{{ week.classes }}"
+                    data-date="{{ week.date }}"
+                    data-date-label="{{ week.dateLabel }}"
+                    data-headline="{{ week.headline }}"
+                    data-description="{{ week.description }}"
+                    title="{{ week.title }}">{{ week.headline }}</button>
+            {%- else %}
+            <div class="{{ week.classes }}" title="{{ week.title }}"></div>
+            {%- endif %}
+            {%- endfor %}
+        </div>
+    </div>
+    {%- endfor %}
+</section>
+
+{#- One detail panel, reused by whichever week was clicked. A popover per week
+    would mean several thousand of them in the document. -#}
+<div id="weeks-detail" class="weeks-detail" hidden role="dialog" aria-live="polite" aria-labelledby="weeks-detail-headline">
+    <button type="button" class="weeks-detail-close" aria-label="Close">&times;</button>
+    <h3 id="weeks-detail-headline"></h3>
+    <p class="weeks-detail-date"></p>
+    <p class="weeks-detail-description"></p>
+</div>

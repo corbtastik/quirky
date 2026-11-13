@@ -1,0 +1,213 @@
+// ----------------------------------------------------------------------------
+// Page frame
+//
+// One <main> flex row holds the nav column and the content section. The nav
+// takes the width its longest label needs (flex-grow: 1 against the section's
+// flex-grow: 999, so it loses every fight for space); the section takes the
+// rest and never drops below 70%. Below $break-stack the row wraps and the
+// nav becomes a horizontal strip above the content.
+//
+// Colours come from the custom properties brand.css expands out of the
+// selected theme - see _theme.scss for which token paints what.
+// ----------------------------------------------------------------------------
+@use "../yolo/base/variables" as *;
+
+// The width at which the nav stops being a column. Named here because
+// _nav.scss needs the same number.
+//
+// This has to sit at or above the width where the flex row actually wraps,
+// or there is a dead zone: the section has dropped below the nav, but the nav
+// is still styled as a vertical column and stretches across the page.
+//
+// Where that wrap happens is a function of the nav's own width. The site this
+// layout came from sets 45rem, which works there because its nav is in a
+// proportional face. Yolo's --font-family-primary is Space Mono, which makes
+// the same labels about 230px wide, so the row gives out around 60rem instead.
+// Change the nav font and this number has to be re-measured.
+$break-stack: 60rem;
+$measure: 55rem;
+
+// The stream column has two edges, not one.
+//
+// The outer edge is where the boxes sit: the search field, the hover band on
+// a row, the rule under a year. The inner edge is where the text sits, this
+// much further in. Everything in the column lines up on one or the other, so
+// a row's tint can have breathing room around its title without the title
+// going out of line with the year label above it.
+//
+// Shared because it has to be the same number in four files to work at all.
+$row-inset: 0.75rem;
+
+// ----------------------------------------------------------------------------
+// Yolo scales the root font up to 1.25rem on tablet and wider, which suits its
+// single-page demos. This is a reading site, so put the root back to 16px and
+// let the type scale below do the sizing.
+// ----------------------------------------------------------------------------
+html {
+  font-size: 100%;
+}
+
+@media (min-width: $tablet) {
+  html {
+    font-size: 100%;
+  }
+}
+
+body#quirky-site {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main[role="main"] {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: $measure;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+header[role="banner"] {
+  flex-grow: 1;
+  position: relative;
+  padding: 1rem;
+}
+
+// flex-basis: 0 with a very large flex-grow is what keeps this column greedy:
+// it absorbs all the free space, leaving the nav at its content width.
+main[role="main"] > section {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 70%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+// A section is either a listing or prose. The split is only a measure and a
+// type scale; the frame above is shared.
+section.post {
+  h1.title {
+    font-size: 1.875rem;
+    margin-top: 0;
+  }
+
+  h2.subtitle {
+    font-size: 1.5rem;
+    font-weight: $weight-light;
+    margin-top: 0;
+    font-family: var(--font-family-primary);
+  }
+
+  // A flat, modest heading scale. Yolo's own runs from 3rem down, which suits
+  // a single page whose headings are the structure; in an article the body
+  // text is the structure, and a 3rem h1 two lines under a 1.875rem page
+  // title reads as though the page has two titles.
+  h1, h2, h3, h4, h5, h6 {
+    margin: 1.5rem 0 0 0;
+    line-height: 1.2;
+  }
+
+  h1 { font-size: 1.625rem; }
+  h2 { font-size: 1.375rem; }
+  h3 { font-size: 1.1875rem; }
+  h4, h5, h6 { font-size: 1.0625rem; }
+
+  h2:first-child,
+  h1:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin: 0.5rem 0 1rem 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+// The byline under a note: date and the tags it carries.
+.meta {
+  margin: 2rem 0 0 0;
+  font-size: 0.875rem;
+}
+
+// A content page's lead image, flush to the measure.
+.featured-image {
+  margin-top: 2rem;
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
+figcaption {
+  font-size: 0.875rem;
+}
+
+hr {
+  height: 1px;
+  margin: 2rem auto 1rem auto;
+  width: 70%;
+}
+
+// ----------------------------------------------------------------------------
+// Pages without the nav column (life in weeks). A breadcrumb replaces the nav,
+// so there is still a way back to the stream.
+//
+// Same max-width, margins and padding as <main>, so the content starts on the
+// same left edge and ends on the same right edge as every other page. The nav
+// column is what is dropped here, not the measure - a page that ran to the
+// window edge would be the only one on the site that did.
+// ----------------------------------------------------------------------------
+.quirky-wide {
+  max-width: $measure;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.quirky-wide-header {
+  margin-bottom: 1rem;
+
+  .header-title {
+    font-size: 1.875rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: $weight-normal;
+
+    a {
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  .header-title-sep {
+    opacity: 0.5;
+    padding: 0 0.15rem;
+  }
+
+  .header-title-page {
+    font-weight: $weight-light;
+  }
+}
+
+.quirky-footer {
+  text-align: right;
+  font-size: 0.8125rem;
+  margin-top: 3rem;
+
+  p {
+    margin: 0;
+    font-size: inherit;
+  }
+}
