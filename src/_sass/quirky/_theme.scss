@@ -369,6 +369,12 @@
     color: var(--secondary-color);
   }
 
+  // Pinned left is a mode the page is in, so the control takes the accent
+  // while it is on.
+  &[data-pull="left"] #pull-left {
+    color: var(--tertiary-color);
+  }
+
   // The code toolbar. The header is a panel over the block, not a coloured
   // bar: three icons and a label sitting quietly on top of the code.
   .code-wrapper {

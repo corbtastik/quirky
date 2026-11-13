@@ -8,6 +8,7 @@
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
  *   4. the side swap, which mirrors the page layout
+ *   5. pull left, which pins the page to the left edge
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -346,6 +347,38 @@
         paint();
     }
 
+    // ------------------------------------------------------------------
+    // Pull left
+    //
+    // Drops the auto side margins that centre the page. One attribute on
+    // <html>; _controls.scss does the moving. theme.js puts it back before
+    // the first paint, so a pinned page does not start centred and jump.
+    // ------------------------------------------------------------------
+    function initPullLeft() {
+        var root = document.documentElement;
+        var button = document.getElementById('pull-left');
+        if (!button) return;
+
+        var KEY = 'quirky-pull';
+        var pulled = root.getAttribute('data-pull') === 'left';
+
+        function paint() {
+            button.setAttribute('aria-pressed', pulled ? 'true' : 'false');
+            button.setAttribute('title', pulled ? 'Centre the site' : 'Pin the site to the left');
+            button.setAttribute('aria-label', button.getAttribute('title'));
+        }
+
+        button.addEventListener('click', function() {
+            pulled = !pulled;
+            if (pulled) root.setAttribute('data-pull', 'left');
+            else root.removeAttribute('data-pull');
+            try { localStorage.setItem(KEY, pulled ? 'left' : 'centre'); } catch (e) {}
+            paint();
+        });
+
+        paint();
+    }
+
     function initToTop() {
         var link = document.querySelector('.yolo-to-top');
         if (!link) return;
@@ -360,6 +393,7 @@
         initNow();
         initSearch();
         initSideSwap();
+        initPullLeft();
         initToTop();
     });
 })();

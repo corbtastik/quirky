@@ -4,6 +4,7 @@
  *
  *   - the light/dark attribute on <html>
  *   - the side-swap layout, also on <html>
+ *   - whether the site is pinned to the left edge
  *
  * Both are attributes rather than classes because they are read by CSS alone.
  * The toggles that set them live in assets/js/quirky.js, which runs after the
@@ -26,5 +27,9 @@
 
     if (stored('quirky-layout') === 'mirrored') {
         root.setAttribute('data-layout', 'mirrored');
+    }
+
+    if (stored('quirky-pull') === 'left') {
+        root.setAttribute('data-pull', 'left');
     }
 })();
