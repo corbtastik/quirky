@@ -75,3 +75,22 @@
   right: auto;
   left: 1rem;
 }
+
+// The glide itself. Only present while an element is actually moving -
+// quirky.js adds the class, inverts the element to where it was, and takes
+// the class off again on transitionend.
+//
+// The transition lives here rather than in the script so the duration and
+// the curve sit with the rest of the styling.
+.is-gliding {
+  transition: transform 340ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+// A layout that rearranges itself under you is exactly what this asks to
+// be spared. The swap still happens; it just happens at once.
+@media (prefers-reduced-motion: reduce) {
+  .is-gliding {
+    transition: none;
+  }
+}

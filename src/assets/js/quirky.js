@@ -251,14 +251,74 @@
         if (!button) return;
         var icon = button.querySelector('.material-icons');
 
+        // Everything that ends up somewhere else when the page mirrors.
+        var movers = [
+            document.querySelector('main[role="main"] > header[role="banner"]'),
+            document.querySelector('main[role="main"] > section'),
+            document.querySelector('.yolo-sticky-top-right'),
+            document.querySelector('.yolo-sticky-bottom-right')
+        ].filter(Boolean);
+
         var KEY = 'quirky-layout';
         var mirrored = false;
         try { mirrored = localStorage.getItem(KEY) === 'mirrored'; } catch (e) {}
 
-        function apply() {
-            if (mirrored) body.setAttribute('data-layout', 'mirrored');
-            else body.removeAttribute('data-layout');
+        function reduceMotion() {
+            return window.matchMedia &&
+                   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
 
+        /**
+         * Animate a layout change that is not animatable.
+         *
+         * Neither flex-direction nor swapping left for right can be
+         * transitioned, so the elements are moved first and then put back
+         * visually: measure, mutate, measure again, translate each one by
+         * the difference, and release. The browser interpolates from the
+         * old position to the new one while the layout has already changed.
+         *
+         * Transforms are cleared at the end. Leaving one on the nav would
+         * matter - it is position: sticky, and a stray transform is the kind
+         * of thing that quietly changes how that resolves.
+         */
+        function glide(mutate) {
+            if (reduceMotion()) { mutate(); return; }
+
+            var first = movers.map(function (el) { return el.getBoundingClientRect(); });
+            mutate();
+            var last = movers.map(function (el) { return el.getBoundingClientRect(); });
+
+            var moved = [];
+            movers.forEach(function (el, i) {
+                var dx = first[i].left - last[i].left;
+                var dy = first[i].top - last[i].top;
+                if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+                el.classList.add('is-gliding');
+                // Inline `none` so applying the offset is not itself animated.
+                el.style.transition = 'none';
+                el.style.transform = 'translate3d(' + dx + 'px, ' + dy + 'px, 0)';
+                moved.push(el);
+            });
+            if (!moved.length) return;
+
+            // One forced reflow for the whole set, so every element starts
+            // from its offset in the same frame.
+            void body.offsetWidth;
+
+            moved.forEach(function (el) {
+                el.addEventListener('transitionend', function done(e) {
+                    if (e.propertyName !== 'transform') return;
+                    el.removeEventListener('transitionend', done);
+                    el.classList.remove('is-gliding');
+                    el.style.transform = '';
+                });
+                // Hand the duration back to the stylesheet and go.
+                el.style.transition = '';
+                el.style.transform = '';
+            });
+        }
+
+        function paint() {
             // The arrow points the way the chrome will move, so it flips to
             // the one that undoes what you are looking at.
             icon.textContent = mirrored ? 'chevron_right' : 'chevron_left';
@@ -267,16 +327,24 @@
                 mirrored ? 'Restore the default sides' : 'Swap the sides');
             button.setAttribute('title',
                 mirrored ? 'Back to the default sides' : 'Swap the sides');
+        }
 
-            try { localStorage.setItem(KEY, mirrored ? 'mirrored' : 'default'); } catch (e) {}
+        function setLayout() {
+            if (mirrored) body.setAttribute('data-layout', 'mirrored');
+            else body.removeAttribute('data-layout');
         }
 
         button.addEventListener('click', function () {
             mirrored = !mirrored;
-            apply();
+            glide(setLayout);
+            paint();
+            try { localStorage.setItem(KEY, mirrored ? 'mirrored' : 'default'); } catch (e) {}
         });
 
-        apply();
+        // Restoring a stored choice is not a swap the reader asked to watch,
+        // so the first paint is instant.
+        setLayout();
+        paint();
     }
 
     function initToTop() {
