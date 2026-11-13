@@ -307,6 +307,31 @@
     stroke: var(--tertiary-color);
   }
 
+  // Network diagrams. The hidden layers take the panel colour the boxes use;
+  // the two ends are coloured so the direction of travel reads at a glance.
+  .diagram .dg-node {
+    fill: var(--primary-container-color);
+    stroke: var(--secondary-container-color);
+  }
+
+  .diagram .dg-node.is-in {
+    fill: var(--secondary-color);
+    stroke: var(--secondary-color);
+  }
+
+  .diagram .dg-node.is-out {
+    fill: var(--tertiary-color);
+    stroke: var(--tertiary-color);
+  }
+
+  .diagram .dg-edge {
+    stroke: var(--quiet-color);
+  }
+
+  .diagram .dg-layer {
+    fill: var(--on-primary-color);
+  }
+
   // Connectors take --quiet-color, not the container tint: a container tint
   // is chosen to sit under text, so a 1.5px line drawn in it all but vanishes
   // on both the light and the dark side of most themes.
@@ -341,7 +366,7 @@
   }
 
   .formula-label {
-    color: var(--heading-color, var(--on-primary-color));
+    color: var(--secondary-color);
   }
 
   #results-container li.selected {

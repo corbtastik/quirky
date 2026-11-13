@@ -82,3 +82,24 @@
   font-family: var(--font-family-monospace);
   font-size: 11px;
 }
+
+// Network diagrams: circles joined by lines.
+//
+// An edge carries its own stroke-opacity inline, which is the one thing here
+// that is data rather than styling - it stands for the weight on that
+// connection, so it has to vary edge by edge.
+.diagram .dg-node {
+  stroke-width: 1.5;
+}
+
+.diagram .dg-edge {
+  fill: none;
+  stroke-width: 1;
+}
+
+.diagram .dg-layer {
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
