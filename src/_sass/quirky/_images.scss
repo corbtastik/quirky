@@ -82,3 +82,24 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+// ----------------------------------------------------------------------------
+// Captioned figures inside a column grid
+//
+// Photographs of different proportions leave the captions at different
+// heights, because each one sits directly under its own image. Stretching the
+// figure to the row and pushing the caption to its foot lines them up without
+// cropping anything - which matters when the subject is the shape of the
+// thing photographed.
+// ----------------------------------------------------------------------------
+.columns > .column > figure {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+
+  figcaption {
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+}

@@ -3,13 +3,6 @@ title: "A Look at Baseball History"
 date: 2025-12-25
 tags: ["history", "sports", "data", "americana"]
 description: "From the Knickerbocker Rules to Moneyball, exploring the data and soul of America's Pastime."
-parks:
-  - src: "https://placehold.co/200x200/27ae60/ffffff?text=Fenway+Park"
-    description: "Fenway"
-  - src: "https://placehold.co/200x200/2980b9/ffffff?text=Wrigley+Field"
-    description: "Wrigley"
-  - src: "https://placehold.co/200x200/c0392b/ffffff?text=Oracle+Park"
-    description: "Oracle"
 ---
 
 ## The Myth and The Reality
@@ -97,7 +90,11 @@ console.log(calculateOPS(150, 80, 5, 500, 5, 250));
 football field never changes. A ballpark does as it pleases. The walls run high
 or low, near or far, and bend where they like.
 
-{% imageGrid "parks", 3 %}
+<div class="columns is-mobile">
+<div class="column">{% image { src: "/assets/images/fenway.jpg", description: "Fenway Park" } %}</div>
+<div class="column">{% image { src: "/assets/images/wrigley-field.jpg", description: "Wrigley Field" } %}</div>
+<div class="column">{% image { src: "/assets/images/arlington-stadium.jpg", description: "Arlington Stadium" } %}</div>
+</div>
 
 ### Unwritten Rules
 
