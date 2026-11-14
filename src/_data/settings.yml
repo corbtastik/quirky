@@ -57,7 +57,7 @@ profiles:
 # -----------------------------------------------------------------------------
 stream:
   # How many notes the home page lists before "older notes" paging kicks in.
-  # Buster's own page lists every note on one scroll; keep this high to match.
+  # Keep it high so the whole stream stays on a single scroll.
   perPage: 500
 
 # -----------------------------------------------------------------------------
