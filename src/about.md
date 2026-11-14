@@ -11,7 +11,7 @@ about_images:
     src: "/assets/images/cobro-banff.png"
     description: "Banter in Banff"
   - name: baby-moonpie
-    src: "https://placehold.co/150x150?text=moonpie"
+    src: "/assets/images/baby-moonpie.png"
     description: "Awwwweeeeee"
   - name: bucknach
     src: "https://placehold.co/150x150?text=bucky+%26+nacho"
