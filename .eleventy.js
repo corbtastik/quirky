@@ -387,8 +387,36 @@ module.exports = function(eleventyConfig) {
       return `<img class="slides-img${i ? "" : " is-current"}" data-index="${i}" ${attr}` +
              ` alt="${deck.title}, slide ${i + 1} of ${deck.count}" decoding="async">`;
     }).join("");
+
     const icon = (n) => `<span class="material-icons md-18" aria-hidden="true">${n}</span>`;
     const ratio = deck.ratio || "1-by-1";
+
+    // A live deck shows the real thing. The slides stay on the provider and
+    // arrive in an iframe; only the chrome is ours.
+    //
+    // The frame is cross-origin, so nothing can reach into it: no reading
+    // its location, no postMessage API, and a hash-only change to src is
+    // ignored. The one lever that works is a fresh load at #slide=N, which
+    // is why stepping through a live deck reloads the frame each time.
+    if (deck.live) {
+      // The frame keeps the provider's own controls. Ours cannot drive it:
+      // the document is cross-origin, so there is no scripting it, no
+      // postMessage API, a hash-only change to src is ignored, and
+      // reassigning src does not re-navigate. Shipping our arrows here
+      // would ship three buttons that leave the deck on slide one.
+      //
+      // So the bar carries what it can own - the title and the link out.
+      return `<div class="slides-wrapper is-live" data-deck="${deck.name}" data-count="${deck.count}">
+  <div class="slides-stage is-${ratio} is-live"><iframe class="slides-frame" title="${deck.title}" loading="lazy" src="${deck.live}" allowfullscreen></iframe></div>
+  <div class="slides-bar">
+    <span class="slides-title">${deck.title}</span>
+    <span class="slides-actions">
+      <span class="slides-count">${deck.count} slides</span>
+      <a class="slides-action" href="${deck.source}" target="_blank" rel="noopener noreferrer" aria-label="Open the deck">${icon("open_in_new")}</a>
+    </span>
+  </div>
+</div>`;
+    }
     return `<div class="slides-wrapper" data-deck="${deck.name}" data-count="${deck.count}">
   <div class="slides-stage is-${ratio}">${imgs}</div>
   <div class="slides-bar">

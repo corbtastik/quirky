@@ -13,6 +13,18 @@
 # count   how many slides; files are 01.png .. NN.png
 # ratio   the deck's shape: 1-by-1 (default), 16-by-9 or 4-by-3
 # ext     image extension, png by default
+# live    OPTIONAL. An embed URL. Set it and the deck shows the provider's
+#         real slides in a frame instead of local images.
+#
+#         The trade: a cross-origin frame cannot be driven from this side.
+#         There is no scripting it, no postMessage API, a hash-only change
+#         to src is ignored, and reassigning src does not re-navigate. So a
+#         live deck keeps the provider's own control bar, and our bar drops
+#         to the title and the link out. You get the real slides and our
+#         frame, but not our arrows.
+#
+#         Example:
+#           live: "https://docs.google.com/presentation/d/<id>/embed?start=false&loop=false"
 # source  the deck itself, for the "open in Slides" action
 # -----------------------------------------------------------------------------
 - name: quirky

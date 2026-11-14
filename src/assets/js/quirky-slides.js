@@ -13,6 +13,9 @@
     'use strict';
 
     function init(wrapper) {
+        // A live deck has no local slides to switch; the provider's own
+        // controls drive it inside the frame.
+        if (wrapper.classList.contains('is-live')) return;
         var imgs = Array.prototype.slice.call(wrapper.querySelectorAll('.slides-img'));
         if (imgs.length < 1) return;
 

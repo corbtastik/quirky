@@ -137,6 +137,29 @@
   opacity: 1;
 }
 
+// A live deck's frame fills the stage. Pulled out 2px on each side because
+// the provider draws a border inside its own document, which no stylesheet
+// here can reach - the container clips the overflow.
+.slides-frame {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border: 0;
+  display: block;
+}
+
+// Stepping through a live deck reloads the frame, which blanks for a moment.
+// Dimming the bar says the viewer is working rather than broken.
+.slides-wrapper.is-loading .slides-bar {
+  opacity: 0.6;
+}
+
+.slides-bar {
+  transition: opacity 0.15s ease;
+}
+
 // No JS: every slide is in the markup and all of them would stack invisibly.
 // Show the first one.
 .no-js .slides-img[data-index="0"] {
