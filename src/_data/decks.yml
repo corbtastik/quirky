@@ -12,6 +12,7 @@
 # title   shown in the viewer's header bar
 # count   how many slides; files are 01.png .. NN.png
 # ratio   the deck's shape: 1-by-1 (default), 16-by-9 or 4-by-3
+# ext     image extension, png by default
 # source  the deck itself, for the "open in Slides" action
 # -----------------------------------------------------------------------------
 - name: quirky
@@ -31,3 +32,10 @@
   count: 2
   ratio: 4-by-3
   source: "https://docs.google.com/presentation/d/1bnbHN4uaPgvtq703SEB9BRjUdAe3Rwlbx_MDZcpP1YU/edit"
+
+- name: themes
+  title: Every theme, dark and light
+  count: 68
+  ratio: 1-by-1
+  ext: webp
+  source: "https://github.com/corbtastik/quirky/blob/main/src/_data/themes.json"

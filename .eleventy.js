@@ -375,12 +375,17 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("slides", function(name, dataFile = "decks") {
     const deck = (this.ctx[dataFile] || []).find(d => d.name === name);
     if (!deck) return "";
+    // Only the first slide carries a src. The rest hold the path in data-src
+    // and quirky-slides.js hydrates them as you approach. All of them sit
+    // stacked in the viewport, so loading="lazy" would not have deferred a
+    // single one - on a 68-slide deck that is megabytes nobody asked for.
+    const ext = deck.ext || "png";
     const imgs = Array.from({ length: deck.count }, (_, i) => {
       const n = String(i + 1).padStart(2, "0");
-      return `<img class="slides-img${i ? "" : " is-current"}" data-index="${i}"` +
-             ` src="/assets/slides/${deck.name}/${n}.png"` +
-             ` alt="${deck.title}, slide ${i + 1} of ${deck.count}"` +
-             ` loading="${i ? "lazy" : "eager"}" decoding="async">`;
+      const src = `/assets/slides/${deck.name}/${n}.${ext}`;
+      const attr = i === 0 ? `src="${src}"` : `data-src="${src}"`;
+      return `<img class="slides-img${i ? "" : " is-current"}" data-index="${i}" ${attr}` +
+             ` alt="${deck.title}, slide ${i + 1} of ${deck.count}" decoding="async">`;
     }).join("");
     const icon = (n) => `<span class="material-icons md-18" aria-hidden="true">${n}</span>`;
     const ratio = deck.ratio || "1-by-1";

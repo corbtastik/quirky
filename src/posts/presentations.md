@@ -90,3 +90,16 @@ the deck has focus.
 {% endraw %}
 
 {% slides "awesome" %}
+
+---
+
+### Every theme at once
+{:.no-toc}
+
+One slide per theme. Dark on the left, light on the right, the same six
+elements in both. Sixty-eight of them.
+
+{% slides "themes" %}
+
+The slides are rendered from `themes.json`, so they show the real palettes
+rather than an approximation of them.

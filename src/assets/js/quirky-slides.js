@@ -22,8 +22,20 @@
         var next = wrapper.querySelector('[data-action="next"]');
         var at = 0;
 
+        // Fetch a slide's image the first time it is needed. Neighbours are
+        // hydrated too, so stepping through never waits on a download.
+        function hydrate(n) {
+            var img = imgs[n];
+            if (!img || img.getAttribute('src')) return;
+            var src = img.getAttribute('data-src');
+            if (src) img.setAttribute('src', src);
+        }
+
         function show(i) {
             at = Math.max(0, Math.min(count - 1, i));
+            hydrate(at);
+            hydrate(at - 1);
+            hydrate(at + 1);
             imgs.forEach(function (img, n) {
                 img.classList.toggle('is-current', n === at);
             });
