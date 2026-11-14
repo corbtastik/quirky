@@ -12,7 +12,7 @@ const themeVars = require("./src/assets/ext/js/theme-vars.js");
 const themesById = themeVars.byId(require("./src/_data/themes.json"));
 
 const SASS_INCLUDES = path.join(__dirname, "src", "_sass");
-const DEFAULT_THEME = "yolo";
+const DEFAULT_THEME = "quirky";
 
 module.exports = function(eleventyConfig) {
   // -------------------------------------------------------------------------
@@ -287,10 +287,10 @@ module.exports = function(eleventyConfig) {
   // -------------------------------------------------------------------------
   // Shortcodes
   //
-  // These are Yolo's, carried over so the sample posts that document the
+  // These are Quirky's, carried over so the sample posts that document the
   // framework actually run here rather than printing their own source. The
-  // galleries emit the markup that _sass/yolo/components/_lightbox.scss and
-  // _images.scss already style, and that assets/js/yolo.js drives - see the
+  // galleries emit the markup that _sass/quirky-base/components/_lightbox.scss and
+  // _images.scss already style, and that assets/js/quirky-base.js drives - see the
   // header of that file for the two blocks of it this site does not use.
   // -------------------------------------------------------------------------
 
@@ -334,12 +334,12 @@ module.exports = function(eleventyConfig) {
       });
       grid += `<a class="lb-nav lb-prev" data-gallery="${name}" data-gallery-type="lb" data-action="prev">&#10094;</a>
         <a class="lb-nav lb-next" data-gallery="${name}" data-gallery-type="lb" data-action="next">&#10095;</a>
-        </div><div class="yolo-caption"><p id="lb-caption-${name}"></p></div></div></div>`;
+        </div><div class="quirky-caption"><p id="lb-caption-${name}"></p></div></div></div>`;
     } else {
       grid += `<div id="ig-target-${name}" class="no-display"><div class="ig-modal-content"><div class="ig-slides">`;
       images.forEach((img, i) => {
         grid += `<img id="${name}-image-${i}" class="image square" data-gallery="${name}" data-gallery-type="ig" data-action="close" alt="${img.description || ""}" src="${img.src}">
-          <div id="${name}-caption-${i}" class="yolo-caption"><p>${img.description || ""}</p></div>`;
+          <div id="${name}-caption-${i}" class="quirky-caption"><p>${img.description || ""}</p></div>`;
       });
       grid += `</div>
         <a class="ig-nav ig-prev" data-gallery="${name}" data-gallery-type="ig" data-action="prev">&#10094;</a>
@@ -351,10 +351,10 @@ module.exports = function(eleventyConfig) {
   }
 
   eleventyConfig.addShortcode("arrow", link =>
-    `<a href="${link || "#"}" class="yolo-to-top"><span class="material-icons md-36">keyboard_double_arrow_up</span></a>`);
+    `<a href="${link || "#"}" class="quirky-to-top"><span class="material-icons md-36">keyboard_double_arrow_up</span></a>`);
 
   eleventyConfig.addShortcode("code", (label = "") =>
-    `<div class="yolo-code-header"><span class="code-label">${label}</span><span class="copy-icon material-icons md-24">copy_all</span></div>\n\n`);
+    `<div class="quirky-code-header"><span class="code-label">${label}</span><span class="copy-icon material-icons md-24">copy_all</span></div>\n\n`);
 
   eleventyConfig.addShortcode("toc", (header = "h2", text = "Table of Contents") =>
     `<${header} id="table-of-contents" class="no-toc">${text}</${header}><div id="toc"></div>`);
@@ -362,7 +362,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("video", function() {
     const videos = this.ctx.videos || [];
     return videos.slice(0, 2).map(v =>
-      `<div class="yolo-video"><iframe src="${v.src}"></iframe><p>${v.description}</p></div>`
+      `<div class="quirky-video"><iframe src="${v.src}"></iframe><p>${v.description}</p></div>`
     ).join("\n");
   });
 
@@ -370,7 +370,7 @@ module.exports = function(eleventyConfig) {
     const prezo = (this.ctx[dataFile] || []).find(p => p.title === title);
     if (!prezo) return "";
     return `<strong>${prezo.description}</strong>
-      <div class="yolo-prezo-container ${aspect}"><iframe class="yolo-prezo-iframe" src="${prezo.src}"></iframe></div>`;
+      <div class="quirky-prezo-container ${aspect}"><iframe class="quirky-prezo-iframe" src="${prezo.src}"></iframe></div>`;
   });
 
   eleventyConfig.addShortcode("imageGrid", function(name, columns) {

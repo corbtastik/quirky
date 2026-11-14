@@ -1,5 +1,5 @@
 /**
- * Yolo's behaviour layer, as carried over for the sample posts.
+ * Quirky's behaviour layer, as carried over for the sample posts.
  *
  * It drives the galleries the {% imageGrid %} and {% lightbox %} shortcodes
  * emit, builds a table of contents for {% toc %}, and adds the tab, sortable
@@ -166,13 +166,13 @@
     }
 
     // ------------------------------------------------------------------------
-    // Yolo main controller
+    // Quirky main controller
     // ------------------------------------------------------------------------
-    function Yolo() {
+    function Quirky() {
         this.galleries = {};
     }
 
-    Yolo.prototype = {
+    Quirky.prototype = {
         getGallery: function(type, name) {
             var key = type + ":" + name;
             if (!this.galleries[key]) {
@@ -217,7 +217,7 @@
             if (tocSidebar) { tocSidebar.classList.add("nav-menu"); tocSidebar.innerHTML = buildToc(3); }
 
             // Tabs
-            document.querySelectorAll('.yolo-tab-button').forEach(function(btn) {
+            document.querySelectorAll('.quirky-tab-button').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     var tabEl = document.getElementById(btn.dataset.openTab);
                     if (!tabEl) return;
@@ -225,8 +225,8 @@
                         btn.classList.remove("active");
                         tabEl.style.display = "none";
                     } else {
-                        document.querySelectorAll(".yolo-tab-content").forEach(function(el) { el.style.display = "none"; });
-                        document.querySelectorAll(".yolo-tab-links").forEach(function(el) { el.classList.remove("active"); });
+                        document.querySelectorAll(".quirky-tab-content").forEach(function(el) { el.style.display = "none"; });
+                        document.querySelectorAll(".quirky-tab-links").forEach(function(el) { el.classList.remove("active"); });
                         tabEl.style.display = "block";
                         btn.classList.add("active");
                     }
@@ -234,7 +234,7 @@
             });
 
             // Sortable tables
-            document.querySelectorAll('.yolo-themed table').forEach(function(table) {
+            document.querySelectorAll('.quirky-themed table').forEach(function(table) {
                 var headers = table.querySelectorAll('th');
                 headers.forEach(function(header, colIndex) {
                     header.style.cursor = 'pointer';
@@ -263,8 +263,8 @@
         }
     };
 
-    var yolo = new Yolo();
-    window.Yolo = yolo;
-    YoloUtils.domReady(function() { yolo.init(); });
+    var quirky = new Quirky();
+    window.Quirky = quirky;
+    QuirkyUtils.domReady(function() { quirky.init(); });
 
 })(window);

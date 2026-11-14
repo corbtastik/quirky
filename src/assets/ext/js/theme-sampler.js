@@ -1,15 +1,15 @@
 /**
- * Theme Sampler - live theme switching for the Yolo demo pages.
+ * Theme Sampler - live theme switching for the Quirky demo pages.
  *
  * Applies a theme from themes.json by setting CSS custom properties on <html>,
  * which override the theme compiled into brand.css. The variable set comes
- * from YoloThemeVars (assets/js/theme-vars.js) - the same mapping the build
+ * from QuirkyThemeVars (assets/js/theme-vars.js) - the same mapping the build
  * uses - so a preview is a complete swap rather than an approximation.
  */
 (function() {
     'use strict';
 
-    var STORAGE_KEY = 'yolo-sampler-theme';
+    var STORAGE_KEY = 'quirky-theme';
 
     var themes = null;
     var applied = [];   // variables we have set, so they can be cleared
@@ -22,7 +22,7 @@
     function applyTheme(id) {
         var theme = themes && themes[id];
         if (!theme) {
-            YoloUtils.error('Unknown theme: ' + id);
+            QuirkyUtils.error('Unknown theme: ' + id);
             return;
         }
 
@@ -31,7 +31,7 @@
 
         // A theme supplies both the site colors and the syntax colors here;
         // the build keeps them separate so a site can mix two themes.
-        var vars = YoloThemeVars.cssVars(theme[mode], theme[mode], mode);
+        var vars = QuirkyThemeVars.cssVars(theme[mode], theme[mode], mode);
 
         applied = vars.map(function(pair) {
             root.style.setProperty('--' + pair[0], pair[1]);
@@ -43,7 +43,7 @@
         });
 
         localStorage.setItem(STORAGE_KEY, id);
-        YoloUtils.log('sampler applied ' + id + ' (' + mode + ', ' + vars.length + ' variables)');
+        QuirkyUtils.log('sampler applied ' + id + ' (' + mode + ', ' + vars.length + ' variables)');
     }
 
     /** Drop the overrides, revealing the theme compiled into brand.css. */
@@ -64,7 +64,7 @@
                 return response.json();
             })
             .then(function(data) {
-                themes = YoloThemeVars.byId(data);
+                themes = QuirkyThemeVars.byId(data);
             });
     }
 
@@ -81,7 +81,7 @@
             });
 
             // Light/dark is a separate axis - re-apply in the new mode.
-            document.addEventListener('yolo:themechange', function() {
+            document.addEventListener('quirky:themechange', function() {
                 var saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) applyTheme(saved);
             });
@@ -89,9 +89,9 @@
             var saved = localStorage.getItem(STORAGE_KEY);
             if (saved && themes[saved]) applyTheme(saved);
         }).catch(function(error) {
-            YoloUtils.error('Could not load themes.json: ' + error.message);
+            QuirkyUtils.error('Could not load themes.json: ' + error.message);
         });
     }
 
-    YoloUtils.domReady(init);
+    QuirkyUtils.domReady(init);
 })();

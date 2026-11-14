@@ -2,22 +2,22 @@
 // ----------------------------------------------------------------------------
 // Theme palette picker
 //
-// The palette button sits in .yolo-sticky-top-right, directly under the
+// The palette button sits in .quirky-sticky-top-right, directly under the
 // light/dark toggle - that container is already a flex column with a gap, so
 // stacking needs no extra rules here.
 //
-// Class names are deliberately .yolo-themes-*, not .yolo-palette-*: the
-// command line in commands.js already owns .yolo-palette and its rows.
+// Class names are deliberately .quirky-themes-*, not .quirky-palette-*: the
+// command line in commands.js already owns .quirky-palette and its rows.
 // ----------------------------------------------------------------------------
 
-.yolo-theme-picker {
+.quirky-theme-picker {
   position: relative;
   line-height: 1;
 }
 
 // The light/dark toggle is a bare <span>; this is a real button, so strip the
 // chrome a button brings and inherit the icon color the way the span does.
-.yolo-palette-toggle {
+.quirky-palette-toggle {
   display: block;
   padding: 0;
   font: inherit;
@@ -41,7 +41,7 @@
 // swatch start here, and the names line up in a column of their own.
 $palette-gutter: 0.9rem;
 
-.yolo-themes-menu {
+.quirky-themes-menu {
   position: absolute;
   top: 100%;
   right: 0;
@@ -65,7 +65,7 @@ $palette-gutter: 0.9rem;
   &[hidden] { display: none; }
 
   // Scoped to direct children. A bare `li` rule here outranks
-  // .yolo-themes-group on specificity and flattens its padding, which is
+  // .quirky-themes-group on specificity and flattens its padding, which is
   // what pulled the category labels out of line with the rest.
   > li {
     margin: 0;
@@ -74,7 +74,7 @@ $palette-gutter: 0.9rem;
   }
 }
 
-.yolo-themes-menu > .yolo-themes-group {
+.quirky-themes-menu > .quirky-themes-group {
   // Room above to separate it from the group before, little below so the
   // label reads as attached to the themes under it.
   padding: 0.9rem $palette-gutter 0.3rem;
@@ -87,7 +87,7 @@ $palette-gutter: 0.9rem;
   &:first-child { padding-top: 0.1rem; }
 }
 
-.yolo-themes-option {
+.quirky-themes-option {
   display: flex;
   align-items: center;
   width: 100%;
@@ -117,7 +117,7 @@ $palette-gutter: 0.9rem;
 
 // Two-tone dot: the theme's page background outside, its link color inside.
 // Enough to tell 67 themes apart at a glance.
-.yolo-themes-swatch {
+.quirky-themes-swatch {
   position: relative;
   flex: none;
   width: 0.85rem;

@@ -1,6 +1,6 @@
 /**
- * Yolo shared utilities
- * @namespace YoloUtils
+ * Quirky shared utilities
+ * @namespace QuirkyUtils
  */
 (function() {
     'use strict';
@@ -17,7 +17,7 @@
 
     var DATE_TOKENS = /YYYY|MMMM|MMM|MM|DD|D/g;
 
-    window.YoloUtils = {
+    window.QuirkyUtils = {
         /**
          * Execute callback when DOM is ready
          * @param {Function} fn - Callback to execute
@@ -185,8 +185,8 @@
          * @param {string} message - Message to log
          */
         log: function(message) {
-            if (window.YOLO_DEBUG) {
-                console.log('[Yolo] ' + message);
+            if (window.QUIRKY_DEBUG) {
+                console.log('[Quirky] ' + message);
             }
         },
 
@@ -195,7 +195,7 @@
          * @param {string} message - Error message to log
          */
         error: function(message) {
-            console.error('[Yolo] ' + message);
+            console.error('[Quirky] ' + message);
         }
     };
 })();

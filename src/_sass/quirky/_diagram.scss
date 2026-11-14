@@ -12,7 +12,7 @@
 // diagram readable across all 136 theme and mode combinations, rather than
 // hoping one text colour happens to work on two different surfaces.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 .diagram {
   display: block;

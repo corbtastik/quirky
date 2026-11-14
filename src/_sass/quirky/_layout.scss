@@ -10,7 +10,7 @@
 // Colours come from the custom properties brand.css expands out of the
 // selected theme - see _theme.scss for which token paints what.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 // The width at which the nav stops being a column. Named here because
 // _nav.scss needs the same number.
@@ -21,7 +21,7 @@
 //
 // Where that wrap happens is a function of the nav's own width. The site this
 // layout came from sets 45rem, which works there because its nav is in a
-// proportional face. Yolo's --font-family-primary is Space Mono, which makes
+// proportional face. Quirky's --font-family-primary is Space Mono, which makes
 // the same labels about 230px wide, so the row gives out around 60rem instead.
 // Change the nav font and this number has to be re-measured.
 $break-stack: 60rem;
@@ -45,7 +45,7 @@ $row-inset: 0.75rem;
 $controls-gutter: 3.25rem;
 
 // ----------------------------------------------------------------------------
-// Yolo scales the root font up to 1.25rem on tablet and wider, which suits its
+// Quirky scales the root font up to 1.25rem on tablet and wider, which suits its
 // single-page demos. This is a reading site, so put the root back to 16px and
 // let the type scale below do the sizing.
 // ----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ section.post {
     font-family: var(--font-family-primary);
   }
 
-  // A flat, modest heading scale. Yolo's own runs from 3rem down, which suits
+  // A flat, modest heading scale. Quirky's own runs from 3rem down, which suits
   // a single page whose headings are the structure; in an article the body
   // text is the structure, and a 3rem h1 two lines under a 1.875rem page
   // title reads as though the page has two titles.

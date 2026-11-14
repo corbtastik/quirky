@@ -37,15 +37,15 @@
     align-items: center;
 }
 
-.list-one .yolo-date {
+.list-one .quirky-date {
     color: var(--tertiary-color);
 }
 
-.list-one .yolo-title {
+.list-one .quirky-title {
     padding-right: 0.5rem;
 }
 
-.list-one .yolo-description {
+.list-one .quirky-description {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }

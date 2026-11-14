@@ -1,4 +1,4 @@
-.yolo-menu-item {
+.quirky-menu-item {
     width: 100%;
 }
 
@@ -70,17 +70,17 @@
     font-size: 0.95rem;
 }
 
-.list-four .yolo-date {
+.list-four .quirky-date {
     color: var(--tertiary-color);
     min-width: 7rem;
     width: 7rem;
 }
 
-.list-four .yolo-title {
+.list-four .quirky-title {
 
 }
 
-.list-four .yolo-description {
+.list-four .quirky-description {
     display: block;
     font-style: italic;
 }

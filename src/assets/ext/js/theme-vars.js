@@ -1,5 +1,5 @@
 /**
- * Yolo theme variables.
+ * Quirky theme variables.
  *
  * The single mapping from a theme's twelve source colors - as stored per theme
  * in _data/themes.json - to the full set of CSS custom properties the
@@ -21,7 +21,7 @@
   if (typeof module === 'object' && module.exports) {
     module.exports = factory();          // .eleventy.js
   } else {
-    root.YoloThemeVars = factory();      // browser
+    root.QuirkyThemeVars = factory();      // browser
   }
 }(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
@@ -157,7 +157,7 @@
    * demo swatches use for legible labels.
    */
   // --------------------------------------------------------------------
-  // Page title colours  (an addition in quirky-11ty, not in upstream Yolo)
+  // Page title colours  (an addition in quirky-11ty, not in upstream Quirky)
   //
   // Titles used to take "heading", and in 20 of the 136 theme/mode pairs a
   // theme sets heading to the same colour as its body text - every Matrix

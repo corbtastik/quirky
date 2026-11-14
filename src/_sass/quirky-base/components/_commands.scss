@@ -12,9 +12,9 @@
 // of flow to do that: .hub-search is a flex container, so a plain sibling
 // becomes a flex item and lands beside the input instead of below it.
 .hub-search,
-.yolo-search { position: relative; }
+.quirky-search { position: relative; }
 
-.yolo-palette {
+.quirky-palette {
   position: absolute;
   top: calc(100% + 0.35rem);
   left: 0;
@@ -37,7 +37,7 @@
   &[hidden] { display: none; }
 }
 
-.yolo-palette-row {
+.quirky-palette-row {
   display: flex;
   align-items: baseline;
   gap: 0.9rem;
@@ -50,7 +50,7 @@
   }
 }
 
-.yolo-palette-code {
+.quirky-palette-code {
   flex: 0 0 auto;
   min-width: 9rem;
   font-weight: 700;
@@ -58,13 +58,13 @@
   padding: 0;
 }
 
-.yolo-palette-desc {
+.quirky-palette-desc {
   font-family: var(--font-family-primary);
   font-size: 0.82rem;
   opacity: 0.75;
 }
 
-.yolo-palette-note {
+.quirky-palette-note {
   margin: 0;
   padding: 0.4rem 0.85rem;
   font-size: 0.82rem;
@@ -73,7 +73,7 @@
 
 // The way in to the reference, for anyone who has not discovered that the
 // search box takes commands.
-.yolo-footer-commands {
+.quirky-base-footer-commands {
   margin-left: 0.6rem;
   font-family: var(--font-family-monospace);
   font-size: 0.85em;
@@ -93,13 +93,13 @@
 // Nothing is removed from the DOM, so /unfocus is instant and the page state
 // is untouched.
 // ----------------------------------------------------------------------------
-body.yolo-focus {
+body.quirky-focus {
   .sidebar,
-  .yolo-sticky-controls,
-  .yolo-header,
-  .yolo-search,
+  .quirky-sticky-controls,
+  .quirky-header,
+  .quirky-search,
   .search-results-container,
-  .yolo-footer { display: none; }
+  .quirky-base-footer { display: none; }
 
   // The sidebar offset goes with the sidebar.
   &.sidebar-left,
@@ -132,5 +132,5 @@ body.yolo-focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .yolo-palette { transition: none; }
+  .quirky-palette { transition: none; }
 }

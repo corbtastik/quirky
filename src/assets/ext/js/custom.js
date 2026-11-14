@@ -93,5 +93,5 @@
         }
     }
 
-    YoloUtils.domReady(init);
+    QuirkyUtils.domReady(init);
 })();

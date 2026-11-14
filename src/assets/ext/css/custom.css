@@ -110,7 +110,7 @@
 }
 
 /* Typeahead Search */
-.yolo-search {
+.quirky-search {
     margin-bottom: 2rem;
 }
 
@@ -197,6 +197,6 @@
 }
 
 /* Hide page content when searching */
-.yolo-search-active .page-content {
+.quirky-search-active .page-content {
     display: none;
 }

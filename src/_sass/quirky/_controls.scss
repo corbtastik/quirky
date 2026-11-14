@@ -2,10 +2,10 @@
 // ----------------------------------------------------------------------------
 // Sticky control chrome, this site's own
 //
-// The light/dark toggle and the palette picker come from Yolo. Anything this
+// The light/dark toggle and the palette picker come from Quirky. Anything this
 // site adds to that column lives here, so the vendored layer stays pristine.
 //
-// .yolo-sticky-top-right is already a flex column with a gap, so a new child
+// .quirky-sticky-top-right is already a flex column with a gap, so a new child
 // stacks under the ones above it without any rules of its own.
 // ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@
 }
 
 // The reset a <button> needs to look like the bare icon spans beside it.
-// Yolo's .yolo-palette-toggle does the same job, but it is named for the
+// Quirky's .quirky-palette-toggle does the same job, but it is named for the
 // palette; borrowing it would tie this control to a change made for another.
 .quirky-icon-button {
   display: block;
@@ -71,7 +71,7 @@
 // and leaving the back-to-top button behind on the right reads as a bug
 // rather than as a choice. These apply at every width - a corner is still a
 // corner on a phone.
-[data-layout="mirrored"] .yolo-sticky-top-right {
+[data-layout="mirrored"] .quirky-sticky-top-right {
   right: auto;
   left: 1rem;
   // The column is right-aligned by default; in the left corner it has to
@@ -79,7 +79,7 @@
   align-items: flex-start;
 }
 
-[data-layout="mirrored"] .yolo-sticky-bottom-right {
+[data-layout="mirrored"] .quirky-sticky-bottom-right {
   right: auto;
   left: 1rem;
 }
@@ -175,7 +175,7 @@ html[data-layout="mirrored"][data-pull="left"] .quirky-wide {
 // ----------------------------------------------------------------------------
 // The palette menu follows its button
 //
-// Yolo anchors the menu with `right: 0`, so it hangs from the picker's right
+// Quirky anchors the menu with `right: 0`, so it hangs from the picker's right
 // edge and grows leftward. That is correct in the right corner and wrong in
 // the left one, where 158px of a 208px menu ends up past the edge of the
 // window.
@@ -183,7 +183,7 @@ html[data-layout="mirrored"][data-pull="left"] .quirky-wide {
 // Anchored the other way when the chrome is mirrored. Overridden here rather
 // than in _palette.scss, which is vendored and stays as it came.
 // ----------------------------------------------------------------------------
-[data-layout="mirrored"] .yolo-themes-menu {
+[data-layout="mirrored"] .quirky-themes-menu {
   right: auto;
   left: 0;
 }

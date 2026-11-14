@@ -3,14 +3,14 @@
 // ----------------------------------------------------------------------------
 @use "../base/variables" as *;
 
-.yolo-caption {
+.quirky-caption {
   text-align: center;
   padding: 1rem;
 }
 
 // Color swatch
 // Note: Do not use inherit for background-color/color as it overrides color utility classes
-.yolo-swatch {
+.quirky-swatch {
   border-radius: 0.20rem;
   padding: .25rem .5rem;
   position: relative;
@@ -18,8 +18,8 @@
   margin-bottom: 0.5rem;
 }
 
-// Yolo page header
-.yolo-header {
+// Quirky page header
+.quirky-header {
   .logo {
     border-radius: 50%;
     margin-bottom: 1rem;
@@ -41,17 +41,17 @@
   }
 }
 
-.yolo-site-info {
+.quirky-site-info {
   padding-top: 0.5rem;
   float: left;
 }
 
-.yolo-footer {
+.quirky-base-footer {
   text-align: right;
 }
 
 // Sticky controls container
-.yolo-sticky-controls {
+.quirky-sticky-controls {
   position: fixed;
   top: 0;
   left: 0;
@@ -61,7 +61,7 @@
   z-index: 100;
 }
 
-.yolo-sticky-top-right {
+.quirky-sticky-top-right {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -72,16 +72,16 @@
   pointer-events: auto;
 }
 
-.yolo-sticky-bottom-right {
+.quirky-sticky-bottom-right {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
   pointer-events: auto;
 }
 
-.yolo-theme-toggle,
-.yolo-home-link,
-.yolo-sidebar-toggle {
+.quirky-theme-toggle,
+.quirky-home-link,
+.quirky-sidebar-toggle {
   transition: color .25s ease;
   user-select: none;
   cursor: pointer;
@@ -89,13 +89,13 @@
 }
 
 // back to top link
-.yolo-to-top {
+.quirky-to-top {
   display: block;
   text-decoration: none;
 }
 
 // copy code header
-.yolo-code-header {
+.quirky-code-header {
   padding: 0.3em 0.3em 0.3em 0.4em;
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
@@ -113,7 +113,7 @@
 }
 
 // Typeahead Search styling
-.yolo-search {
+.quirky-search {
   margin-bottom: 2rem;
 }
 
@@ -189,12 +189,12 @@
 }
 
 // Hide page content when searching
-.yolo-search-active .page-content {
+.quirky-search-active .page-content {
   display: none;
 }
 
 // embedded video styling
-.yolo-video {
+.quirky-video {
   width: 100%;
   iframe {
     width: 300px;
@@ -205,7 +205,7 @@
 }
 
 // pill styling - base class for pill/tag elements
-.yolo-pill {
+.quirky-pill {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -221,14 +221,14 @@
 }
 
 // The /tags page. Pills wrap and keep an even gap, rather than relying on the
-// margins .yolo-pill carries for inline use.
-.yolo-tag-cloud {
+// margins .quirky-pill carries for inline use.
+.quirky-tag-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-sm;
   margin-bottom: $spacing-md;
 
-  .yolo-pill {
+  .quirky-pill {
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -236,22 +236,22 @@
 
 // How many posts carry the tag. Sits inside the pill, in the pill's own ink
 // at reduced strength, so it reads as a detail rather than a second label.
-.yolo-pill-count {
+.quirky-pill-count {
   margin-left: $spacing-sm;
   font-size: $size-7;
   font-weight: normal;
   opacity: 0.75;
 }
 
-.yolo-syntax-theme-swatches {
+.quirky-syntax-theme-swatches {
   .column {
     padding-top: 0;
     padding-bottom: 0;
   }
 }
 
-// The button that opens a yolo-tab-container
-.yolo-tab-button {
+// The button that opens a quirky-tab-container
+.quirky-tab-button {
   align-items: center;
   border-radius: 3rem;
   border: 1px solid transparent;
@@ -269,19 +269,19 @@
   transition: 0.3s;
   white-space: nowrap;
 }
-.yolo-tab-button:not(:last-child) {
+.quirky-tab-button:not(:last-child) {
   margin-right: 0.5rem;
 }
 
 // A set of tab buttons
-.yolo-tabs {
+.quirky-tabs {
   overflow: hidden;
   border-radius: 0.3rem;
   margin-bottom: 1rem;
 }
 
 // The content container for a tab
-.yolo-tab-content {
+.quirky-tab-content {
   display: none;
   padding: 0.5rem 1rem 1rem;
   border-radius: 0.3rem;
@@ -294,7 +294,7 @@
 }
 
 // prezo styling
-.yolo-prezo-container {
+.quirky-prezo-container {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -317,7 +317,7 @@
 }
 
 // Style the iframe to fit in the iframe-container div with full height and width
-.yolo-prezo-iframe {
+.quirky-prezo-iframe {
   position: absolute;
   top: 0;
   left: 0;

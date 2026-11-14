@@ -8,7 +8,7 @@
 // A flex row per decade, wrapping, rather than a grid: the boxes are
 // deliberately different widths, so there is no column structure to honour.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 .life-in-weeks {
   p {

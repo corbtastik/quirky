@@ -5,7 +5,7 @@
 // The title truncates rather than wrapping, which is what keeps a long row
 // from pushing the date out of alignment with the rows above and below it.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 @use "layout" as *;
 
 section.posts {

@@ -1,9 +1,9 @@
-.yolo-menu-item {
+.quirky-menu-item {
     background: var(--secondary-container-color);
     color: var(--on-secondary-container-color);
 }
 
-.yolo-menu-item:hover {
+.quirky-menu-item:hover {
     background: var(--primary-color);
     color: var(--on-primary-color);
     cursor: pointer;
@@ -70,17 +70,17 @@
     color: var(--on-tertiary-color);
 }
 
-.fancy-list .yolo-date {
+.fancy-list .quirky-date {
     color: var(--tertiary-color);
     min-width: 7rem;
     width: 7rem;
 }
 
-.fancy-list .yolo-title {
+.fancy-list .quirky-title {
     font-size: 0.95rem;
 }
 
-.fancy-list .yolo-description {
+.fancy-list .quirky-description {
     display: block;
     font-style: italic;
     font-size: 0.95rem;

@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    YoloUtils.domReady(function() {
+    QuirkyUtils.domReady(function() {
         var track = document.querySelector('.career-track');
         var caption = document.getElementById('career-caption');
         if (!track || !caption) return;

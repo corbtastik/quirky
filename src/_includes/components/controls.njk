@@ -1,19 +1,19 @@
 {#
-  Yolo's sticky chrome: light/dark on one axis, colour palette on the other.
+  Quirky's sticky chrome: light/dark on one axis, colour palette on the other.
 
   It is position: fixed and pointer-events: none except on the buttons
   themselves, so it floats over the layout without taking part in it - the
   nav column and the content keep the widths they would have had.
 #}
-<div class="yolo-sticky-controls">
+<div class="quirky-sticky-controls">
     {#- A toolbar, not seven loose buttons. The role earns its keep: quirky.js
         gives the group a single tab stop and moves between the controls with
         the arrow keys, so a keyboard user reaches the page in one Tab rather
         than seven. The back-to-top stays out of it - that is navigation, not
         a setting, and it lives in the other corner. -#}
-    <div class="yolo-sticky-top-right" role="toolbar"
+    <div class="quirky-sticky-top-right" role="toolbar"
          aria-label="Site controls" aria-orientation="vertical">
-        <div class="yolo-theme-toggle">
+        <div class="quirky-theme-toggle">
             {# Matches the default light mode; quirky.js re-seeds it from the stored mode. #}
             <span id="theme-toggle" class="material-icons md-36" role="button"
                   tabindex="0" title="Light / dark" aria-label="Light / dark">dark_mode</span>
@@ -30,13 +30,13 @@
         </div>
         {# The list is built by palette.js from the same themes.json the build
            reads, so this stays a button and an empty box. #}
-        <div id="theme-picker" class="yolo-theme-picker">
-            <button type="button" id="palette-toggle" class="yolo-palette-toggle"
+        <div id="theme-picker" class="quirky-theme-picker">
+            <button type="button" id="palette-toggle" class="quirky-palette-toggle"
                     aria-label="Colour theme" aria-expanded="false"
                     aria-controls="palette-menu" title="Colour theme">
                 <span class="material-icons md-36" aria-hidden="true">palette</span>
             </button>
-            <ul id="palette-menu" class="yolo-themes-menu" hidden></ul>
+            <ul id="palette-menu" class="quirky-themes-menu" hidden></ul>
         </div>
         {# Side swap. Third in the column, so it lands under the palette -
            the container is a flex column with a gap and needs no help
@@ -77,8 +77,8 @@
             </button>
         </div>
     </div>
-    <div class="yolo-sticky-bottom-right">
-        <a href="#" class="yolo-to-top" title="Back to top" aria-label="Back to top">
+    <div class="quirky-sticky-bottom-right">
+        <a href="#" class="quirky-to-top" title="Back to top" aria-label="Back to top">
             <span class="material-icons md-36">keyboard_double_arrow_up</span>
         </a>
     </div>

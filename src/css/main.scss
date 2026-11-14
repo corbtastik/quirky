@@ -5,12 +5,12 @@ permalink: /css/main.css
 // ----------------------------------------------------------------------------
 // Site stylesheet.
 //
-// 1-4 are the Yolo framework, unmodified, in its own order.
+// 1-4 are the Quirky framework, unmodified, in its own order.
 // 5 is this site's layout and components, which consume the same theme
 //   custom properties the framework does - see _sass/quirky/_theme.scss.
 // ----------------------------------------------------------------------------
-@use "yolo/base/all" as *;
-@use "yolo/utilities/all" as *;
-@use "yolo/core/all" as *;
-@use "yolo/components/all" as *;
+@use "quirky-base/base/all" as *;
+@use "quirky-base/utilities/all" as *;
+@use "quirky-base/core/all" as *;
+@use "quirky-base/components/all" as *;
 @use "quirky/all" as *;

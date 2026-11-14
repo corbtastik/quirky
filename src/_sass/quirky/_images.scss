@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
 // Click to enlarge
 //
-// yolo.js toggles `.max` on any `.image` that is clicked. Yolo's own `.max`
+// quirky-base.js toggles `.max` on any `.image` that is clicked. Quirky's own `.max`
 // rules size the enlarged image with `width: 100%` AND `height: 100%`, while
 // keeping the thumbnail's forced `aspect-ratio` and `object-fit: cover`.
 //
@@ -22,12 +22,12 @@
 // the width rather than animated, and so follows the glide below for free.
 //
 // Specificity: the framework's generated rules are `img.is-256-by-192.max`,
-// which is (0,2,1). `.yolo-themed img.max` is also (0,2,1), and the quirky
+// which is (0,2,1). `.quirky-themed img.max` is also (0,2,1), and the quirky
 // layer is @use'd after the framework in css/main.scss, so source order
 // settles the tie. Nothing here needs !important.
 //
 // This fixes a bug in the framework's own _images.scss and is kept out here so
-// src/_sass/yolo stays a clean copy of upstream. Worth fixing there too.
+// src/_sass/quirky-base stays a clean copy of upstream. Worth fixing there too.
 // ----------------------------------------------------------------------------
 
 // The glide. The framework already sets `transition-duration: 1s` on img and
@@ -39,13 +39,13 @@
 // it is recomputed from the width on every frame and tracks it exactly - which
 // is what keeps the photo in proportion all the way through the zoom rather
 // than only at the ends.
-.yolo-themed img {
+.quirky-themed img {
   transition-property: width, height, border-radius;
   transition-duration: 1.2s;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.yolo-themed img.max {
+.quirky-themed img.max {
   // Fill the column, and let the photo's intrinsic ratio decide the height.
   width: 100%;
   height: auto;
@@ -73,11 +73,11 @@
 // photo into it, so the picture is still undistorted.
 //
 // `[class*="is-circle-"]` catches the whole generated family (is-circle-16 up
-// to is-circle-512) without restating it. With `.yolo-themed` and `.max` that
+// to is-circle-512) without restating it. With `.quirky-themed` and `.max` that
 // is (0,3,1), comfortably above both the framework's rules and the one above.
 // ----------------------------------------------------------------------------
-.yolo-themed img.circle.max,
-.yolo-themed img[class*="is-circle-"].max {
+.quirky-themed img.circle.max,
+.quirky-themed img[class*="is-circle-"].max {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 50%;
@@ -88,7 +88,7 @@
 //
 // Fixed 150px squares with the caption under each. The framework generates
 // 1:1 classes for a fixed list of sizes and 150 is not one of them, so the
-// size is set here rather than by adding to the vendored yolo layer.
+// size is set here rather than by adding to the vendored quirky layer.
 //
 // The width goes on the image, not the figure. A figure pinned to 150px would
 // cap the click-to-enlarge at 150px too, since the enlarged image sizes
@@ -144,7 +144,7 @@ figure.about-portrait {
 // ----------------------------------------------------------------------------
 // Opting an image out of the click-to-scale behaviour
 //
-// yolo.js binds a click to every .image on the page that toggles a .max class,
+// quirky-base.js binds a click to every .image on the page that toggles a .max class,
 // which drops the image to 70% of its box. That suits a lone illustration you
 // want to shrink; it does not suit a row of photographs, where one of them
 // shrinking leaves a hole in the row.

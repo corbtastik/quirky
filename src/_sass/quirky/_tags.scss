@@ -4,7 +4,7 @@
 // The tag index is a plain auto-fill grid: two columns on a phone, as many as
 // fit after that, so no breakpoints have to be maintained as topics are added.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 .tag-grid {
   display: grid;

@@ -8,28 +8,28 @@
    Markdown wrapping the rest in <p> tags. #}
 {%- macro swatch(cls, label, abbr) -%}
 <div class="column">
-                <div class="yolo-swatch is-family-monospace {{ cls }}">
+                <div class="quirky-swatch is-family-monospace {{ cls }}">
                     <span class="float-left">{{ label }}</span>
                     <span class="float-right">({{ abbr }})</span>
                     <div style="clear: both;"></div>
                 </div>
             </div>
 {%- endmacro %}
-<div class="yolo-syntax-theme-swatches">
+<div class="quirky-syntax-theme-swatches">
     <h4 class="no-toc">Background and Text</h4>
     <blockquote>
         <p><strong>Note</strong>: The container color is applied to the background of code blocks, and the text color to text/code not styled by a syntax token.</p>
     </blockquote>
     <div class="columns">
         <div class="column">
-            <div class="yolo-swatch is-family-monospace syntax-container-color">
+            <div class="quirky-swatch is-family-monospace syntax-container-color">
                 <span class="float-left">container</span>
                 <span class="float-right">(background)</span>
                 <div style="clear: both;"></div>
             </div>
         </div>
         <div class="column">
-            <div class="yolo-swatch is-family-monospace syntax-text-color">
+            <div class="quirky-swatch is-family-monospace syntax-text-color">
                 <span class="float-left">text</span>
                 <span class="float-right">(color)</span>
                 <div style="clear: both;"></div>
@@ -40,13 +40,13 @@
     <blockquote>
         <p><strong>Tip</strong>: Click a pill to see the colors.</p>
     </blockquote>
-    <div class="yolo-tabs">
+    <div class="quirky-tabs">
 {%- for tab in syntaxTokens.tabs %}
-        <button class="yolo-tab-button yolo-tab-links" data-open-tab="{{ tab.id }}">{{ tab.label }}</button>
+        <button class="quirky-tab-button quirky-tab-links" data-open-tab="{{ tab.id }}">{{ tab.label }}</button>
 {%- endfor %}
     </div>
 {%- for tab in syntaxTokens.tabs %}
-    <div id="{{ tab.id }}" class="yolo-tab-content">
+    <div id="{{ tab.id }}" class="quirky-tab-content">
         <h5 class="no-toc">{{ tab.heading }}</h5>
 {%- for row in tab.tokens | batch(2) %}
         <div class="columns">
@@ -55,7 +55,7 @@
             {{ swatch(row[1].class, row[1].label, row[1].abbr) }}
             {%- else %}
             <div class="column">
-                <div class="yolo-swatch is-family-monospace primary-container-color">&nbsp;</div>
+                <div class="quirky-swatch is-family-monospace primary-container-color">&nbsp;</div>
             </div>
             {%- endif %}
         </div>

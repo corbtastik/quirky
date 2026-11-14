@@ -44,7 +44,7 @@
             paint();
             // palette.js listens for this and re-applies the chosen palette in
             // the new mode, so the two controls never fight.
-            document.dispatchEvent(new CustomEvent('yolo:themechange', { detail: next }));
+            document.dispatchEvent(new CustomEvent('quirky:themechange', { detail: next }));
         }
 
         paint();
@@ -96,7 +96,7 @@
         try {
             notes = JSON.parse(indexEl.textContent);
         } catch (e) {
-            YoloUtils.error('search index did not parse');
+            QuirkyUtils.error('search index did not parse');
             return;
         }
 
@@ -118,7 +118,7 @@
                 : '';
             // highlightText inserts <mark>, so the title has to be escaped
             // before it is highlighted, not after.
-            var title = YoloUtils.highlightText(escape(note.title), query);
+            var title = QuirkyUtils.highlightText(escape(note.title), query);
             return '<li><a href="' + escape(href(note)) + '"' + attrs + '>' + title + '</a>' +
                    '<time datetime="' + escape(note.date) + '">' + escape(note.date) + '</time></li>';
         }
@@ -131,7 +131,7 @@
                 return;
             }
 
-            var matches = YoloUtils.filterByQuery(
+            var matches = QuirkyUtils.filterByQuery(
                 notes, query, ['title', 'description', 'tags']);
 
             stream.hidden = true;
@@ -183,7 +183,7 @@
             items[index].scrollIntoView({ block: 'nearest' });
         }
 
-        input.addEventListener('input', YoloUtils.debounce(function() {
+        input.addEventListener('input', QuirkyUtils.debounce(function() {
             show(input.value);
             paint(null);
         }, 120));
@@ -255,8 +255,8 @@
         var movers = [
             document.querySelector('main[role="main"] > header[role="banner"]'),
             document.querySelector('main[role="main"] > section'),
-            document.querySelector('.yolo-sticky-top-right'),
-            document.querySelector('.yolo-sticky-bottom-right')
+            document.querySelector('.quirky-sticky-top-right'),
+            document.querySelector('.quirky-sticky-bottom-right')
         ].filter(Boolean);
 
         // theme.js already restored the stored choice in <head>, so the
@@ -392,7 +392,7 @@
     // behaviour lives here rather than the role sitting on its own.
     // ------------------------------------------------------------------
     function initToolbar() {
-        var bar = document.querySelector('.yolo-sticky-top-right');
+        var bar = document.querySelector('.quirky-sticky-top-right');
         if (!bar) return;
 
         /** The controls, in document order, skipping the ones not on show.
@@ -402,7 +402,7 @@
             return Array.prototype.filter.call(
                 bar.querySelectorAll('button, a[href], [role="button"]'),
                 function(el) {
-                    return !el.closest('.yolo-themes-menu') &&
+                    return !el.closest('.quirky-themes-menu') &&
                            el.getClientRects().length > 0;
                 });
         }
@@ -413,7 +413,7 @@
 
         bar.addEventListener('keydown', function(e) {
             // An open palette menu owns its own keys.
-            if (e.target.closest('.yolo-themes-menu')) return;
+            if (e.target.closest('.quirky-themes-menu')) return;
 
             var list = items();
             var at = list.indexOf(document.activeElement);
@@ -438,7 +438,7 @@
 
         // Whatever you used last stays the way back in.
         bar.addEventListener('focusin', function(e) {
-            if (e.target.closest('.yolo-themes-menu')) return;
+            if (e.target.closest('.quirky-themes-menu')) return;
             var list = items();
             if (list.indexOf(e.target) >= 0) setStop(e.target);
         });
@@ -448,7 +448,7 @@
     }
 
     function initToTop() {
-        var link = document.querySelector('.yolo-to-top');
+        var link = document.querySelector('.quirky-to-top');
         if (!link) return;
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -456,7 +456,7 @@
         });
     }
 
-    YoloUtils.domReady(function() {
+    QuirkyUtils.domReady(function() {
         initThemeToggle();
         initNow();
         initSearch();

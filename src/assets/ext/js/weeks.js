@@ -9,7 +9,7 @@
 (function() {
     'use strict';
 
-    YoloUtils.domReady(function() {
+    QuirkyUtils.domReady(function() {
         var panel = document.getElementById('weeks-detail');
         if (!panel) return;
 

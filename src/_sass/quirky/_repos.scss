@@ -6,7 +6,7 @@
 // cards: the list runs to dozens of entries, and dozens of cards reads as
 // clutter where dozens of ruled rows read as an index.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 .repo-list {
   list-style: none;

@@ -73,7 +73,7 @@
         var label = '';
 
         var prev = block.previousElementSibling;
-        if (prev && prev.classList.contains('yolo-code-header')) {
+        if (prev && prev.classList.contains('quirky-code-header')) {
             var span = prev.querySelector('.code-label');
             label = span ? span.textContent.trim() : '';
             prev.parentNode.removeChild(prev);
@@ -149,7 +149,7 @@
         wrapper.appendChild(block);
     }
 
-    YoloUtils.domReady(function() {
+    QuirkyUtils.domReady(function() {
         document.querySelectorAll('.highlighter-rouge').forEach(decorate);
     });
 })();

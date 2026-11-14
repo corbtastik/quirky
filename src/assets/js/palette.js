@@ -9,7 +9,7 @@
  * which of the 67 themes paints the page. Changing mode re-applies the chosen
  * palette in the new mode, so the two never fight.
  *
- * The variable set comes from YoloThemeVars - the same mapping the build uses
+ * The variable set comes from QuirkyThemeVars - the same mapping the build uses
  * - so a pick is a complete swap, not an approximation.
  *
  * Boot runs at once, in <head>, to apply the stored palette before first
@@ -22,10 +22,10 @@
     // Shared with assets/ext/js/theme-sampler.js on purpose. The demo's pills
     // and this menu are two faces of one choice; one key keeps them agreeing
     // instead of each remembering a different theme.
-    var STORAGE_KEY = 'yolo-sampler-theme';
+    var STORAGE_KEY = 'quirky-theme';
 
-    var themesById = window.YoloThemeVars && window.YoloPalettes
-        ? window.YoloThemeVars.byId(window.YoloPalettes)
+    var themesById = window.QuirkyThemeVars && window.QuirkyPalettes
+        ? window.QuirkyThemeVars.byId(window.QuirkyPalettes)
         : {};
 
     var applied = [];   // variables we have set, so they can be cleared
@@ -56,7 +56,7 @@
 
         // One theme supplies both the site colors and the syntax colors here.
         // The build keeps them separate so a site can mix two themes.
-        var vars = window.YoloThemeVars.cssVars(theme[mode], theme[mode], mode);
+        var vars = window.QuirkyThemeVars.cssVars(theme[mode], theme[mode], mode);
 
         applied = vars.map(function(pair) {
             root.style.setProperty('--' + pair[0], pair[1]);
@@ -87,23 +87,23 @@
 
     /** Two-tone dot: page background outside, link color inside. */
     function swatch(colors) {
-        return '<span class="yolo-themes-swatch" style="--sw-bg: ' + colors.bg +
+        return '<span class="quirky-themes-swatch" style="--sw-bg: ' + colors.bg +
                '; --sw-link: ' + colors.link + '"></span>';
     }
 
     function optionHtml(theme, mode) {
-        return '<li><button type="button" class="yolo-themes-option" data-palette="' +
+        return '<li><button type="button" class="quirky-themes-option" data-palette="' +
             theme.id + '" aria-pressed="false">' + swatch(theme[mode]) + theme.name +
             '</button></li>';
     }
 
     function renderMenu(menu) {
         var mode = currentMode();
-        var groups = (window.YoloPalettes && window.YoloPalettes.groups) || [];
+        var groups = (window.QuirkyPalettes && window.QuirkyPalettes.groups) || [];
         var html = '';
 
         groups.forEach(function(group) {
-            html += '<li class="yolo-themes-group">' + group.label + '</li>';
+            html += '<li class="quirky-themes-group">' + group.label + '</li>';
             group.themes.forEach(function(theme) {
                 html += optionHtml(theme, mode);
             });
@@ -162,7 +162,7 @@
 
         // Light/dark is the other axis - repaint the chosen palette for the
         // new mode, and restyle the swatches to preview it there too.
-        document.addEventListener('yolo:themechange', function() {
+        document.addEventListener('quirky:themechange', function() {
             var id = read();
             if (id) applyTheme(id);
             if (built) renderMenu(menu);
@@ -180,7 +180,7 @@
         });
     }
 
-    YoloUtils.domReady(init);
+    QuirkyUtils.domReady(init);
 
-    window.YoloPalette = { apply: applyTheme, clear: clearTheme, current: read };
+    window.QuirkyPalette = { apply: applyTheme, clear: clearTheme, current: read };
 })();

@@ -7,7 +7,7 @@
 // The wrapper clips its corners, so the header and the block below it read as
 // one panel rather than two stacked boxes.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 // Flat: no outline, no divider. The header and the block already share a
 // background, so with the lines gone they read as one panel.

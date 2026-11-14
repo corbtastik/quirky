@@ -9,7 +9,7 @@
 <nav role="navigation">
     {%- if settings.logo %}
     {#- Links home like the site title does, so the obvious click works.
-        Deliberately not given the `image` class: that is yolo.js's hook for
+        Deliberately not given the `image` class: that is quirky-base.js's hook for
         click-to-enlarge, and a portrait that zooms instead of navigating
         would be a surprise. -#}
     <a class="nav-logo" href="{{ '/' | relative_url }}" aria-label="{{ settings.name }}, home">

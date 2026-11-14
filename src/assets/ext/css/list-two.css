@@ -21,17 +21,17 @@
     padding: 0.5rem 0.5rem 0.5rem 1rem;
 }
 
-.list-two .yolo-date {
+.list-two .quirky-date {
     color: var(--tertiary-color);
     width: 7rem;
     min-width: 7rem;
 }
 
-.list-two .yolo-title {
+.list-two .quirky-title {
     padding-right: 0.5rem;
 }
 
-.list-two .yolo-description {
+.list-two .quirky-description {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }

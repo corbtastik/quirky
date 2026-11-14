@@ -5,7 +5,7 @@
 // reads as the edge of the content rather than a box around the nav. Below
 // $break-stack the list goes horizontal and the rule moves underneath.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 @use "layout" as *;
 
 header[role="banner"] {

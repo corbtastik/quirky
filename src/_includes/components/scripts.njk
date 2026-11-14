@@ -1,15 +1,15 @@
 {# relative_url already applies settings.baseurl - do not prefix it again #}
 <script src="{{ '/assets/js/quirky.js' | relative_url }}"></script>
-{#- The toolbar over every code block, and Yolo's behaviour layer. The latter
+{#- The toolbar over every code block, and Quirky's behaviour layer. The latter
     drives the galleries, tabs and sortable tables the sample posts use, and
-    no-ops on a page that has none of those. See the header of yolo.js for the
+    no-ops on a page that has none of those. See the header of quirky-base.js for the
     two blocks removed from it, which this site owns itself. -#}
 <script src="{{ '/assets/js/code-toolbar.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/yolo.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/quirky-base.js' | relative_url }}"></script>
 {% for js_name in ext_js %}
 <script src="{{ ('/assets/ext/js/' + js_name + '.js') | relative_url }}"></script>
 {% endfor %}
-{#- Code colouring. _sass/yolo/brand/_syntax.scss paints .hljs-* classes from
+{#- Code colouring. _sass/quirky-base/brand/_syntax.scss paints .hljs-* classes from
     the selected theme's syntax colours, so without this the blocks render but
     stay monochrome. Blocks tagged text/plaintext are left alone on purpose. -#}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>

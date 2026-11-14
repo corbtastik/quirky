@@ -1,4 +1,4 @@
-.yolo-menu-item {
+.quirky-menu-item {
     width: 100%;
 }
 
@@ -29,17 +29,17 @@
     cursor: pointer;
 }
 
-.list-three .yolo-date {
+.list-three .quirky-date {
     color: var(--tertiary-color);
     min-width: 7rem;
     width: 7rem;
 }
 
-.list-three .yolo-title {
+.list-three .quirky-title {
 
 }
 
-.list-three .yolo-description {
+.list-three .quirky-description {
     display: block;
     font-style: italic;
 }

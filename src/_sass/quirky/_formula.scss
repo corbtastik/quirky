@@ -9,7 +9,7 @@
 // spans, so without this they render inline and run together. "OBP = H + BB +
 // HBP AB + BB + HBP + SF" cannot be read as a fraction by anyone.
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
 .formula {
   display: flex;

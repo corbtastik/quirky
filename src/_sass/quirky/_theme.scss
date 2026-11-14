@@ -14,15 +14,15 @@
 //   --tertiary-color / --on-tertiary-color            the accent
 //   --link-color                                     links
 // ----------------------------------------------------------------------------
-@use "../yolo/base/variables" as *;
+@use "../quirky-base/base/variables" as *;
 
-.yolo-themed {
+.quirky-themed {
   // Derived colour. Declared twice: a plain token first, then the color-mix()
   // that refines it. A browser without color-mix() keeps the first
   // declaration and still gets a usable page.
   //
   // --quiet-color is body text faded toward the page, for datelines, counts
-  // and footers. Yolo uses --tertiary-color for that, but tertiary is the
+  // and footers. Quirky uses --tertiary-color for that, but tertiary is the
   // accent - in a theme like star-lord it is a hot pink, which is the one
   // thing supporting text should not be.
   --quiet-color: var(--on-primary-color);
@@ -177,7 +177,7 @@
   }
 
   // Tag chips. Filled by default, accent on hover - the same pill treatment
-  // Yolo uses for its own tags.
+  // Quirky uses for its own tags.
   .tag-pill {
     background-color: var(--secondary-color);
     color: var(--on-secondary-color);
