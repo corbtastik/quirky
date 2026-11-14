@@ -14,7 +14,7 @@ about_images:
     src: "/assets/images/baby-moonpie.png"
     description: "Awwwweeeeee"
   - name: bucknach
-    src: "https://placehold.co/150x150?text=bucky+%26+nacho"
+    src: "/assets/images/bucknach.png"
     description: "Bucky & Nachooooooooooo"
 ---
 
