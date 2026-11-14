@@ -385,16 +385,16 @@ module.exports = function(eleventyConfig) {
     const icon = (n) => `<span class="material-icons md-18" aria-hidden="true">${n}</span>`;
     const ratio = deck.ratio || "1-by-1";
     return `<div class="slides-wrapper" data-deck="${deck.name}" data-count="${deck.count}">
-  <div class="slides-header">
+  <div class="slides-stage is-${ratio}">${imgs}</div>
+  <div class="slides-bar">
     <span class="slides-title">${deck.title}</span>
     <span class="slides-actions">
       <span class="slides-count" aria-live="polite">1 / ${deck.count}</span>
       <button type="button" class="slides-action" data-action="prev" aria-label="Previous slide">${icon("chevron_left")}</button>
       <button type="button" class="slides-action" data-action="next" aria-label="Next slide">${icon("chevron_right")}</button>
-      <a class="slides-action" href="${deck.source}" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Slides">${icon("open_in_new")}</a>
+      <a class="slides-action" href="${deck.source}" target="_blank" rel="noopener noreferrer" aria-label="Open the deck">${icon("open_in_new")}</a>
     </span>
   </div>
-  <div class="slides-stage is-${ratio}">${imgs}</div>
 </div>`;
   });
 

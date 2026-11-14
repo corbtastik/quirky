@@ -20,8 +20,11 @@
   overflow: hidden;
 }
 
-// Matches .code-header exactly.
-.slides-header {
+// The control bar. It sits under the slide rather than over it, so the deck
+// leads with the picture and the chrome stays out of the way until you want
+// it. The measurements still match .code-header, so a deck and a code block
+// carry the same weight.
+.slides-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;

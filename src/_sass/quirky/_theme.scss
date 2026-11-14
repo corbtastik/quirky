@@ -428,11 +428,11 @@
   // The slide viewer wears the code panel's colours, so a deck and a code
   // block read as the same kind of object.
   .slides-wrapper,
-  .slides-header {
+  .slides-bar {
     background-color: var(--syntax-container-color);
   }
 
-  .slides-header {
+  .slides-bar {
     color: var(--syntax-text);
   }
 
