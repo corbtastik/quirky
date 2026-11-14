@@ -55,8 +55,8 @@ Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
 {% code "1:1 ratio" %}
 {% raw %}
 ```html
-{% prezo "yolo-on", "prezos", "is-1-by-1" %}
+{% prezo "quirky", "prezos", "is-1-by-1" %}
 ```
 {% endraw %}
 
-{% prezo "yolo-on", "prezos", "is-1-by-1" %}
+{% prezo "quirky", "prezos", "is-1-by-1" %}
