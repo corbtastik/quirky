@@ -366,6 +366,37 @@ module.exports = function(eleventyConfig) {
     ).join("\n");
   });
 
+  // A slide deck, rendered by us rather than by a third-party player. The
+  // slides are local images, so the viewer wears the site's own chrome - the
+  // same bar the code blocks get - and follows the theme like everything else.
+  //
+  // Every slide ships in the markup. quirky-slides.js shows one at a time; with
+  // JS off the first slide still renders, which is the useful one.
+  eleventyConfig.addShortcode("slides", function(name, dataFile = "decks") {
+    const deck = (this.ctx[dataFile] || []).find(d => d.name === name);
+    if (!deck) return "";
+    const imgs = Array.from({ length: deck.count }, (_, i) => {
+      const n = String(i + 1).padStart(2, "0");
+      return `<img class="slides-img${i ? "" : " is-current"}" data-index="${i}"` +
+             ` src="/assets/slides/${deck.name}/${n}.png"` +
+             ` alt="${deck.title}, slide ${i + 1} of ${deck.count}"` +
+             ` loading="${i ? "lazy" : "eager"}" decoding="async">`;
+    }).join("");
+    const icon = (n) => `<span class="material-icons md-18" aria-hidden="true">${n}</span>`;
+    return `<div class="slides-wrapper" data-deck="${deck.name}" data-count="${deck.count}">
+  <div class="slides-header">
+    <span class="slides-title">${deck.title}</span>
+    <span class="slides-actions">
+      <span class="slides-count" aria-live="polite">1 / ${deck.count}</span>
+      <button type="button" class="slides-action" data-action="prev" aria-label="Previous slide">${icon("chevron_left")}</button>
+      <button type="button" class="slides-action" data-action="next" aria-label="Next slide">${icon("chevron_right")}</button>
+      <a class="slides-action" href="${deck.source}" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Slides">${icon("open_in_new")}</a>
+    </span>
+  </div>
+  <div class="slides-stage">${imgs}</div>
+</div>`;
+  });
+
   eleventyConfig.addShortcode("prezo", function(title, dataFile = "prezos", aspect = "is-16-by-9") {
     const prezo = (this.ctx[dataFile] || []).find(p => p.title === title);
     if (!prezo) return "";

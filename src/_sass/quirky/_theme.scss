@@ -425,6 +425,22 @@
   // to the same variable and they match across all 68.
   //
   // The wrapper carries it too, so the rounded corners show panel, not page.
+  // The slide viewer wears the code panel's colours, so a deck and a code
+  // block read as the same kind of object.
+  .slides-wrapper,
+  .slides-header {
+    background-color: var(--syntax-container-color);
+  }
+
+  .slides-header {
+    color: var(--syntax-text);
+  }
+
+  .slides-action:hover,
+  .slides-action:focus-visible {
+    background-color: var(--secondary-container-color);
+  }
+
   .code-wrapper,
   .code-header {
     background-color: var(--syntax-container-color);

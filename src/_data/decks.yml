@@ -1,0 +1,19 @@
+# -----------------------------------------------------------------------------
+# Slide decks rendered by the {% slides %} shortcode.
+#
+# The slides are PNGs committed under src/assets/slides/<name>/, exported from
+# Google Slides. Keeping them local is the whole point of the component: the
+# viewer is ours, so it carries the site's own chrome and needs no third-party
+# player.
+#
+# To refresh a deck after editing it, run: npm run slides
+#
+# name    the folder under src/assets/slides/
+# title   shown in the viewer's header bar
+# count   how many slides; files are 01.png .. NN.png
+# source  the deck itself, for the "open in Slides" action
+# -----------------------------------------------------------------------------
+- name: quirky
+  title: Quirky
+  count: 7
+  source: "https://docs.google.com/presentation/d/1NFNH_vbr-MS6cg8wZWJGmKkhWvmX85Vx92bIDAT5nLs/edit"

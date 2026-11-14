@@ -6,7 +6,8 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "clean": "rm -rf _site"
+    "clean": "rm -rf _site",
+    "slides": "./tools/fetch-slides.sh"
   },
   "keywords": [
     "eleventy",

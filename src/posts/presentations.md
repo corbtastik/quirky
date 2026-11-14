@@ -49,14 +49,26 @@ Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
 
 ---
 
-### 1:1 Ratio
-{:.no-toc}
+---
 
-{% code "1:1 ratio" %}
+## A viewer of our own
+
+An embedded player is a cross-origin iframe. Nothing inside one can be
+restyled, so it always looks like someone else's component sitting on your
+page.
+
+The `slides` shortcode renders the deck itself. The slides are local images,
+so the viewer wears the same bar a code block gets, follows the theme, and
+needs no third-party player.
+
+{% code "A deck" %}
 {% raw %}
 ```html
-{% prezo "quirky", "prezos", "is-1-by-1" %}
+{% slides "quirky" %}
 ```
 {% endraw %}
 
-{% prezo "quirky", "prezos", "is-1-by-1" %}
+{% slides "quirky" %}
+
+Click the slide or use the arrows. Arrow keys work once the deck has focus.
+Decks live in `src/_data/decks.yml`; `npm run slides` re-exports the images.
