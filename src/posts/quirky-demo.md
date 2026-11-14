@@ -557,11 +557,11 @@ Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
 {% code "Default ratio" %}
 {% raw %}
 ```html
-{% prezo "blinged-macmini" %}
+{% slides "macmini" %}
 ```
 {% endraw %}
 
-{% prezo "blinged-macmini" %}
+{% slides "macmini" %}
 
 #### 4:3
 {:.no-toc}
@@ -569,11 +569,11 @@ Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
 {% code "4:3 ratio" %}
 {% raw %}
 ```html
-{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
+{% slides "awesome" %}
 ```
 {% endraw %}
 
-{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
+{% slides "awesome" %}
 
 #### 1:1
 {:.no-toc}

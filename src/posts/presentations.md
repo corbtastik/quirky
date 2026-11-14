@@ -1,6 +1,6 @@
 ---
 title: Presentations
-description: Embed presentations with configurable aspect ratios.
+description: Slide decks, rendered by the site itself.
 date: 2026-01-19
 tags:
   - presentations
@@ -12,54 +12,44 @@ permalink: /posts/presentations/
 
 ## Presentations
 
-Embed Google Slides. 📽️
+A deck is a folder of images and four lines of YAML. 📽️
 
-1. Add data to `src/_data/prezos.yml`.
-2. Use the `prezo` shortcode with the title.
+The site renders it. That matters more than it sounds. An embedded player
+arrives in an iframe from another origin, and nothing inside one can be
+styled from here. It always looks like someone else's component parked on
+your page.
 
-Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
+Rendering the slides ourselves buys the whole surface. The viewer wears the
+same bar a code block gets. It follows the theme. It needs no third party at
+runtime.
 
----
-
-### 16:9 Ratio
+### Adding a deck
 {:.no-toc}
 
-{% code "Default ratio" %}
-{% raw %}
-```html
-{% prezo "blinged-macmini" %}
-```
-{% endraw %}
+1. Put the slides in `src/assets/slides/<name>/` as `01.png`, `02.png`, and
+   so on.
+2. Add an entry to `src/_data/decks.yml`.
+3. Call the shortcode with the deck name.
 
-{% prezo "blinged-macmini" %}
+{% code "decks.yml" %}
+```yaml
+- name: quirky
+  title: Quirky
+  count: 7
+  ratio: 1-by-1
+  source: "https://docs.google.com/presentation/d/<id>/edit"
+```
+
+`ratio` sets the shape: `1-by-1`, `16-by-9` or `4-by-3`. The stage reserves
+that shape before the images load, so nothing below it jumps. `source` is
+where the header's last icon points.
+
+Run `npm run slides` to re-export a deck after you edit it.
 
 ---
 
-### 4:3 Ratio
+### Square
 {:.no-toc}
-
-{% code "4:3 ratio" %}
-{% raw %}
-```html
-{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
-```
-{% endraw %}
-
-{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
-
----
-
----
-
-## A viewer of our own
-
-An embedded player is a cross-origin iframe. Nothing inside one can be
-restyled, so it always looks like someone else's component sitting on your
-page.
-
-The `slides` shortcode renders the deck itself. The slides are local images,
-so the viewer wears the same bar a code block gets, follows the theme, and
-needs no third-party player.
 
 {% code "A deck" %}
 {% raw %}
@@ -70,5 +60,33 @@ needs no third-party player.
 
 {% slides "quirky" %}
 
-Click the slide or use the arrows. Arrow keys work once the deck has focus.
-Decks live in `src/_data/decks.yml`; `npm run slides` re-exports the images.
+Click the slide to advance. The arrows work too. So do the arrow keys, once
+the deck has focus.
+
+---
+
+### 16:9
+{:.no-toc}
+
+{% code "16:9" %}
+{% raw %}
+```html
+{% slides "macmini" %}
+```
+{% endraw %}
+
+{% slides "macmini" %}
+
+---
+
+### 4:3
+{:.no-toc}
+
+{% code "4:3" %}
+{% raw %}
+```html
+{% slides "awesome" %}
+```
+{% endraw %}
+
+{% slides "awesome" %}

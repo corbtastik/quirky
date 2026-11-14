@@ -19,3 +19,15 @@
   count: 7
   ratio: 1-by-1
   source: "https://docs.google.com/presentation/d/1NFNH_vbr-MS6cg8wZWJGmKkhWvmX85Vx92bIDAT5nLs/edit"
+
+- name: macmini
+  title: Blinged Mac Mini
+  count: 4
+  ratio: 16-by-9
+  source: "https://docs.google.com/presentation/d/1io1nkchr8l7-Bt5ZoU1chT6ewCcrtCwTJLBVeOPHSu8/edit"
+
+- name: awesome
+  title: One Awesome Prezo
+  count: 2
+  ratio: 4-by-3
+  source: "https://docs.google.com/presentation/d/1bnbHN4uaPgvtq703SEB9BRjUdAe3Rwlbx_MDZcpP1YU/edit"
