@@ -172,10 +172,13 @@ figcaption {
   font-size: 0.875rem;
 }
 
+// A rule runs the width of the column it divides. At 70% and centred it read
+// as a decorative flourish floating in the text rather than a break between
+// two sections, and it lined up with nothing else on the page.
 hr {
   height: 1px;
-  margin: 2rem auto 1rem auto;
-  width: 70%;
+  margin: 2rem 0 1rem 0;
+  width: 100%;
 }
 
 // ----------------------------------------------------------------------------
