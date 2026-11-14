@@ -8,7 +8,7 @@ about_images:
     src: "/assets/images/avatar.png"
     description: "Sunlight on my cranium makes me happy"
   - name: cobro-banff
-    src: "https://placehold.co/150x150?text=banff"
+    src: "/assets/images/cobro-banff.png"
     description: "Banter in Banff"
   - name: baby-moonpie
     src: "https://placehold.co/150x150?text=moonpie"
