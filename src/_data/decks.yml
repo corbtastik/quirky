@@ -11,9 +11,11 @@
 # name    the folder under src/assets/slides/
 # title   shown in the viewer's header bar
 # count   how many slides; files are 01.png .. NN.png
+# ratio   the deck's shape: 1-by-1 (default), 16-by-9 or 4-by-3
 # source  the deck itself, for the "open in Slides" action
 # -----------------------------------------------------------------------------
 - name: quirky
   title: Quirky
   count: 7
+  ratio: 1-by-1
   source: "https://docs.google.com/presentation/d/1NFNH_vbr-MS6cg8wZWJGmKkhWvmX85Vx92bIDAT5nLs/edit"

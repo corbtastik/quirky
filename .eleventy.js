@@ -383,6 +383,7 @@ module.exports = function(eleventyConfig) {
              ` loading="${i ? "lazy" : "eager"}" decoding="async">`;
     }).join("");
     const icon = (n) => `<span class="material-icons md-18" aria-hidden="true">${n}</span>`;
+    const ratio = deck.ratio || "1-by-1";
     return `<div class="slides-wrapper" data-deck="${deck.name}" data-count="${deck.count}">
   <div class="slides-header">
     <span class="slides-title">${deck.title}</span>
@@ -393,7 +394,7 @@ module.exports = function(eleventyConfig) {
       <a class="slides-action" href="${deck.source}" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Slides">${icon("open_in_new")}</a>
     </span>
   </div>
-  <div class="slides-stage">${imgs}</div>
+  <div class="slides-stage is-${ratio}">${imgs}</div>
 </div>`;
   });
 

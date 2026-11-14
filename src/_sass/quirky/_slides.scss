@@ -90,8 +90,23 @@
 .slides-stage {
   position: relative;
   width: 100%;
-  padding-top: 100%;
   overflow: hidden;
+  // Padding-top reserves the box before the image loads, so nothing below
+  // jumps. A deck declares its shape in _data/decks.yml; these are the same
+  // three names the prezo container uses.
+  padding-top: 100%;
+
+  &.is-16-by-9 {
+    padding-top: 56.25%;
+  }
+
+  &.is-4-by-3 {
+    padding-top: 75%;
+  }
+
+  &.is-1-by-1 {
+    padding-top: 100%;
+  }
 }
 
 .slides-img {
