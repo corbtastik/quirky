@@ -97,6 +97,22 @@
   stroke-width: 1;
 }
 
+// A labelled node: the circle and the text that rides on it, grouped for the
+// same reason .dg-box is. A node's fill changes with its role - an input is
+// the accent, an output another - so its label cannot take one fixed colour
+// and stay readable on all three surfaces.
+.diagram .dg-nlabel {
+  font-family: var(--font-family-monospace);
+  font-size: 11px;
+}
+
+// The ring is the only thing marking an input or an output, so it needs more
+// weight than a plain node's edge.
+.diagram .dg-n.is-in .dg-node,
+.diagram .dg-n.is-out .dg-node {
+  stroke-width: 2.5;
+}
+
 .diagram .dg-layer {
   font-size: 10.5px;
   letter-spacing: 0.04em;

@@ -324,6 +324,28 @@
     stroke: var(--tertiary-color);
   }
 
+  // A labelled node keeps the panel fill whatever its role, and shows that
+  // role on its ring. Filling it with the accent instead would put the label
+  // on --on-tertiary-color, and that pairing is not safe everywhere: on
+  // solar-pop it lands at 1.35:1. The ring carries the meaning; the fill
+  // carries the text.
+  .diagram .dg-n .dg-node {
+    fill: var(--primary-container-color);
+    stroke: var(--secondary-container-color);
+  }
+
+  .diagram .dg-n.is-in .dg-node {
+    stroke: var(--secondary-color);
+  }
+
+  .diagram .dg-n.is-out .dg-node {
+    stroke: var(--tertiary-color);
+  }
+
+  .diagram .dg-n .dg-nlabel {
+    fill: var(--on-primary-container-color);
+  }
+
   .diagram .dg-edge {
     stroke: var(--quiet-color);
   }
