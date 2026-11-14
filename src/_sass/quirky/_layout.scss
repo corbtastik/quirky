@@ -256,3 +256,24 @@ hr {
     font-size: inherit;
   }
 }
+
+// ----------------------------------------------------------------------------
+// Embedded presentations
+//
+// Google draws a 2px grey border inside its embed, and a white control bar
+// along the bottom. Both sit inside a cross-origin iframe, so no stylesheet
+// here can touch them - the only lever is geometry.
+//
+// The container already hides its overflow, so pulling the iframe out by the
+// border width on every side puts that edge outside the visible box. The
+// 4px of growth against a 600px embed scales the slide by under one percent.
+//
+// The control bar is dealt with per deck, by rm=minimal on the embed URL -
+// see _data/prezos.yml.
+// ----------------------------------------------------------------------------
+.quirky-prezo-iframe {
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+}

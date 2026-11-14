@@ -356,6 +356,13 @@
     fill: var(--on-primary-container-color);
   }
 
+  // An embedded deck is a cross-origin iframe, so nothing inside it can be
+  // styled from here. Painting the container means any letterboxing the
+  // provider adds sits on a theme colour rather than on bare page.
+  .quirky-prezo-container {
+    background-color: var(--primary-container-color);
+  }
+
   .diagram .dg-edge {
     stroke: var(--quiet-color);
   }

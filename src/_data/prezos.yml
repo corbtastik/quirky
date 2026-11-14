@@ -6,4 +6,8 @@
   src: "https://docs.google.com/presentation/d/e/2PACX-1vToe6FUtCbYk8E-InEoL2t131mKX06KWSoCTn-_4fFoeFSjdudF8KgL55yVrAYMxSsAN2WtM698N9db/embed?start=false&loop=false&delayms=5000"
 - title: "quirky"
   description: "Quirky - a notes site that remembers what you wrote."
-  src: "https://docs.google.com/presentation/d/1NFNH_vbr-MS6cg8wZWJGmKkhWvmX85Vx92bIDAT5nLs/embed?start=false&loop=false&delayms=5000"
+  # rm=minimal drops Google's white control bar, which cannot be restyled
+  # from here - the iframe is cross-origin. Losing the bar loses the
+  # next/prev buttons, so this one autoplays and loops, as the deck it
+  # replaced did.
+  src: "https://docs.google.com/presentation/d/1NFNH_vbr-MS6cg8wZWJGmKkhWvmX85Vx92bIDAT5nLs/embed?start=true&loop=true&delayms=5000&rm=minimal"
