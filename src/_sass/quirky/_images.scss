@@ -84,6 +84,35 @@
 }
 
 // ----------------------------------------------------------------------------
+// About page portraits
+//
+// Fixed 150px squares with the caption under each. The framework generates
+// 1:1 classes for a fixed list of sizes and 150 is not one of them, so the
+// size is set here rather than by adding to the vendored yolo layer.
+//
+// The width goes on the image, not the figure. A figure pinned to 150px would
+// cap the click-to-enlarge at 150px too, since the enlarged image sizes
+// against its own container.
+// ----------------------------------------------------------------------------
+figure.about-portrait {
+  margin: 1.5rem 0;
+
+  img.about-portrait {
+    width: 150px;
+    height: 150px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0.256em;
+    margin: 0;
+    display: block;
+  }
+
+  figcaption {
+    padding-top: 0.4rem;
+  }
+}
+
+// ----------------------------------------------------------------------------
 // Captioned figures inside a column grid
 //
 // Photographs of different proportions leave the captions at different

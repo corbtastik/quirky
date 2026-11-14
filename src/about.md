@@ -1,44 +1,55 @@
 ---
 layout: layouts/page.njk
-title: About
+title: "Howdy!"
 permalink: /about/
 description: Who writes this, and why.
+about_images:
+  - name: me-banff
+    src: "https://placehold.co/150x150?text=me+banff"
+    description: "Sunlight on my cranium makes me happy"
+  - name: cobro-banff
+    src: "https://placehold.co/150x150?text=banff"
+    description: "Banter in Banff"
+  - name: baby-moonpie
+    src: "https://placehold.co/150x150?text=moonpie"
+    description: "Awwwweeeeee"
+  - name: bucknach
+    src: "https://placehold.co/150x150?text=bucky+%26+nacho"
+    description: "Bucky & Nachooooooooooo"
 ---
 
-# I'm Corbs, temporarily human.
+Welcome to my inter-web abode. I post prose and pics here for kicks and
+grins.
 
-**tl;dr:**
+{% image { imageData: "about_images", name: "me-banff", classes: "about-portrait" } %}
 
-- *Basics:* I build software, write about it afterwards, and keep the notes in
-  public so I can find them again.
-- *This site:* a chronological [stream](/) of everything written, the same
-  notes re-sorted by [tag](/tags/), and a
-  [life in weeks](/life-in-weeks/) grid.
-- *Tech:* mostly distributed systems, data, and the unglamorous parts of
-  running things in production.
-- *Find me:* [GitHub](https://github.com/corbtastik).
+I'm "Corbs," a career technologist. I've worked as a developer, a devOps'er
+and an architect for more years than I care to count. I love what I do. I've
+had a charmed run with great colleagues and companies like
+[Pivotal](https://pivotal.io), [VMware](https://www.vmware.com) and
+[MongoDB](https://www.mongodb.com). Besides tech, my happy place is family,
+friends, fur babies, vacays, coffee, art stuff, old stuff and reminiscing
+about the 80s...like totally to the max.
 
-## Why keep notes in public
+{% image { imageData: "about_images", name: "cobro-banff", classes: "about-portrait" } %}
 
-Writing something down is how I find out whether I actually understood it.
-Publishing it is how I find out whether anyone else does. The two are
-different tests and I have failed both plenty of times, which is why the
-older entries in the stream stay up unedited.
+My wife is super. She tolerates a lot of well-placed tomfoolery. She makes the
+best popcorn, blueberry pie and oatmeal cookies...and needs her own cookin
+show.
 
-The stream is the real index. The tags are a convenience - the same notes,
-re-sorted by what they are about, for when you arrive looking for a topic
-rather than a date.
+{% image { imageData: "about_images", name: "baby-moonpie", classes: "about-portrait" } %}
 
-## How this site is built
+Moonpie is top of the food chain in this house! A hypnotic stare and mind
+control powers let her rule her subjects with cuddles and sweetness. Moonie
+Moonpie does things on her own terms. She loves cat-nip laced baby mice. She
+hunts insects on the far side of glass doors. She pounces on Bucky and on
+Amazon boxes.
 
-It is [Eleventy](https://www.11ty.dev/), with the layout modelled on
-[Buster Benson's notes](https://busterbenson.com/) and the styling from the
-Yolo framework. Every colour on the page comes from one theme definition, so
-the palette icon in the corner repaints the whole site - the week grid
-included - without reloading anything.
+Bucky and Nacho are the greatest pup duo in these here parts! Nacho sports a
+sweaty smelly jelly belly. He speaks with his eyes. He barks for two reasons
+only: bad service, or a warning for the delivery people. Bucky is 50% Shih
+Tzu and 50% hard drinking truck driver. He has a tongue that doesn't fit, one
+blue eye and one brown, plus perpetual stink face. He suffers from FOMO
+(fear-of-missing-out), so he goes where we go.
 
-## Changing your mind
-
-I would rather be corrected than consistent. If something here is wrong, I
-want to know. Writing things down in public is what makes my own
-inconsistencies easy to catch.
+{% image { imageData: "about_images", name: "bucknach", classes: "about-portrait" } %}
