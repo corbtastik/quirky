@@ -380,14 +380,19 @@
 
   // The code toolbar. The header is a panel over the block, not a coloured
   // bar: three icons and a label sitting quietly on top of the code.
-  .code-wrapper {
-    border-color: var(--secondary-container-color);
+  // The header sits on the code block's own surface, not the page's. The
+  // block takes --syntax-container-color (see .highlight in brand.css), and
+  // the two line up only by accident on the default palette - bind the header
+  // to the same variable and they match across all 68.
+  //
+  // The wrapper carries it too, so the rounded corners show panel, not page.
+  .code-wrapper,
+  .code-header {
+    background-color: var(--syntax-container-color);
   }
 
   .code-header {
-    background-color: var(--primary-container-color);
-    color: var(--on-primary-container-color);
-    border-bottom-color: var(--secondary-container-color);
+    color: var(--syntax-text);
   }
 
   .code-action:hover,

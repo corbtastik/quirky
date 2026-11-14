@@ -9,9 +9,14 @@
 // ----------------------------------------------------------------------------
 @use "../yolo/base/variables" as *;
 
+// Flat: no outline, no divider. The header and the block already share a
+// background, so with the lines gone they read as one panel.
+//
+// The wrapper carries that background itself. Any space inside it - the
+// rounded corners, a stray margin - then shows panel rather than page.
 .code-wrapper {
   margin: 1.5rem 0;
-  border: 1px solid;
+  border: 0;
   border-radius: 0.4em;
   overflow: hidden;
 }
@@ -23,14 +28,19 @@
   border-radius: 0;
 }
 
+// The block's <pre> carries a bottom margin from the base stylesheet. Inside
+// the wrapper it collapsed through and left a strip of empty panel under the
+// last line. The padding above and below the code is the <pre>'s own.
+.code-wrapper > .highlighter-rouge pre {
+  margin-bottom: 0;
+  padding-bottom: 0.6rem;
+}
+
 .code-wrapper.is-collapsed > .highlighter-rouge {
   display: none;
 }
 
-// A hairline under the header. Without it the bar and the block share an
-// edge and read as one box with a label floating in it.
 .code-header {
-  border-bottom: 1px solid;
   display: flex;
   align-items: center;
   justify-content: space-between;
