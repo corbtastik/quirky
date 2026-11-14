@@ -107,6 +107,14 @@ figure.about-portrait {
     display: block;
   }
 
+  // The square radius above is more specific than the framework's .circle,
+  // so a circled portrait has to say so here or it comes out a rounded
+  // square. `cover` is already set, which crops a non-square photo to fill
+  // the circle rather than squashing it.
+  img.about-portrait.circle {
+    border-radius: 50%;
+  }
+
   figcaption {
     padding-top: 0.4rem;
   }

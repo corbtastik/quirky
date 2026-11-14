@@ -5,7 +5,7 @@ permalink: /about/
 description: Who writes this, and why.
 about_images:
   - name: me-banff
-    src: "https://placehold.co/150x150?text=me+banff"
+    src: "/assets/images/avatar.png"
     description: "Sunlight on my cranium makes me happy"
   - name: cobro-banff
     src: "https://placehold.co/150x150?text=banff"
@@ -21,7 +21,7 @@ about_images:
 Welcome to my inter-web abode. I post prose and pics here for kicks and
 grins.
 
-{% image { imageData: "about_images", name: "me-banff", classes: "about-portrait" } %}
+{% image { imageData: "about_images", name: "me-banff", classes: "about-portrait circle" } %}
 
 I'm "Corbs," a career technologist. I've worked as a developer, a devOps'er
 and an architect for more years than I care to count. I love what I do. I've
