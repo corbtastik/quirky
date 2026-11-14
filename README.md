@@ -3,9 +3,7 @@
 A notes site. A chronological stream, the same notes re-sorted by tag, and a
 life-in-weeks grid.
 
-Built with [Eleventy](https://www.11ty.dev/). The layout follows
-[busterbenson.com](https://busterbenson.com/): a narrow nav column beside a
-wide content column, stacking to a horizontal strip on a phone.
+Built with [Eleventy](https://www.11ty.dev/). 
 
 ## Run it
 
