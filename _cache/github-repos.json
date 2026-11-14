@@ -1,19 +1,19 @@
 {
   "user": "corbtastik",
-  "fetchedAt": "2026-11-14T18:46:58.979Z",
+  "fetchedAt": "2026-11-14T18:52:00.181Z",
   "repos": [
     {
       "name": "quirky",
       "url": "https://github.com/corbtastik/quirky",
       "description": "My soon to be new personal blog - quirky",
-      "language": "",
+      "language": "SCSS",
       "stars": 0,
       "forks": 0,
       "topics": [],
       "homepage": "",
       "isFork": false,
       "isArchived": false,
-      "pushed": "2026-11-14T18:43:11Z"
+      "pushed": "2026-11-14T18:51:42Z"
     },
     {
       "name": "buddy-and-the-bible",
