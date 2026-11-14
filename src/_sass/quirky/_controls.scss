@@ -171,3 +171,19 @@ html[data-layout="mirrored"][data-pull="left"] main[role="main"],
 html[data-layout="mirrored"][data-pull="left"] .quirky-wide {
   margin-left: $controls-gutter;
 }
+
+// ----------------------------------------------------------------------------
+// The palette menu follows its button
+//
+// Yolo anchors the menu with `right: 0`, so it hangs from the picker's right
+// edge and grows leftward. That is correct in the right corner and wrong in
+// the left one, where 158px of a 208px menu ends up past the edge of the
+// window.
+//
+// Anchored the other way when the chrome is mirrored. Overridden here rather
+// than in _palette.scss, which is vendored and stays as it came.
+// ----------------------------------------------------------------------------
+[data-layout="mirrored"] .yolo-themes-menu {
+  right: auto;
+  left: 0;
+}
