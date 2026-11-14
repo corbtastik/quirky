@@ -4,6 +4,9 @@
 # url      internal path, matched against the current page to set `active`
 # external absolute URL instead of `url`; rendered with the external-link style
 #          and opened in a new tab
+# profile  the name of a key under `profiles` in _data/settings.yml, used in
+#          place of `external`. The URL is configured there, once, and the
+#          entry drops out of the nav if it is not set.
 # -----------------------------------------------------------------------------
 - label: Quirky Blog
   url: /
@@ -15,6 +18,10 @@
   url: /cv/
 - label: GitHub
   url: /github/
+- label: LinkedIn
+  profile: linkedin
+- label: Instagram
+  profile: instagram
 - label: About
   url: /about/
 - label: RSS

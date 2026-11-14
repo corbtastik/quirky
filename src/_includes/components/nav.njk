@@ -19,7 +19,17 @@
     {%- endif %}
     <ul id="side-nav">
         {%- for item in nav %}
-        {%- if item.external %}
+        {#- A `profile` entry takes its URL from settings.profiles, so the
+            link is configured in one place. No URL there, no link here. -#}
+        {%- if item.profile %}
+        {%- set profileUrl = settings.profiles[item.profile] %}
+        {%- if profileUrl %}
+        {#- No `external-link` class: these are nav items first. They open in
+            a new tab like any off-site link, but they read as part of the
+            column rather than as a different kind of thing. -#}
+        <li><a href="{{ profileUrl }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a></li>
+        {%- endif %}
+        {%- elif item.external %}
         <li><a href="{{ item.external }}" target="_blank" rel="noopener noreferrer" class="external-link">{{ item.label }}</a></li>
         {%- else %}
         <li><a href="{{ item.url | relative_url }}"{% if item.url == activeUrl %} class="active"{% endif %}>{{ item.label }}</a></li>

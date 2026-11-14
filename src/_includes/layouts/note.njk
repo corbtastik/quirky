@@ -12,16 +12,19 @@ navActive: /
 #}
 <h1 class="title">{{ title }}</h1>
 {% if description %}<h2 class="subtitle">{{ description }}</h2>{% endif %}
-{{ content | safe }}
-{#- `topics` drops the "note" tag that put this file in the stream, leaving
+{#- The byline sits under the subtitle rather than after the content, so you
+    know the date and the subject before you start reading instead of after.
+    `topics` drops the "note" tag that put this file in the stream, leaving
     only the ones worth showing. -#}
 {%- set topics = tags | topics %}
 <div class="meta">
     <time datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date('MMMM D, YYYY') }}</time>
     {%- if topics | size > 0 %}
-    &middot; tagged
+    <span class="meta-tags">
     {%- for topic in topics %}
-    <a href="{{ ('/tag/' + topic + '/') | relative_url }}">{{ topic }}</a>{% if not loop.last %},{% endif %}
+    <a href="{{ ('/tag/' + topic + '/') | relative_url }}">{{ topic }}</a>
     {%- endfor %}
+    </span>
     {%- endif %}
 </div>
+{{ content | safe }}

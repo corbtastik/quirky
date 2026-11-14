@@ -93,17 +93,21 @@ main[role="main"] > section {
 // A section is either a listing or prose. The split is only a measure and a
 // type scale; the frame above is shared.
 section.post {
+  // The title, the subtitle and the byline stack with a little air between
+  // them. These margins collapse against whatever follows, so they set a
+  // floor rather than an exact gap: a page with no byline still gets at
+  // least this much under its subtitle.
   h1.title {
     font-size: 1.875rem;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.625rem;
   }
 
   h2.subtitle {
     font-size: 1.5rem;
     font-weight: $weight-light;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.625rem;
     font-family: var(--font-family-primary);
   }
 
@@ -153,10 +157,29 @@ section.post {
   }
 }
 
-// The byline under a note: date and the tags it carries.
+// The byline under a note's subtitle: the date, then the tags it carries.
+//
+// Each sits on its own line. They are two different things - when a post was
+// written, and what it is about - and running them together on one line made
+// the tags read as a continuation of the date.
 .meta {
-  margin: 2rem 0 0 0;
+  margin: 0 0 1.75rem 0;
   font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.meta time {
+  display: block;
+}
+
+// The tags read as the tag index does: a row of links, spaced rather than
+// punctuated, in the link colour. The date above them stays quiet, so the
+// line you can act on is the one that looks clickable.
+.meta .meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.75rem;
+  margin-top: 0.15rem;
 }
 
 // A content page's lead image, flush to the measure.

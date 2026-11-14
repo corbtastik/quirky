@@ -62,7 +62,6 @@
 
   // Quiet text: datelines, counts, footers, captions.
   .meta,
-  .meta a,
   .quirky-footer,
   .quirky-now,
   .tag-grid-item small,
@@ -272,6 +271,17 @@
   .quirky-wide-header .header-title,
   .quirky-wide-header .header-title a {
     color: var(--title-color);
+  }
+
+  // The date is quiet; the tags are links and look like it, the same accent
+  // the tag index uses. Bundling .meta a in with the quiet text above made
+  // every tag grey and unclickable-looking.
+  .meta time {
+    color: var(--quiet-color);
+  }
+
+  .meta .meta-tags a {
+    color: var(--link-color);
   }
 
   section.post h2.subtitle {

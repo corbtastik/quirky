@@ -44,9 +44,13 @@ github:
   # `eleventy --serve` from spending the hourly API allowance on rebuilds.
   cacheMinutes: 60
 
-# Profiles. Shown as links in the nav footer; omit one and it disappears.
+# Profiles. The nav and the footer both read this block, so a URL is set
+# once. Omit one, or blank it, and both the sidebar link and the footer link
+# disappear - see _data/nav.yml, where an entry names the key it wants.
 profiles:
   github: https://github.com/corbtastik
+  linkedin: https://www.linkedin.com/in/corbettmartin/
+  instagram: https://www.instagram.com/corbsmartin
 
 # -----------------------------------------------------------------------------
 # The stream on the home page
