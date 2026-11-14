@@ -1,13 +1,13 @@
 ---
-title: Yolo Demo
-description: The official Yolo-11ty demo site showcasing all features.
+title: Quirky Demo
+description: Every feature of this site, on one page.
 date: 2026-01-15
 tags:
   - demo
   - eleventy
   - themes
   - features
-permalink: /posts/yolo-demo/
+permalink: /posts/quirky-demo/
 ext_js:
 - custom
 - theme-vars
@@ -19,9 +19,10 @@ ext_css:
 
 ## Howdy
 
-Yolo builds single page sites. It works for writers, developers, and photographers. 👋
+Quirky builds single page sites. It suits writers, developers and photographers. 👋
 
-> _I don't always use single-pages, but when I do, I [yolo](https://github.com/corbtastik/yolo)._
+> _I don't always use single-pages, but when I do, I
+> [go quirky](https://github.com/corbtastik/quirky)._
 
 ### Goals
 {:.no-toc}
@@ -36,10 +37,10 @@ Yolo builds single page sites. It works for writers, developers, and photographe
 
 You need [Node.js](https://nodejs.org/) and npm. 🚀
 
-{% code "Get Yolo" %}
+{% code "Get Quirky" %}
 ```bash
-git clone https://github.com/corbtastik/yolo.git
-cd yolo
+git clone https://github.com/corbtastik/quirky.git
+cd quirky
 npm install
 npm run build
 npm run serve
@@ -50,7 +51,8 @@ npm run serve
 
 ## Branding
 
-Yolo uses themes for colors and fonts. Each theme has a matching syntax theme for code blocks.
+Quirky uses themes for colors and fonts. Each theme has a matching syntax
+theme for code blocks.
 
 > **Theme files:**
 > * `src/_data/themes.json` - every theme, colors for light and dark
@@ -127,7 +129,8 @@ Links get their own color. Pick something distinct and use it everywhere.
 
 ## Syntax Themes
 
-Yolo highlights code with custom syntax themes. Each color theme includes a matching syntax theme.
+Quirky highlights code with custom syntax themes. Each color theme includes a
+matching syntax theme.
 
 > **Syntax files:**
 > * `src/_data/themes.json` - the `sh*` keys hold syntax colors
@@ -147,9 +150,9 @@ Syntax themes map colors to code tokens like keywords, strings, and comments.
 
 {% code "settings.yml" %}
 ```yaml
-name: Yolo
-title: Yolo on my friend
-description: Loveable single pages
+name: Quirky Blog
+title: Quirky Blog
+description: Notes
 brand:
   theme: reveal
   syntax: reveal
@@ -217,7 +220,7 @@ Customize fonts in your theme file. See [Themes](#themes) for details.
 
 ## Headers
 
-> Yolo keeps H1 for the site title.
+> Quirky keeps H1 for the site title.
 
 ## H2 Heading
 {:.no-toc}
@@ -380,7 +383,7 @@ Standard markdown images use default `<img>` styling.
 
 ## Styled Images
 
-Yolo has classes for common aspect ratios.
+Quirky has classes for common aspect ratios.
 
 > Click an image to enlarge. 🔎
 
@@ -578,11 +581,11 @@ Default aspect ratio is 16:9. Options: `is-16-by-9`, `is-4-by-3`, `is-1-by-1`.
 {% code "1:1 ratio" %}
 {% raw %}
 ```html
-{% prezo "yolo-on", "prezos", "is-1-by-1" %}
+{% prezo "blinged-macmini", "prezos", "is-1-by-1" %}
 ```
 {% endraw %}
 
-{% prezo "yolo-on", "prezos", "is-1-by-1" %}
+{% prezo "blinged-macmini", "prezos", "is-1-by-1" %}
 
 
 ---
@@ -661,39 +664,38 @@ This loads `/assets/ext/js/custom.js` before the closing `</body>` tag. ⚡
 
 ## Containers
 
-Run Yolo in a container with [Podman](https://podman.io/). 📦
+Run Quirky in a container with [Podman](https://podman.io/). 📦
 
 ### Images
 {:.no-toc}
 
-The Makefile builds two images:
+The repo ships two Containerfiles:
 
-* **yoloc** - Builder image with Node.js and npm
-* **yolo** - Runtime image with Apache httpd
+* **`Containerfile`** - the production image. Node builds the site, nginx
+  serves it.
+* **`Containerfile-dev`** - Eleventy's own server, with watch, for
+  development.
 
 ### Build and Run
 {:.no-toc}
 
 {% code "Podman" %}
 ```bash
-# Build the builder
-podman build -f ./src/yoloc.Containerfile -t yoloc:latest ./src
-
-# Build the runtime
-podman build -f Containerfile -t yolo:latest .
-
-# Run on port 9696
-podman run --name yolo -d -p 9696:9696 yolo:latest
+# Build and run the production image
+podman build -t quirky .
+podman run --rm -it -p 8080:8080 quirky
 ```
 
-Or use Make:
+For development, with live reload:
 
-{% code "Make" %}
+{% code "Development" %}
 ```bash
-make yolo-pod
+podman build -t quirky-dev -f Containerfile-dev .
+podman run --rm -it -p 8080:8080 -v "$PWD/src:/app/src:Z" quirky-dev
 ```
 
-Opens at [http://localhost:9696](http://localhost:9696).
+Opens at [http://localhost:8080](http://localhost:8080). The
+[containers post](/posts/containers/) goes into more detail.
 
 
 ---
@@ -987,10 +989,10 @@ AND price <= 10000
 
 {% code "YAML" %}
 ```yaml
-name: Yolo
+name: Quirky Blog
 version: v2.0
-title: Yolo on my friend
-description: Loveable single pages
+title: Quirky Blog
+description: Notes
 brand:
   theme: star-lord
   syntax: star-lord
