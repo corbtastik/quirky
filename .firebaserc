@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "corbs-cloud"
+  },
+  "targets": {
+    "corbs-cloud": {
+      "hosting": {
+        "quirky": [
+          "quirky"
+        ]
+      }
+    }
+  }
+}

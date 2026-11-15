@@ -3,3 +3,7 @@ _site/
 .DS_Store
 *.log
 .cache/
+
+# Firebase CLI debug output
+.firebase/
+firebase-debug.log

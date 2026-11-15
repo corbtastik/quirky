@@ -6,7 +6,7 @@
 #          path is no use
 # -----------------------------------------------------------------------------
 baseurl: ""
-url: "https://quirky.example.com"
+url: "https://quirky.web.app"
 
 name: Quirky Blog
 # Reported by /site.json, which the Custom JavaScript post reads. Falls back
