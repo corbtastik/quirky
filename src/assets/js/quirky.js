@@ -250,8 +250,8 @@
         var icon = button.querySelector('.material-icons');
 
         // Everything that ends up somewhere else when the page mirrors.
-        // The wide layout (life in weeks) has no nav column and no section,
-        // so those come back null there and only the chrome moves.
+        // A page without a nav column or a section returns null for those,
+        // and only the chrome moves.
         var movers = [
             document.querySelector('main[role="main"] > header[role="banner"]'),
             document.querySelector('main[role="main"] > section'),
