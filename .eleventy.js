@@ -377,42 +377,58 @@ module.exports = function(eleventyConfig) {
   //
   // currentColor throughout, so the icons take the theme like every other
   // control in the column.
-  // The six layout buttons draw the page in miniature: this rail as a narrow
-  // column of buttons, the nav as a solid block, the content as a wide ruled
-  // box, laid out in the order the layout puts them. Material Icons has no
-  // glyph for a three-column permutation, so they are drawn here.
+  // The six layout buttons draw the page in miniature: this rail as a column
+  // of three dots, the nav as a solid block, the content as an open box, in
+  // the order the layout puts them. Material Icons has no set of six glyphs
+  // that differ only in the order of the same three parts, so they are drawn
+  // here. They are the only hand-drawn icons in the chrome.
   //
-  // At 30px the rail and the nav would differ only in width, which is too
-  // fine a distinction to read, so the rail carries its buttons as dots and
-  // the two tell apart by texture instead of size.
+  // Every shape spans the same two lines. TOP and BOT are the outer visual
+  // edges, and each shape is placed so its outside - not its centre line -
+  // lands on them: the stroked box is inset by half its stroke, and the first
+  // and last dot by their radius. Nudging any single number below keeps that
+  // true, since nothing is hard-coded twice.
+  // The rail's column is exactly as wide as a dot. Give it any slack and its
+  // ink no longer fills its slot, so the whole group looks off-centre
+  // whenever the rail is the first or last column.
+  const DOT = 2.2;
+  const ICON = {
+    top: 5, bot: 31, box: 36, stroke: 1.5, dot: DOT, gap: 2,
+    width: { rail: DOT * 2, nav: 8, content: 14 }
+  };
+
   eleventyConfig.addShortcode("layoutIcon", function (order) {
-    const W = { rail: 6, nav: 8, content: 14 };
-    let x = 2;
+    const parts = order.split("-");
+    const span = ICON.bot - ICON.top;
+    const half = ICON.stroke / 2;
+    const total = parts.reduce((sum, part) => sum + ICON.width[part], 0) +
+                  ICON.gap * (parts.length - 1);
+    let x = (ICON.box - total) / 2;
     let out = "";
-    for (const part of order.split("-")) {
-      const w = W[part];
-      if (part === "content") {
-        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
-               ` fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>`;
-        for (let i = 0; i < 3; i++) {
-          out += `<rect x="${x + 2.5}" y="${10.5 + i * 6}" width="${w - 5}" height="1.5"` +
-                 ` rx="0.75" fill="currentColor" opacity="0.5"/>`;
+
+    for (const part of parts) {
+      const w = ICON.width[part];
+      if (part === "rail") {
+        const cys = [ICON.top + ICON.dot, (ICON.top + ICON.bot) / 2,
+                     ICON.bot - ICON.dot];
+        for (const cy of cys) {
+          out += `<circle cx="${x + w / 2}" cy="${cy}" r="${ICON.dot}"` +
+                 ` fill="currentColor" opacity="0.85"/>`;
         }
       } else if (part === "nav") {
-        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
-               ` fill="currentColor" opacity="0.4"/>`;
+        out += `<rect x="${x}" y="${ICON.top}" width="${w}" height="${span}"` +
+               ` rx="1.5" fill="currentColor" opacity="0.45"/>`;
       } else {
-        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
-               ` fill="currentColor" opacity="0.22"/>`;
-        for (let i = 0; i < 3; i++) {
-          out += `<circle cx="${x + w / 2}" cy="${11 + i * 7}" r="1.6"` +
-                 ` fill="currentColor"/>`;
-        }
+        out += `<rect x="${x + half}" y="${ICON.top + half}"` +
+               ` width="${w - ICON.stroke}" height="${span - ICON.stroke}"` +
+               ` rx="1.5" fill="none" stroke="currentColor"` +
+               ` stroke-width="${ICON.stroke}" opacity="0.5"/>`;
       }
-      x += w + 2;
+      x += w + ICON.gap;
     }
-    return `<svg class="layout-icon" viewBox="0 0 36 36" width="30" height="30"` +
-           ` aria-hidden="true" focusable="false">${out}</svg>`;
+
+    return `<svg class="layout-icon" viewBox="0 0 ${ICON.box} ${ICON.box}"` +
+           ` width="30" height="30" aria-hidden="true" focusable="false">${out}</svg>`;
   });
 
   eleventyConfig.addShortcode("prezo", function(title, dataFile = "prezos", aspect = "is-16-by-9") {
