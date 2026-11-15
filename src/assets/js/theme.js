@@ -25,8 +25,12 @@
 
     root.setAttribute(stored('theme') || 'light', '');
 
-    if (stored('quirky-layout') === 'mirrored') {
-        root.setAttribute('data-layout', 'mirrored');
+    // Any of the three arrangements, not just the mirror. default is what
+    // the stylesheet already does, so it carries no attribute - setting one
+    // would mean a rule for the state that needs none.
+    var layout = stored('quirky-layout');
+    if (layout === 'mirrored' || layout === 'rail-left') {
+        root.setAttribute('data-layout', layout);
     }
 
     // center is the default and needs no CSS of its own, but the attribute

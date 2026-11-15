@@ -114,6 +114,67 @@
 }
 
 // ----------------------------------------------------------------------------
+// Page layout
+//
+// Two arrangements, chosen by the pair of buttons in the control column.
+//
+//   default    nav left, content, control rail in the right corner
+//   rail-left  control rail in the left corner, nav beside it, then content
+//
+// Both leave the flex direction of main alone - the nav stays on the left in
+// each. The only thing that moves is the rail, and in rail-left the page has
+// to make room for it, because the rail is fixed to the viewport and the nav
+// would otherwise sit underneath.
+// ----------------------------------------------------------------------------
+
+.quirky-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1;
+}
+
+// The pair is one glyph and its mirror, so the bar reads as the rail moving
+// from one side to the other.
+.material-icons.is-flipped {
+  transform: scaleX(-1);
+}
+
+[data-layout="rail-left"] {
+  .quirky-sticky-top-right {
+    right: auto;
+    left: 1rem;
+    // Right-aligned by default; in the left corner the column has to align
+    // the other way or it hangs off the wrong edge.
+    align-items: flex-start;
+  }
+
+  .quirky-sticky-bottom-right {
+    right: auto;
+    left: 1rem;
+  }
+}
+
+// Room for the rail. Only where the page would actually collide with it:
+// the containers centre themselves, so a centred page already clears the
+// corner on a wide window. Pinned left, it does not.
+@media screen and (min-width: $break-stack + 0.0625rem) {
+  html[data-layout="rail-left"][data-pull="left"] main[role="main"] {
+    margin-left: $controls-gutter;
+  }
+}
+
+// Stacked, the nav is a horizontal strip and _nav.scss reserves a column on
+// its right for the fixed controls. With the rail on the left that
+// reservation has to swap sides or the first row of links runs under it.
+@media screen and (max-width: $break-stack) {
+  [data-layout="rail-left"] header[role="banner"] {
+    padding-right: 0;
+    padding-left: $controls-gutter;
+  }
+}
+
+// ----------------------------------------------------------------------------
 // Page alignment
 //
 // Both page containers centre themselves with `margin: 2rem auto`. Dropping

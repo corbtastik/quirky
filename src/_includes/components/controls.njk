@@ -56,6 +56,31 @@
                 <span class="material-icons md-36" aria-hidden="true">chevron_left</span>
             </button>
         </div>
+        {# Layout. Two arrangements of the page furniture, as a radiogroup
+           because they are exclusive choices rather than a toggle.
+
+           The icon is the rail: vertical_split draws lines for the content
+           and a solid bar beside them, so the bar lands on the side the
+           control column will. Layout 2 flips the same glyph rather than
+           using a second one, which keeps the pair unmistakably a pair.
+
+           Both write data-layout on <html>, the attribute the side swap
+           above already uses - the three arrangements are states of one
+           setting, so clicking any of them clears the others. #}
+        <div class="quirky-layout" role="radiogroup" aria-label="Page layout">
+            <button type="button" id="layout-default" class="quirky-icon-button"
+                    data-layout-choice="default" role="radio" aria-checked="true"
+                    aria-label="Sidebar left, controls right"
+                    title="Sidebar left, controls right">
+                <span class="material-icons md-36" aria-hidden="true">vertical_split</span>
+            </button>
+            <button type="button" id="layout-rail-left" class="quirky-icon-button"
+                    data-layout-choice="rail-left" role="radio" aria-checked="false"
+                    aria-label="Controls left, then sidebar"
+                    title="Controls left, then sidebar">
+                <span class="material-icons md-36 is-flipped" aria-hidden="true">vertical_split</span>
+            </button>
+        </div>
         {# Page alignment. Middle, left, right - in that order, middle
            being what the site has always done. Each sets data-pull on
            <html>; _controls.scss drops the margin on the matching side. #}

@@ -355,6 +355,67 @@
     // so it has no CSS; the attribute is still set, so the control can show
     // which one is in force. theme.js puts it back before the first paint.
     // ------------------------------------------------------------------
+    /**
+     * Page layout: two arrangements of the furniture.
+     *
+     *   default    nav left, content, control rail in the right corner
+     *   rail-left  rail in the left corner, nav beside it, then content
+     *
+     * These write the same data-layout attribute the side swap uses, so the
+     * three arrangements are exclusive by construction. Choosing one here
+     * clears a mirror, and the swap button is re-synced so its pressed state
+     * never claims something the page is not doing.
+     */
+    function initLayout() {
+        var root = document.documentElement;
+        var group = document.querySelector('.quirky-layout');
+        if (!group) return;
+
+        var buttons = Array.prototype.slice.call(group.querySelectorAll('[data-layout-choice]'));
+        var KEY = 'quirky-layout';
+
+        function mark(choice) {
+            buttons.forEach(function (b) {
+                b.setAttribute('aria-checked',
+                    b.getAttribute('data-layout-choice') === choice ? 'true' : 'false');
+            });
+        }
+
+        function apply(choice, remember) {
+            if (choice === 'rail-left') root.setAttribute('data-layout', 'rail-left');
+            else root.removeAttribute('data-layout');
+
+            mark(choice);
+
+            // The swap is a different arrangement of the same setting, so it
+            // cannot stay pressed once one of these is chosen.
+            var swap = document.getElementById('side-swap');
+            if (swap) {
+                swap.setAttribute('aria-pressed', 'false');
+                var icon = swap.querySelector('.material-icons');
+                if (icon) icon.textContent = 'chevron_left';
+            }
+
+            if (remember) {
+                try {
+                    if (choice === 'rail-left') localStorage.setItem(KEY, choice);
+                    else localStorage.removeItem(KEY);
+                } catch (e) { /* private window */ }
+            }
+        }
+
+        buttons.forEach(function (b) {
+            b.addEventListener('click', function () {
+                apply(b.getAttribute('data-layout-choice'), true);
+            });
+        });
+
+        // theme.js set the attribute in <head>; read it back rather than
+        // storage so the buttons cannot disagree with the page.
+        var current = root.getAttribute('data-layout');
+        mark(current === 'rail-left' ? 'rail-left' : 'default');
+    }
+
     function initAlign() {
         var root = document.documentElement;
         var buttons = document.querySelectorAll('.quirky-align .quirky-icon-button');
@@ -462,6 +523,7 @@
         initSearch();
         initSideSwap();
         initAlign();
+        initLayout();
         initToolbar();
         initToTop();
     });
