@@ -1,6 +1,6 @@
 ---
 title: Presentations
-description: Slide decks, rendered by the site itself.
+description: Embed a Google Slides deck with the aspect ratio you want.
 date: 2026-01-19
 tags:
   - presentations
@@ -12,94 +12,70 @@ permalink: /posts/presentations/
 
 ## Presentations
 
-A deck is a folder of images and four lines of YAML. 📽️
+Share a deck from Google Slides and drop it on the page. 📽️
 
-The site renders it. That matters more than it sounds. An embedded player
-arrives in an iframe from another origin, and nothing inside one can be
-styled from here. It always looks like someone else's component parked on
-your page.
+1. Publish or share the deck, then copy its embed URL.
+2. Add it to `src/_data/prezos.yml`.
+3. Call the `prezo` shortcode with the title.
 
-Rendering the slides ourselves buys the whole surface. The viewer wears the
-same bar a code block gets. It follows the theme. It needs no third party at
-runtime.
-
-### Adding a deck
-{:.no-toc}
-
-1. Put the slides in `src/assets/slides/<name>/` as `01.png`, `02.png`, and
-   so on.
-2. Add an entry to `src/_data/decks.yml`.
-3. Call the shortcode with the deck name.
-
-{% code "decks.yml" %}
+{% code "prezos.yml" %}
 ```yaml
-- name: quirky
-  title: Quirky
-  count: 7
-  ratio: 1-by-1
-  source: "https://docs.google.com/presentation/d/<id>/edit"
+- title: "quirky"
+  description: "Quirky - a notes site that remembers what you wrote."
+  src: "https://docs.google.com/presentation/d/<id>/embed?start=false&loop=false"
 ```
 
-`ratio` sets the shape: `1-by-1`, `16-by-9` or `4-by-3`. The stage reserves
-that shape before the images load, so nothing below it jumps. `source` is
-where the header's last icon points.
+The default aspect ratio is 16:9. Pass `is-16-by-9`, `is-4-by-3` or
+`is-1-by-1` to change it. The frame reserves that shape before the deck
+loads, so nothing below it jumps.
 
-Run `npm run slides` to re-export a deck after you edit it.
+A note on the frame. The deck arrives in an iframe from another origin, so
+nothing inside it can be styled from here. Two things help. `rm=minimal` on
+the URL drops Google's control bar, and the frame is pulled out two pixels on
+each side to clip the border it draws. Dropping the bar also drops the
+next and previous buttons, so a deck that uses it should autoplay.
 
 ---
 
-### Square
+### 16:9 Ratio
 {:.no-toc}
 
-{% code "A deck" %}
+{% code "Default ratio" %}
 {% raw %}
 ```html
-{% slides "quirky" %}
+{% prezo "blinged-macmini" %}
 ```
 {% endraw %}
 
-{% slides "quirky" %}
-
-Click the slide to advance. The arrows work too. So do the arrow keys, once
-the deck has focus.
+{% prezo "blinged-macmini" %}
 
 ---
 
-### 16:9
+### 4:3 Ratio
 {:.no-toc}
 
-{% code "16:9" %}
+{% code "4:3 ratio" %}
 {% raw %}
 ```html
-{% slides "macmini" %}
+{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
 ```
 {% endraw %}
 
-{% slides "macmini" %}
+{% prezo "one-awesome-prezo", "prezos", "is-4-by-3" %}
 
 ---
 
-### 4:3
+### 1:1 Ratio
 {:.no-toc}
 
-{% code "4:3" %}
+{% code "1:1 ratio" %}
 {% raw %}
 ```html
-{% slides "awesome" %}
+{% prezo "quirky", "prezos", "is-1-by-1" %}
 ```
 {% endraw %}
 
-{% slides "awesome" %}
+{% prezo "quirky", "prezos", "is-1-by-1" %}
 
----
-
-### Every theme at once
-{:.no-toc}
-
-One slide per theme. Dark on the left, light on the right, the same six
-elements in both. Sixty-eight of them.
-
-{% slides "themes" %}
-
-The slides are rendered from `themes.json`, so they show the real palettes
-rather than an approximation of them.
+This one runs with `rm=minimal`, so it carries no control bar and autoplays
+through its seven slides.
