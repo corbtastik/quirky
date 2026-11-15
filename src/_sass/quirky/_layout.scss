@@ -68,7 +68,11 @@ body#quirky-site {
 main[role="main"] {
   display: flex;
   flex-wrap: wrap;
-  max-width: $measure;
+  // The measure is the reading column. The rail is a third column now, so
+  // the row is widened by its width rather than taking the space out of the
+  // prose - otherwise turning the controls on would narrow every line of
+  // text on the site.
+  max-width: calc(#{$measure} + #{$controls-gutter});
   margin: 2rem auto;
   padding: 1rem;
 }
@@ -84,7 +88,11 @@ header[role="banner"] {
 main[role="main"] > section {
   flex-basis: 0;
   flex-grow: 999;
-  min-width: 70%;
+  // Was 70%, which fitted a nav and a content column exactly. With the rail
+  // in the row as well the three no longer fit and the flex container wrapped
+  // them onto separate lines - every layout looked identical because every
+  // column started at the same left edge.
+  min-width: 55%;
   display: flex;
   flex-direction: column;
   padding: 1rem;

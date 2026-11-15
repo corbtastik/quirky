@@ -75,11 +75,9 @@ header[role="banner"] {
 
 @media screen and (max-width: $break-stack) {
   header[role="banner"] {
-    // Stacked, the nav occupies the top of the page - which is where the
-    // fixed theme controls sit. Reserve their column so wrapped labels do not
-    // run underneath them. _controls.scss moves the reservation to the other
-    // side when the page is mirrored.
-    padding-right: $controls-gutter;
+    // No gutter here any more. The rail used to be fixed in the corner and
+    // the nav had to keep clear of it; it is a row of its own now, so the
+    // links can use the full width.
 
     ul#side-nav {
       border-bottom: 1px solid var(--secondary-container-color);

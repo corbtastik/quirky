@@ -1,15 +1,15 @@
 /**
  * Site chrome and stream search.
  *
- * Three jobs, all optional - each one looks for its element and returns if the
+ * Six jobs, all optional - each one looks for its element and returns if the
  * page does not have it, so this single file can load everywhere:
  *
  *   1. the light/dark toggle (the palette picker is palette.js, in <head>)
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
- *   4. the side swap, which mirrors the page layout
- *   5. page alignment: middle, left or right
- *   6. the control toolbar's roving tab stop
+ *   4. the page layout: which order the three columns sit in
+ *   5. the control rail's roving tab stop
+ *   6. back to top
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -231,191 +231,49 @@
         });
     }
 
-    // ------------------------------------------------------------------
-    // Back to top
-    // ------------------------------------------------------------------
-    // ------------------------------------------------------------------
-    // Side swap - the stream only
-    //
-    // Mirrors the page: the nav column to the right of the flex row, the
-    // fixed chrome to the opposite corners. One attribute on <body> and the
-    // CSS in _controls.scss does the moving.
-    //
-    // The choice is remembered, so a page you mirrored comes back mirrored.
-    // ------------------------------------------------------------------
-    function initSideSwap() {
-        var root = document.documentElement;
-        var button = document.getElementById('side-swap');
-        if (!button) return;
-        var icon = button.querySelector('.material-icons');
-
-        // Everything that ends up somewhere else when the page mirrors.
-        // A page without a nav column or a section returns null for those,
-        // and only the chrome moves.
-        var movers = [
-            document.querySelector('main[role="main"] > header[role="banner"]'),
-            document.querySelector('main[role="main"] > section'),
-            document.querySelector('.quirky-sticky-top-right'),
-            document.querySelector('.quirky-sticky-bottom-right')
-        ].filter(Boolean);
-
-        // theme.js already restored the stored choice in <head>, so the
-        // attribute on <html> is the state - reading it back beats reading
-        // storage twice and risking the two disagreeing.
-        var KEY = 'quirky-layout';
-        var mirrored = root.getAttribute('data-layout') === 'mirrored';
-
-        function reduceMotion() {
-            return window.matchMedia &&
-                   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        }
-
-        /**
-         * Animate a layout change that is not animatable.
-         *
-         * Neither flex-direction nor swapping left for right can be
-         * transitioned, so the elements are moved first and then put back
-         * visually: measure, mutate, measure again, translate each one by
-         * the difference, and release. The browser interpolates from the
-         * old position to the new one while the layout has already changed.
-         *
-         * Transforms are cleared at the end. Leaving one on the nav would
-         * matter - it is position: sticky, and a stray transform is the kind
-         * of thing that quietly changes how that resolves.
-         */
-        function glide(mutate) {
-            if (reduceMotion()) { mutate(); return; }
-
-            var first = movers.map(function (el) { return el.getBoundingClientRect(); });
-            mutate();
-            var last = movers.map(function (el) { return el.getBoundingClientRect(); });
-
-            var moved = [];
-            movers.forEach(function (el, i) {
-                var dx = first[i].left - last[i].left;
-                var dy = first[i].top - last[i].top;
-                if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
-                el.classList.add('is-gliding');
-                // Inline `none` so applying the offset is not itself animated.
-                el.style.transition = 'none';
-                el.style.transform = 'translate3d(' + dx + 'px, ' + dy + 'px, 0)';
-                moved.push(el);
-            });
-            if (!moved.length) return;
-
-            // One forced reflow for the whole set, so every element starts
-            // from its offset in the same frame.
-            void document.body.offsetWidth;
-
-            moved.forEach(function (el) {
-                el.addEventListener('transitionend', function done(e) {
-                    if (e.propertyName !== 'transform') return;
-                    el.removeEventListener('transitionend', done);
-                    el.classList.remove('is-gliding');
-                    el.style.transform = '';
-                });
-                // Hand the duration back to the stylesheet and go.
-                el.style.transition = '';
-                el.style.transform = '';
-            });
-        }
-
-        function paint() {
-            // The arrow points the way the chrome will move, so it flips to
-            // the one that undoes what you are looking at.
-            icon.textContent = mirrored ? 'chevron_right' : 'chevron_left';
-            button.setAttribute('aria-pressed', mirrored ? 'true' : 'false');
-            button.setAttribute('aria-label',
-                mirrored ? 'Restore the default sides' : 'Swap the sides');
-            button.setAttribute('title',
-                mirrored ? 'Back to the default sides' : 'Swap the sides');
-        }
-
-        // The swap moves the nav to the other side and leaves the rail where
-        // it is. With four layouts to reach, flipping one axis composes:
-        // pick which corner the rail is in, then swap the nav across it.
-        // Flipping both at once would make two of the four unreachable from
-        // this button.
-        var PARTNER = {
-            'default': 'mirrored-rail-right',
-            'mirrored-rail-right': 'default',
-            'rail-left': 'mirrored',
-            'mirrored': 'rail-left'
-        };
-
-        button.addEventListener('click', function () {
-            var next = PARTNER[currentLayout()] || 'mirrored-rail-right';
-            glide(function () { setLayout(next, true); });
-            mirrored = next === 'mirrored' || next === 'mirrored-rail-right';
-            paint();
-        });
-
-        // The layout is already correct - theme.js set it before the first
-        // paint. Only the button needs bringing into line with it.
-        mirrored = currentLayout() === 'mirrored' ||
-                   currentLayout() === 'mirrored-rail-right';
-        paint();
-    }
-
-    // ------------------------------------------------------------------
-    // Page alignment
-    //
-    // Middle, left or right. Middle is what the containers do on their own,
-    // so it has no CSS; the attribute is still set, so the control can show
-    // which one is in force. theme.js puts it back before the first paint.
-    // ------------------------------------------------------------------
     /**
-     * Page layout: four arrangements of the furniture.
+     * Page layout: the six orders of the three columns.
      *
-     *   default              nav left,  rail in the right corner
-     *   rail-left            rail left, nav beside it, then content
-     *   mirrored             rail left, content, nav on the right
-     *   mirrored-rail-right  content, nav right, rail in the right corner
+     *   [rail][nav][content]   [nav][rail][content]   [content][rail][nav]
+     *   [rail][content][nav]   [nav][content][rail]   [content][nav][rail]
      *
-     * Two axes - which side the nav is on, which corner the rail is in - but
-     * one attribute, because they are one setting. The side swap button
-     * writes the same attribute, so the two controls are kept in step here
-     * rather than allowed to disagree: whatever sets the layout, both the
-     * radio group and the swap's pressed state are re-read from the result.
+     * The rail is a flex item, so each of these is three `order` values in
+     * the stylesheet. Nothing is positioned here - this only writes the
+     * attribute the rules key off, and keeps the radio group showing it.
      */
-    var LAYOUTS = ['default', 'rail-left', 'mirrored', 'mirrored-rail-right'];
+    var LAYOUTS = [
+        'rail-nav-content', 'rail-content-nav',
+        'nav-rail-content', 'nav-content-rail',
+        'content-rail-nav', 'content-nav-rail'
+    ];
+    var LAYOUT_DEFAULT = 'nav-content-rail';
 
     function currentLayout() {
         var v = document.documentElement.getAttribute('data-layout');
-        return LAYOUTS.indexOf(v) > 0 ? v : 'default';
+        return LAYOUTS.indexOf(v) >= 0 ? v : LAYOUT_DEFAULT;
     }
 
-    /** Put every layout control in step with the attribute on <html>. */
     function syncLayoutControls() {
         var now = currentLayout();
-
         var radios = document.querySelectorAll('[data-layout-choice]');
         Array.prototype.forEach.call(radios, function (b) {
             b.setAttribute('aria-checked',
                 b.getAttribute('data-layout-choice') === now ? 'true' : 'false');
         });
-
-        // The swap is pressed whenever the nav is on the right, whichever of
-        // the two arrangements put it there.
-        var swap = document.getElementById('side-swap');
-        if (swap) {
-            var navRight = now === 'mirrored' || now === 'mirrored-rail-right';
-            swap.setAttribute('aria-pressed', navRight ? 'true' : 'false');
-            var icon = swap.querySelector('.material-icons');
-            if (icon) icon.textContent = navRight ? 'chevron_right' : 'chevron_left';
-        }
     }
 
     function setLayout(choice, remember) {
-        var root = document.documentElement;
-        if (choice === 'default') root.removeAttribute('data-layout');
-        else root.setAttribute('data-layout', choice);
+        if (LAYOUTS.indexOf(choice) < 0) choice = LAYOUT_DEFAULT;
 
+        // The default is a named arrangement like the rest, so it carries
+        // its attribute too. One rule covers every case, and the radio can
+        // read the page instead of treating an absent value specially.
+        document.documentElement.setAttribute('data-layout', choice);
         syncLayoutControls();
 
         if (remember) {
             try {
-                if (choice === 'default') localStorage.removeItem('quirky-layout');
+                if (choice === LAYOUT_DEFAULT) localStorage.removeItem('quirky-layout');
                 else localStorage.setItem('quirky-layout', choice);
             } catch (e) { /* private window */ }
         }
@@ -433,46 +291,10 @@
         });
 
         // theme.js set the attribute in <head>; read it back rather than
-        // storage so the controls cannot disagree with the page.
+        // storage so the buttons cannot disagree with the page.
         syncLayoutControls();
     }
 
-    function initAlign() {
-        var root = document.documentElement;
-        var buttons = document.querySelectorAll('.quirky-align .quirky-icon-button');
-        if (!buttons.length) return;
-
-        var KEY = 'quirky-pull';
-
-        function apply(choice) {
-            root.setAttribute('data-pull', choice);
-            buttons.forEach(function(b) {
-                b.setAttribute('aria-checked',
-                    b.getAttribute('data-align') === choice ? 'true' : 'false');
-            });
-            try { localStorage.setItem(KEY, choice); } catch (e) {}
-        }
-
-        buttons.forEach(function(b) {
-            b.addEventListener('click', function() {
-                apply(b.getAttribute('data-align'));
-            });
-        });
-
-        var current = root.getAttribute('data-pull');
-        apply(current === 'left' || current === 'right' ? current : 'center');
-    }
-
-    // ------------------------------------------------------------------
-    // The control toolbar
-    //
-    // The controls sit before <main> in the document, so a keyboard user had
-    // to pass all seven of them to reach the page. A toolbar is one tab stop:
-    // Tab moves past the group, and the arrow keys move within it.
-    //
-    // The role in the markup promises this behaviour, which is why the
-    // behaviour lives here rather than the role sitting on its own.
-    // ------------------------------------------------------------------
     function initToolbar() {
         var bar = document.querySelector('.quirky-sticky-top-right');
         if (!bar) return;
@@ -529,6 +351,9 @@
         if (first) setStop(first);
     }
 
+    // ------------------------------------------------------------------
+    // Back to top
+    // ------------------------------------------------------------------
     function initToTop() {
         var link = document.querySelector('.quirky-to-top');
         if (!link) return;
@@ -542,8 +367,6 @@
         initThemeToggle();
         initNow();
         initSearch();
-        initSideSwap();
-        initAlign();
         initLayout();
         initToolbar();
         initToTop();

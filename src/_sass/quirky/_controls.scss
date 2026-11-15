@@ -37,231 +37,123 @@
 }
 
 // ----------------------------------------------------------------------------
-// Side swap (every page)
+// The control rail, and the six layouts
 //
-// One attribute on <html> mirrors the page: the nav column moves to the
-// other end of the flex row and the fixed chrome moves to the opposite
-// corners. The button sets a string; everything below does the moving.
+// The rail is a flex item inside main rather than fixed chrome in a corner.
+// It has to be: three of the six arrangements put it between the nav and the
+// content, and a corner cannot reach there.
 //
-// The attribute is on <html> rather than <body> so theme.js can restore a
-// stored choice in <head>, before the first paint. On <body> it could only
-// be set after the body existed, which meant every page flashed the default
-// arrangement before correcting itself.
+// Being in the flow means the six orderings are six sets of `order` values
+// and nothing is positioned by hand. The DOM order is nav, rail, content,
+// which is also the fallback if a stylesheet never loads.
 // ----------------------------------------------------------------------------
 
-.quirky-home,
-.quirky-side-swap {
-  line-height: 1;
+.quirky-rail {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+
+  // Follows you down the page, the way the nav does on the stream. align-self
+  // keeps the flex row from stretching it to the full height - a stretched
+  // item fills its container and has nowhere to travel.
+  position: sticky;
+  top: 1rem;
+  align-self: flex-start;
+
+  // Above the content it overlaps while scrolling, below the palette menu.
+  z-index: 5;
 }
 
-// main is a flex row, so moving the nav is a direction flip rather than a
-// reordering - the section keeps its flex-grow and needs no rule of its own.
+.quirky-theme-picker {
+  position: relative;
+}
+
+// The six orderings. Each sets three `order` values; the names read in the
+// order the columns appear.
+@mixin layout-order($nav, $rail, $content) {
+  header[role="banner"] { order: $nav; }
+  .quirky-rail { order: $rail; }
+  main[role="main"] > section { order: $content; }
+}
+
+[data-layout="rail-nav-content"] { @include layout-order(2, 1, 3); }
+[data-layout="rail-content-nav"] { @include layout-order(3, 1, 2); }
+[data-layout="nav-rail-content"] { @include layout-order(1, 2, 3); }
+[data-layout="nav-content-rail"] { @include layout-order(1, 3, 2); }
+[data-layout="content-rail-nav"] { @include layout-order(3, 2, 1); }
+[data-layout="content-nav-rail"] { @include layout-order(2, 3, 1); }
+
+// The default, for a page before the script runs or with JS off. Same as
+// nav-content-rail, which is where the site has always put things.
 //
-// Only above the stacking breakpoint. Below it the nav is already a
-// horizontal strip above the content, and reversing a wrapped column does
-// not put it on the right - it puts it underneath, which is not a swap of
-// sides but a different page.
-@media screen and (min-width: $break-stack + 0.0625rem) {
-  [data-layout="mirrored"] main[role="main"] {
-    flex-direction: row-reverse;
-  }
-}
-
-// Both corners of the fixed chrome, not just the top one. Mirroring the page
-// and leaving the back-to-top button behind on the right reads as a bug
-// rather than as a choice. These apply at every width - a corner is still a
-// corner on a phone.
-[data-layout="mirrored"] .quirky-sticky-top-right {
-  right: auto;
-  left: 1rem;
-  // The column is right-aligned by default; in the left corner it has to
-  // align the other way or a ragged column hangs off the wrong edge.
-  align-items: flex-start;
-}
-
-[data-layout="mirrored"] .quirky-sticky-bottom-right {
-  right: auto;
-  left: 1rem;
-}
-
-// The glide itself. Only present while an element is actually moving -
-// quirky.js adds the class, inverts the element to where it was, and takes
-// the class off again on transitionend.
-//
-// The transition lives here rather than in the script so the duration and
-// the curve sit with the rest of the styling.
-.is-gliding {
-  transition: transform 340ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-// A layout that rearranges itself under you is exactly what this asks to
-// be spared. The swap still happens; it just happens at once.
-@media (prefers-reduced-motion: reduce) {
-  .is-gliding {
-    transition: none;
-  }
-}
-
-// Stacked, _nav.scss reserves a column on the right of the nav strip for the
-// fixed controls. Mirrored they are in the left corner, so the reservation
-// has to follow them or the first row of links runs under the icons.
-@media screen and (max-width: $break-stack) {
-  [data-layout="mirrored"] header[role="banner"] {
-    padding-right: 0;
-    padding-left: $controls-gutter;
-  }
-}
+// Deliberately unnested. Written as `main[role="main"] header[role="banner"]`
+// it scores (0,2,2) against the (0,2,1) of a layout rule and wins, so the nav
+// and the rail never move and only the content column does - which looks
+// exactly like two of the six layouts working and four being ignored.
+header[role="banner"] { order: 1; }
+.quirky-rail { order: 3; }
+main[role="main"] > section { order: 2; }
 
 // ----------------------------------------------------------------------------
-// Page layout
-//
-// Two arrangements, chosen by the pair of buttons in the control column.
-//
-//   default              nav left,  rail in the right corner
-//   rail-left            rail in the left corner, nav beside it, then content
-//   mirrored             rail in the left corner, content, nav on the right
-//   mirrored-rail-right  content, nav on the right, rail in the right corner
-//
-// Two axes: which side the nav column sits on, and which corner the rail is
-// in. The nav moves by flipping the flex direction of main; the rail moves by
-// swapping its left and right offsets. mirrored is the long-standing side
-// swap, kept under its own name so a stored preference still reads.
-//
-// Where the rail and the nav end up on the same side, the page has to make
-// room: the rail is fixed to the viewport, so the nav would otherwise sit
-// underneath it.
+// The layout buttons
 // ----------------------------------------------------------------------------
 
 .quirky-layout {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  line-height: 1;
+  gap: 0.15rem;
 }
 
-// The pair is one glyph and its mirror, so the bar reads as the rail moving
-// from one side to the other.
-.material-icons.is-flipped {
-  transform: scaleX(-1);
-}
-
-[data-layout="rail-left"] {
-  .quirky-sticky-top-right {
-    right: auto;
-    left: 1rem;
-    // Right-aligned by default; in the left corner the column has to align
-    // the other way or it hangs off the wrong edge.
-    align-items: flex-start;
-  }
-
-  .quirky-sticky-bottom-right {
-    right: auto;
-    left: 1rem;
-  }
-}
-
-// Room for the rail. Only where the page would actually collide with it:
-// the containers centre themselves, so a centred page already clears the
-// corner on a wide window. Pinned left, it does not.
-@media screen and (min-width: $break-stack + 0.0625rem) {
-  html[data-layout="rail-left"][data-pull="left"] main[role="main"] {
-    margin-left: $controls-gutter;
-  }
-}
-
-// Stacked, the nav is a horizontal strip and _nav.scss reserves a column on
-// its right for the fixed controls. With the rail on the left that
-// reservation has to swap sides or the first row of links runs under it.
-@media screen and (max-width: $break-stack) {
-  [data-layout="rail-left"] header[role="banner"] {
-    padding-right: 0;
-    padding-left: $controls-gutter;
-  }
-}
-
-// The fourth arrangement: nav on the right like the mirror, but the rail
-// stays in its default corner. Only the flex direction changes - the rail
-// needs no rule, because not matching [data-layout="mirrored"] already
-// leaves it on the right, and the same is true of the gutter rules and the
-// stacked nav padding further down.
-@media screen and (min-width: $break-stack + 0.0625rem) {
-  [data-layout="mirrored-rail-right"] main[role="main"] {
-    flex-direction: row-reverse;
-  }
-}
-
-// ----------------------------------------------------------------------------
-// Page alignment
-//
-// Both page containers centre themselves with `margin: 2rem auto`. Dropping
-// the margin on one side and leaving the other auto pins the site to that
-// edge. Middle needs no rule - it is what the containers already do.
-//
-// The padding inside stays in every case, so the text is never flush to the
-// glass.
-// ----------------------------------------------------------------------------
-
-// The three sit closer to each other than to the controls above, so they read
-// as one set of choices rather than three unrelated buttons.
-.quirky-align {
+.quirky-layout-option {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem;
+  border-radius: 0.25em;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+
+  // The chosen one stays lit, so the column shows the current arrangement
+  // without being hovered.
+  &[aria-checked="true"] {
+    opacity: 1;
+  }
 }
 
-[data-pull="left"] main[role="main"],
-[data-pull="left"] .quirky-wide {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-[data-pull="right"] main[role="main"],
-[data-pull="right"] .quirky-wide {
-  margin-left: auto;
-  margin-right: 0;
-}
-
-// ----------------------------------------------------------------------------
-// Keeping the page out from under the controls
-//
-// The control column floats over the page and takes the outer $controls-gutter
-// of the window. Pin the page to the edge the controls are on and the content
-// runs underneath them - on the stream it is the date column that disappears.
-//
-// Only two of the six combinations collide, so only those two reserve the
-// gutter. The other four keep a true zero margin.
-//
-// Nothing moves on its own here. The side swap still says where the chrome is,
-// and the alignment still says where the page is; this only stops the two
-// sitting on top of each other.
-// ----------------------------------------------------------------------------
-
-// Controls on the right, which is the default, and the page pinned right.
-html:not([data-layout="mirrored"])[data-pull="right"] main[role="main"],
-html:not([data-layout="mirrored"])[data-pull="right"] .quirky-wide {
-  margin-right: $controls-gutter;
-}
-
-// Controls swapped to the left, and the page pinned left.
-html[data-layout="mirrored"][data-pull="left"] main[role="main"],
-html[data-layout="mirrored"][data-pull="left"] .quirky-wide {
-  margin-left: $controls-gutter;
+.layout-icon {
+  display: block;
 }
 
 // ----------------------------------------------------------------------------
-// The palette menu follows its button
+// Stacked
 //
-// Quirky anchors the menu with `right: 0`, so it hangs from the picker's right
-// edge and grows leftward. That is correct in the right corner and wrong in
-// the left one, where 158px of a 208px menu ends up past the edge of the
-// window.
-//
-// Anchored the other way when the chrome is mirrored. Overridden here rather
-// than in _palette.scss, which is vendored and stays as it came.
+// Below the breakpoint main wraps and the three become rows. A column of six
+// icons down the side of a phone is most of the screen, so the rail lies
+// down and its contents run across instead.
 // ----------------------------------------------------------------------------
-[data-layout="mirrored"] .quirky-themes-menu {
-  right: auto;
-  left: 0;
+
+@media screen and (max-width: $break-stack) {
+  .quirky-rail {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+
+  .quirky-layout {
+    flex-direction: row;
+    gap: 0.25rem;
+  }
 }

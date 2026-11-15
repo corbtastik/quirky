@@ -3,8 +3,7 @@
  * and then corrected. Two things are restored here:
  *
  *   - the light/dark attribute on <html>
- *   - the side-swap layout, also on <html>
- *   - which edge the site is aligned to, if any
+ *   - the column order, also on <html>
  *
  * Both are attributes rather than classes because they are read by CSS alone.
  * The toggles that set them live in assets/js/quirky.js, which runs after the
@@ -25,18 +24,13 @@
 
     root.setAttribute(stored('theme') || 'light', '');
 
-    // Any of the three arrangements, not just the mirror. default is what
-    // the stylesheet already does, so it carries no attribute - setting one
-    // would mean a rule for the state that needs none.
+    // One of the six column orders. The default carries its attribute too,
+    // so the rules and the radio never have to treat an absent value as a
+    // special case.
+    var LAYOUTS = ['rail-nav-content', 'rail-content-nav',
+                   'nav-rail-content', 'nav-content-rail',
+                   'content-rail-nav', 'content-nav-rail'];
     var layout = stored('quirky-layout');
-    if (layout === 'rail-left' || layout === 'mirrored' ||
-        layout === 'mirrored-rail-right') {
-        root.setAttribute('data-layout', layout);
-    }
-
-    // center is the default and needs no CSS of its own, but the attribute
-    // is set either way so the matching control can show as active.
-    var pull = stored('quirky-pull');
-    root.setAttribute('data-pull',
-        (pull === 'left' || pull === 'right') ? pull : 'center');
+    root.setAttribute('data-layout',
+        LAYOUTS.indexOf(layout) >= 0 ? layout : 'nav-content-rail');
 })();

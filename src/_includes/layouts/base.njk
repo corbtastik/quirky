@@ -20,7 +20,7 @@
 {#- `bodyClass` lets one page opt into behaviour the rest does not want -
     the stream uses it to make the nav and the search bar stick. -#}
 <body id="quirky-site"{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
-  {% include "components/controls.njk" %}
+  {% include "components/to-top.njk" %}
   {% if wide %}
   <div id="quirky-wide" class="quirky-wide">
     <header class="quirky-wide-header">
@@ -37,6 +37,7 @@
     <header role="banner">
       {% include "components/nav.njk" %}
     </header>
+    {% include "components/controls.njk" %}
     <section class="{{ sectionClass | default('post') }}">
       <div id="page-content" class="page-content">
         {{ content | safe }}

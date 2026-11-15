@@ -366,6 +366,55 @@ module.exports = function(eleventyConfig) {
     ).join("\n");
   });
 
+  // A layout icon: the page in miniature, three blocks in the order the
+  // layout puts them.
+  //
+  // Material Icons has no glyph for "three things in this order", and six
+  // permutations need six distinct pictures, so these are drawn. The widths
+  // carry the meaning - a narrow solid bar is the control rail, a medium
+  // block is the nav, and the wide ruled box is the content - which is what
+  // lets someone read the arrangement off the icon rather than the tooltip.
+  //
+  // currentColor throughout, so the icons take the theme like every other
+  // control in the column.
+  // The six layout buttons draw the page in miniature: this rail as a narrow
+  // column of buttons, the nav as a solid block, the content as a wide ruled
+  // box, laid out in the order the layout puts them. Material Icons has no
+  // glyph for a three-column permutation, so they are drawn here.
+  //
+  // At 30px the rail and the nav would differ only in width, which is too
+  // fine a distinction to read, so the rail carries its buttons as dots and
+  // the two tell apart by texture instead of size.
+  eleventyConfig.addShortcode("layoutIcon", function (order) {
+    const W = { rail: 6, nav: 8, content: 14 };
+    let x = 2;
+    let out = "";
+    for (const part of order.split("-")) {
+      const w = W[part];
+      if (part === "content") {
+        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
+               ` fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>`;
+        for (let i = 0; i < 3; i++) {
+          out += `<rect x="${x + 2.5}" y="${10.5 + i * 6}" width="${w - 5}" height="1.5"` +
+                 ` rx="0.75" fill="currentColor" opacity="0.5"/>`;
+        }
+      } else if (part === "nav") {
+        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
+               ` fill="currentColor" opacity="0.4"/>`;
+      } else {
+        out += `<rect x="${x}" y="5" width="${w}" height="26" rx="1.5"` +
+               ` fill="currentColor" opacity="0.22"/>`;
+        for (let i = 0; i < 3; i++) {
+          out += `<circle cx="${x + w / 2}" cy="${11 + i * 7}" r="1.6"` +
+                 ` fill="currentColor"/>`;
+        }
+      }
+      x += w + 2;
+    }
+    return `<svg class="layout-icon" viewBox="0 0 36 36" width="30" height="30"` +
+           ` aria-hidden="true" focusable="false">${out}</svg>`;
+  });
+
   eleventyConfig.addShortcode("prezo", function(title, dataFile = "prezos", aspect = "is-16-by-9") {
     const prezo = (this.ctx[dataFile] || []).find(p => p.title === title);
     if (!prezo) return "";

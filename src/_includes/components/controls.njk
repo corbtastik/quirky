@@ -1,128 +1,61 @@
 {#
-  Quirky's sticky chrome: light/dark on one axis, colour palette on the other.
+  The control rail.
 
-  It is position: fixed and pointer-events: none except on the buttons
-  themselves, so it floats over the layout without taking part in it - the
-  nav column and the content keep the widths they would have had.
+  It is a flex item inside main, not fixed chrome in a corner, because the
+  layouts put it between the nav and the content as well as outside them -
+  [nav][rail][content] is not reachable from a corner. Being in the flow, the
+  six arrangements are six sets of `order` values and nothing has to be
+  positioned by hand.
+
+  It sticks to the top of the viewport as you scroll, the same way the nav
+  does on the stream.
+
+  Back to top is not here. That is navigation rather than a setting, and it
+  stays pinned in its own corner - see to-top.njk.
 #}
-<div class="quirky-sticky-controls">
-    {#- A toolbar, not seven loose buttons. The role earns its keep: quirky.js
-        gives the group a single tab stop and moves between the controls with
-        the arrow keys, so a keyboard user reaches the page in one Tab rather
-        than seven. The back-to-top stays out of it - that is navigation, not
-        a setting, and it lives in the other corner. -#}
-    <div class="quirky-sticky-top-right" role="toolbar"
-         aria-label="Site controls" aria-orientation="vertical">
-        <div class="quirky-theme-toggle">
-            {# Matches the default light mode; quirky.js re-seeds it from the stored mode. #}
-            <span id="theme-toggle" class="material-icons md-36" role="button"
-                  tabindex="0" title="Light / dark" aria-label="Light / dark">dark_mode</span>
-        </div>
-        {# Home. Second in the column, under the light/dark toggle, as asked.
-           A link rather than a button, because that is what it is - it
-           borrows .quirky-icon-button only for the chrome reset, which strips
-           a button's styling and is harmless on an anchor. #}
-        <div class="quirky-home">
-            <a href="{{ '/' | relative_url }}" class="quirky-icon-button"
-               title="Home" aria-label="Home">
-                <span class="material-icons md-36" aria-hidden="true">home</span>
-            </a>
-        </div>
-        {# The list is built by palette.js from the same themes.json the build
-           reads, so this stays a button and an empty box. #}
-        <div id="theme-picker" class="quirky-theme-picker">
-            <button type="button" id="palette-toggle" class="quirky-palette-toggle"
-                    aria-label="Colour theme" aria-expanded="false"
-                    aria-controls="palette-menu" title="Colour theme">
-                <span class="material-icons md-36" aria-hidden="true">palette</span>
-            </button>
-            <ul id="palette-menu" class="quirky-themes-menu" hidden></ul>
-        </div>
-        {# Side swap. Third in the column, so it lands under the palette -
-           the container is a flex column with a gap and needs no help
-           stacking.
-
-           The arrow points the way the chrome is about to move: < sends the
-           controls to the left corner and the nav to the right, > puts both
-           back. Same convention as the light/dark toggle above it, where the
-           icon is the action rather than the state.
-
-           It only does anything on the stream, so _controls.scss only shows
-           it there. #}
-        <div class="quirky-side-swap">
-            <button type="button" id="side-swap" class="quirky-icon-button"
-                    aria-pressed="false" aria-label="Swap the sides"
-                    title="Swap the sides">
-                <span class="material-icons md-36" aria-hidden="true">chevron_left</span>
-            </button>
-        </div>
-        {# Layout. Two arrangements of the page furniture, as a radiogroup
-           because they are exclusive choices rather than a toggle.
-
-           The icon is the rail: vertical_split draws lines for the content
-           and a solid bar beside them, so the bar lands on the side the
-           control column will. Layout 2 flips the same glyph rather than
-           using a second one, which keeps the pair unmistakably a pair.
-
-           Both write data-layout on <html>, the attribute the side swap
-           above already uses - the three arrangements are states of one
-           setting, so clicking any of them clears the others. #}
-        <div class="quirky-layout" role="radiogroup" aria-label="Page layout">
-            <button type="button" id="layout-default" class="quirky-icon-button"
-                    data-layout-choice="default" role="radio" aria-checked="true"
-                    aria-label="Sidebar left, controls right"
-                    title="Sidebar left, controls right">
-                <span class="material-icons md-36" aria-hidden="true">vertical_split</span>
-            </button>
-            <button type="button" id="layout-rail-left" class="quirky-icon-button"
-                    data-layout-choice="rail-left" role="radio" aria-checked="false"
-                    aria-label="Controls left, then sidebar"
-                    title="Controls left, then sidebar">
-                <span class="material-icons md-36 is-flipped" aria-hidden="true">vertical_split</span>
-            </button>
-            {# The mirrors of the two above. view_sidebar rather than a third
-               flip of vertical_split: the glyph has to say which side the nav
-               is on as well as the rail, and one shape cannot carry both
-               axes. So the shape is the nav side - vertical_split for nav
-               left, view_sidebar for nav right - and within each pair the
-               heavy block is the rail. #}
-            <button type="button" id="layout-mirrored" class="quirky-icon-button"
-                    data-layout-choice="mirrored" role="radio" aria-checked="false"
-                    aria-label="Controls left, sidebar right"
-                    title="Controls left, sidebar right">
-                <span class="material-icons md-36" aria-hidden="true">view_sidebar</span>
-            </button>
-            <button type="button" id="layout-mirrored-rail-right" class="quirky-icon-button"
-                    data-layout-choice="mirrored-rail-right" role="radio" aria-checked="false"
-                    aria-label="Sidebar right, then controls"
-                    title="Sidebar right, then controls">
-                <span class="material-icons md-36 is-flipped" aria-hidden="true">view_sidebar</span>
-            </button>
-        </div>
-        {# Page alignment. Middle, left, right - in that order, middle
-           being what the site has always done. Each sets data-pull on
-           <html>; _controls.scss drops the margin on the matching side. #}
-        <div class="quirky-align" role="radiogroup" aria-label="Page alignment">
-            <button type="button" id="align-center" class="quirky-icon-button"
-                    data-align="center" role="radio" aria-checked="true"
-                    aria-label="Centre the site" title="Centre the site">
-                <span class="material-icons md-36" aria-hidden="true">align_horizontal_center</span>
-            </button>
-            <button type="button" id="align-left" class="quirky-icon-button"
-                    data-align="left" role="radio" aria-checked="false"
-                    aria-label="Pin the site left" title="Pin the site left">
-                <span class="material-icons md-36" aria-hidden="true">align_horizontal_left</span>
-            </button>
-            <button type="button" id="align-right" class="quirky-icon-button"
-                    data-align="right" role="radio" aria-checked="false"
-                    aria-label="Pin the site right" title="Pin the site right">
-                <span class="material-icons md-36" aria-hidden="true">align_horizontal_right</span>
-            </button>
-        </div>
+<aside class="quirky-rail" role="toolbar" aria-label="Site controls"
+       aria-orientation="vertical">
+    <div class="quirky-theme-toggle">
+        {# Matches the default light mode; quirky.js re-seeds it from the stored mode. #}
+        <span id="theme-toggle" class="material-icons md-36" role="button"
+              tabindex="0" title="Light / dark" aria-label="Light / dark">dark_mode</span>
     </div>
-    <div class="quirky-sticky-bottom-right">
-        <a href="#" class="quirky-to-top" title="Back to top" aria-label="Back to top">
-            <span class="material-icons md-36">keyboard_double_arrow_up</span>
+    <div class="quirky-home">
+        <a href="{{ '/' | relative_url }}" class="quirky-icon-button"
+           title="Home" aria-label="Home">
+            <span class="material-icons md-36" aria-hidden="true">home</span>
         </a>
     </div>
-</div>
+    {# The list is built by palette.js from the same themes.json the build
+       reads, so this stays a button and an empty box. #}
+    <div id="theme-picker" class="quirky-theme-picker">
+        <button type="button" id="palette-toggle" class="quirky-palette-toggle"
+                aria-label="Colour theme" aria-expanded="false"
+                aria-controls="palette-menu" title="Colour theme">
+            <span class="material-icons md-36" aria-hidden="true">palette</span>
+        </button>
+        <ul id="palette-menu" class="quirky-themes-menu" hidden></ul>
+    </div>
+    {# The six orderings of the three columns, as a radiogroup - they are
+       exclusive choices. Each icon draws the page in miniature: narrow solid
+       bar for this rail, medium block for the nav, wide ruled box for the
+       content, in the order the layout puts them. #}
+    <div class="quirky-layout" role="radiogroup" aria-label="Page layout">
+        {%- set orders = [
+            ["rail-nav-content", "Controls, sidebar, content"],
+            ["rail-content-nav", "Controls, content, sidebar"],
+            ["nav-rail-content", "Sidebar, controls, content"],
+            ["nav-content-rail", "Sidebar, content, controls"],
+            ["content-rail-nav", "Content, controls, sidebar"],
+            ["content-nav-rail", "Content, sidebar, controls"]
+        ] %}
+        {%- for o in orders %}
+        <button type="button" class="quirky-icon-button quirky-layout-option"
+                id="layout-{{ o[0] }}" data-layout-choice="{{ o[0] }}"
+                role="radio" aria-checked="{{ 'true' if o[0] == 'nav-content-rail' else 'false' }}"
+                aria-label="{{ o[1] }}" title="{{ o[1] }}">
+            {% layoutIcon o[0] %}
+        </button>
+        {%- endfor %}
+    </div>
+</aside>
