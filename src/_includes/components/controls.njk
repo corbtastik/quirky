@@ -80,6 +80,24 @@
                     title="Controls left, then sidebar">
                 <span class="material-icons md-36 is-flipped" aria-hidden="true">vertical_split</span>
             </button>
+            {# The mirrors of the two above. view_sidebar rather than a third
+               flip of vertical_split: the glyph has to say which side the nav
+               is on as well as the rail, and one shape cannot carry both
+               axes. So the shape is the nav side - vertical_split for nav
+               left, view_sidebar for nav right - and within each pair the
+               heavy block is the rail. #}
+            <button type="button" id="layout-mirrored" class="quirky-icon-button"
+                    data-layout-choice="mirrored" role="radio" aria-checked="false"
+                    aria-label="Controls left, sidebar right"
+                    title="Controls left, sidebar right">
+                <span class="material-icons md-36" aria-hidden="true">view_sidebar</span>
+            </button>
+            <button type="button" id="layout-mirrored-rail-right" class="quirky-icon-button"
+                    data-layout-choice="mirrored-rail-right" role="radio" aria-checked="false"
+                    aria-label="Sidebar right, then controls"
+                    title="Sidebar right, then controls">
+                <span class="material-icons md-36 is-flipped" aria-hidden="true">view_sidebar</span>
+            </button>
         </div>
         {# Page alignment. Middle, left, right - in that order, middle
            being what the site has always done. Each sets data-pull on

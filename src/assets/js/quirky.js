@@ -331,20 +331,29 @@
                 mirrored ? 'Back to the default sides' : 'Swap the sides');
         }
 
-        function setLayout() {
-            if (mirrored) root.setAttribute('data-layout', 'mirrored');
-            else root.removeAttribute('data-layout');
-        }
+        // The swap moves the nav to the other side and leaves the rail where
+        // it is. With four layouts to reach, flipping one axis composes:
+        // pick which corner the rail is in, then swap the nav across it.
+        // Flipping both at once would make two of the four unreachable from
+        // this button.
+        var PARTNER = {
+            'default': 'mirrored-rail-right',
+            'mirrored-rail-right': 'default',
+            'rail-left': 'mirrored',
+            'mirrored': 'rail-left'
+        };
 
         button.addEventListener('click', function () {
-            mirrored = !mirrored;
-            glide(setLayout);
+            var next = PARTNER[currentLayout()] || 'mirrored-rail-right';
+            glide(function () { setLayout(next, true); });
+            mirrored = next === 'mirrored' || next === 'mirrored-rail-right';
             paint();
-            try { localStorage.setItem(KEY, mirrored ? 'mirrored' : 'default'); } catch (e) {}
         });
 
         // The layout is already correct - theme.js set it before the first
         // paint. Only the button needs bringing into line with it.
+        mirrored = currentLayout() === 'mirrored' ||
+                   currentLayout() === 'mirrored-rail-right';
         paint();
     }
 
@@ -356,64 +365,76 @@
     // which one is in force. theme.js puts it back before the first paint.
     // ------------------------------------------------------------------
     /**
-     * Page layout: two arrangements of the furniture.
+     * Page layout: four arrangements of the furniture.
      *
-     *   default    nav left, content, control rail in the right corner
-     *   rail-left  rail in the left corner, nav beside it, then content
+     *   default              nav left,  rail in the right corner
+     *   rail-left            rail left, nav beside it, then content
+     *   mirrored             rail left, content, nav on the right
+     *   mirrored-rail-right  content, nav right, rail in the right corner
      *
-     * These write the same data-layout attribute the side swap uses, so the
-     * three arrangements are exclusive by construction. Choosing one here
-     * clears a mirror, and the swap button is re-synced so its pressed state
-     * never claims something the page is not doing.
+     * Two axes - which side the nav is on, which corner the rail is in - but
+     * one attribute, because they are one setting. The side swap button
+     * writes the same attribute, so the two controls are kept in step here
+     * rather than allowed to disagree: whatever sets the layout, both the
+     * radio group and the swap's pressed state are re-read from the result.
      */
-    function initLayout() {
+    var LAYOUTS = ['default', 'rail-left', 'mirrored', 'mirrored-rail-right'];
+
+    function currentLayout() {
+        var v = document.documentElement.getAttribute('data-layout');
+        return LAYOUTS.indexOf(v) > 0 ? v : 'default';
+    }
+
+    /** Put every layout control in step with the attribute on <html>. */
+    function syncLayoutControls() {
+        var now = currentLayout();
+
+        var radios = document.querySelectorAll('[data-layout-choice]');
+        Array.prototype.forEach.call(radios, function (b) {
+            b.setAttribute('aria-checked',
+                b.getAttribute('data-layout-choice') === now ? 'true' : 'false');
+        });
+
+        // The swap is pressed whenever the nav is on the right, whichever of
+        // the two arrangements put it there.
+        var swap = document.getElementById('side-swap');
+        if (swap) {
+            var navRight = now === 'mirrored' || now === 'mirrored-rail-right';
+            swap.setAttribute('aria-pressed', navRight ? 'true' : 'false');
+            var icon = swap.querySelector('.material-icons');
+            if (icon) icon.textContent = navRight ? 'chevron_right' : 'chevron_left';
+        }
+    }
+
+    function setLayout(choice, remember) {
         var root = document.documentElement;
+        if (choice === 'default') root.removeAttribute('data-layout');
+        else root.setAttribute('data-layout', choice);
+
+        syncLayoutControls();
+
+        if (remember) {
+            try {
+                if (choice === 'default') localStorage.removeItem('quirky-layout');
+                else localStorage.setItem('quirky-layout', choice);
+            } catch (e) { /* private window */ }
+        }
+    }
+
+    function initLayout() {
         var group = document.querySelector('.quirky-layout');
         if (!group) return;
 
-        var buttons = Array.prototype.slice.call(group.querySelectorAll('[data-layout-choice]'));
-        var KEY = 'quirky-layout';
-
-        function mark(choice) {
-            buttons.forEach(function (b) {
-                b.setAttribute('aria-checked',
-                    b.getAttribute('data-layout-choice') === choice ? 'true' : 'false');
-            });
-        }
-
-        function apply(choice, remember) {
-            if (choice === 'rail-left') root.setAttribute('data-layout', 'rail-left');
-            else root.removeAttribute('data-layout');
-
-            mark(choice);
-
-            // The swap is a different arrangement of the same setting, so it
-            // cannot stay pressed once one of these is chosen.
-            var swap = document.getElementById('side-swap');
-            if (swap) {
-                swap.setAttribute('aria-pressed', 'false');
-                var icon = swap.querySelector('.material-icons');
-                if (icon) icon.textContent = 'chevron_left';
-            }
-
-            if (remember) {
-                try {
-                    if (choice === 'rail-left') localStorage.setItem(KEY, choice);
-                    else localStorage.removeItem(KEY);
-                } catch (e) { /* private window */ }
-            }
-        }
-
-        buttons.forEach(function (b) {
+        var buttons = group.querySelectorAll('[data-layout-choice]');
+        Array.prototype.forEach.call(buttons, function (b) {
             b.addEventListener('click', function () {
-                apply(b.getAttribute('data-layout-choice'), true);
+                setLayout(b.getAttribute('data-layout-choice'), true);
             });
         });
 
         // theme.js set the attribute in <head>; read it back rather than
-        // storage so the buttons cannot disagree with the page.
-        var current = root.getAttribute('data-layout');
-        mark(current === 'rail-left' ? 'rail-left' : 'default');
+        // storage so the controls cannot disagree with the page.
+        syncLayoutControls();
     }
 
     function initAlign() {

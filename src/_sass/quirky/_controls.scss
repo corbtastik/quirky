@@ -118,13 +118,19 @@
 //
 // Two arrangements, chosen by the pair of buttons in the control column.
 //
-//   default    nav left, content, control rail in the right corner
-//   rail-left  control rail in the left corner, nav beside it, then content
+//   default              nav left,  rail in the right corner
+//   rail-left            rail in the left corner, nav beside it, then content
+//   mirrored             rail in the left corner, content, nav on the right
+//   mirrored-rail-right  content, nav on the right, rail in the right corner
 //
-// Both leave the flex direction of main alone - the nav stays on the left in
-// each. The only thing that moves is the rail, and in rail-left the page has
-// to make room for it, because the rail is fixed to the viewport and the nav
-// would otherwise sit underneath.
+// Two axes: which side the nav column sits on, and which corner the rail is
+// in. The nav moves by flipping the flex direction of main; the rail moves by
+// swapping its left and right offsets. mirrored is the long-standing side
+// swap, kept under its own name so a stored preference still reads.
+//
+// Where the rail and the nav end up on the same side, the page has to make
+// room: the rail is fixed to the viewport, so the nav would otherwise sit
+// underneath it.
 // ----------------------------------------------------------------------------
 
 .quirky-layout {
@@ -171,6 +177,17 @@
   [data-layout="rail-left"] header[role="banner"] {
     padding-right: 0;
     padding-left: $controls-gutter;
+  }
+}
+
+// The fourth arrangement: nav on the right like the mirror, but the rail
+// stays in its default corner. Only the flex direction changes - the rail
+// needs no rule, because not matching [data-layout="mirrored"] already
+// leaves it on the right, and the same is true of the gutter rules and the
+// stacked nav padding further down.
+@media screen and (min-width: $break-stack + 0.0625rem) {
+  [data-layout="mirrored-rail-right"] main[role="main"] {
+    flex-direction: row-reverse;
   }
 }
 

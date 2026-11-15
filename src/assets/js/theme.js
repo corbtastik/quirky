@@ -29,7 +29,8 @@
     // the stylesheet already does, so it carries no attribute - setting one
     // would mean a rule for the state that needs none.
     var layout = stored('quirky-layout');
-    if (layout === 'mirrored' || layout === 'rail-left') {
+    if (layout === 'rail-left' || layout === 'mirrored' ||
+        layout === 'mirrored-rail-right') {
         root.setAttribute('data-layout', layout);
     }
 
