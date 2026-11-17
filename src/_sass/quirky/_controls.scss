@@ -101,13 +101,15 @@ main[role="main"] > section { order: 2; }
 // The layout buttons
 // ----------------------------------------------------------------------------
 
-.quirky-layout {
+.quirky-layout,
+.quirky-align {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
 }
 
-.quirky-layout-option {
+.quirky-layout-option,
+.quirky-align-option {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,6 +134,44 @@ main[role="main"] > section { order: 2; }
   display: block;
 }
 
+// The two chooser groups are sized to each other rather than to the three
+// icons above them. That is the grouping: three things you do, then nine
+// things you pick from.
+.quirky-align-option .material-icons {
+  font-size: 30px;
+}
+
+// ----------------------------------------------------------------------------
+// Page alignment
+//
+// Where the whole frame sits in the window. This is independent of the column
+// order above - it moves the container, and the layout arranges what is
+// inside it, so all eighteen combinations hold.
+//
+// Centred has no rule. `margin: 2rem auto` in _layout.scss already does it,
+// and writing it again here would be two places to keep in step.
+//
+// The longhands are deliberate. _layout.scss sets the `margin` shorthand, so
+// overriding margin-left and margin-right alone leaves the 2rem top and
+// bottom where they are.
+// ----------------------------------------------------------------------------
+
+[data-align="left"] {
+  main[role="main"],
+  .quirky-wide {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+[data-align="right"] {
+  main[role="main"],
+  .quirky-wide {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Stacked
 //
@@ -152,8 +192,15 @@ main[role="main"] > section { order: 2; }
     padding: 0.5rem 1rem;
   }
 
-  .quirky-layout {
+  .quirky-layout,
+  .quirky-align {
     flex-direction: row;
     gap: 0.25rem;
+  }
+
+  // Stacked, main is as wide as the window, so its side margins are already
+  // zero and there is nothing for an alignment to move.
+  .quirky-align {
+    display: none;
   }
 }

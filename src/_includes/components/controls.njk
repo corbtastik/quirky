@@ -58,4 +58,27 @@
         </button>
         {%- endfor %}
     </div>
+    {# Where the whole page sits in the window, which is a separate question
+       from the order of its columns - any alignment works with any layout.
+       Centred is what the margins do on their own, so it has no rule of its
+       own; the attribute is still written, so the radio can show it.
+
+       These are Material glyphs rather than drawn ones. The set has three
+       that differ only in which edge they align to, which is exactly what is
+       wanted here. #}
+    <div class="quirky-align" role="radiogroup" aria-label="Page alignment">
+        {%- set aligns = [
+            ["left", "align_horizontal_left", "Align the page left"],
+            ["center", "align_horizontal_center", "Centre the page"],
+            ["right", "align_horizontal_right", "Align the page right"]
+        ] %}
+        {%- for a in aligns %}
+        <button type="button" class="quirky-icon-button quirky-align-option"
+                id="align-{{ a[0] }}" data-align-choice="{{ a[0] }}"
+                role="radio" aria-checked="{{ 'true' if a[0] == 'center' else 'false' }}"
+                aria-label="{{ a[2] }}" title="{{ a[2] }}">
+            <span class="material-icons md-36" aria-hidden="true">{{ a[1] }}</span>
+        </button>
+        {%- endfor %}
+    </div>
 </aside>

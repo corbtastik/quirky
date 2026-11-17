@@ -1,15 +1,16 @@
 /**
  * Site chrome and stream search.
  *
- * Six jobs, all optional - each one looks for its element and returns if the
+ * Seven jobs, all optional - each one looks for its element and returns if the
  * page does not have it, so this single file can load everywhere:
  *
  *   1. the light/dark toggle (the palette picker is palette.js, in <head>)
  *   2. the date and time line at the top of the stream
  *   3. filtering the stream as you type
  *   4. the page layout: which order the three columns sit in
- *   5. the control rail's roving tab stop
- *   6. back to top
+ *   5. the page alignment: where that frame sits in the window
+ *   6. the control rail's roving tab stop
+ *   7. back to top
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -232,68 +233,87 @@
     }
 
     /**
-     * Page layout: the six orders of the three columns.
+     * A group of radio buttons that write one attribute on <html>.
      *
-     *   [rail][nav][content]   [nav][rail][content]   [content][rail][nav]
-     *   [rail][content][nav]   [nav][content][rail]   [content][nav][rail]
+     * The column order and the page alignment are the same control twice:
+     * pick one of a fixed list, put it on the root element, remember it, and
+     * keep the buttons showing which one is in force. The CSS keys off the
+     * attribute, so nothing here positions anything.
      *
-     * The rail is a flex item, so each of these is three `order` values in
-     * the stylesheet. Nothing is positioned here - this only writes the
-     * attribute the rules key off, and keeps the radio group showing it.
+     * theme.js writes both attributes before the first paint, so init reads
+     * the page rather than storage. The buttons then cannot disagree with
+     * what is already on screen.
+     *
+     * The default is stored as nothing at all - a visitor who never touches
+     * the control has no key, and setting it back to the default removes it
+     * again.
      */
-    var LAYOUTS = [
-        'rail-nav-content', 'rail-content-nav',
-        'nav-rail-content', 'nav-content-rail',
-        'content-rail-nav', 'content-nav-rail'
-    ];
-    var LAYOUT_DEFAULT = 'nav-content-rail';
+    function rootChoice(spec) {
+        var html = document.documentElement;
+        var sel = '[' + spec.choice + ']';
 
-    function currentLayout() {
-        var v = document.documentElement.getAttribute('data-layout');
-        return LAYOUTS.indexOf(v) >= 0 ? v : LAYOUT_DEFAULT;
-    }
+        function current() {
+            var v = html.getAttribute(spec.attr);
+            return spec.values.indexOf(v) >= 0 ? v : spec.fallback;
+        }
 
-    function syncLayoutControls() {
-        var now = currentLayout();
-        var radios = document.querySelectorAll('[data-layout-choice]');
-        Array.prototype.forEach.call(radios, function (b) {
-            b.setAttribute('aria-checked',
-                b.getAttribute('data-layout-choice') === now ? 'true' : 'false');
-        });
-    }
+        function sync() {
+            var now = current();
+            var radios = document.querySelectorAll(sel);
+            Array.prototype.forEach.call(radios, function (b) {
+                b.setAttribute('aria-checked',
+                    b.getAttribute(spec.choice) === now ? 'true' : 'false');
+            });
+        }
 
-    function setLayout(choice, remember) {
-        if (LAYOUTS.indexOf(choice) < 0) choice = LAYOUT_DEFAULT;
-
-        // The default is a named arrangement like the rest, so it carries
-        // its attribute too. One rule covers every case, and the radio can
-        // read the page instead of treating an absent value specially.
-        document.documentElement.setAttribute('data-layout', choice);
-        syncLayoutControls();
-
-        if (remember) {
+        function set(value, remember) {
+            if (spec.values.indexOf(value) < 0) value = spec.fallback;
+            html.setAttribute(spec.attr, value);
+            sync();
+            if (!remember) return;
             try {
-                if (choice === LAYOUT_DEFAULT) localStorage.removeItem('quirky-layout');
-                else localStorage.setItem('quirky-layout', choice);
+                if (value === spec.fallback) localStorage.removeItem(spec.key);
+                else localStorage.setItem(spec.key, value);
             } catch (e) { /* private window */ }
         }
-    }
 
-    function initLayout() {
-        var group = document.querySelector('.quirky-layout');
-        if (!group) return;
-
-        var buttons = group.querySelectorAll('[data-layout-choice]');
-        Array.prototype.forEach.call(buttons, function (b) {
-            b.addEventListener('click', function () {
-                setLayout(b.getAttribute('data-layout-choice'), true);
+        return function init() {
+            var group = document.querySelector(spec.group);
+            if (!group) return;
+            Array.prototype.forEach.call(group.querySelectorAll(sel), function (b) {
+                b.addEventListener('click', function () {
+                    set(b.getAttribute(spec.choice), true);
+                });
             });
-        });
-
-        // theme.js set the attribute in <head>; read it back rather than
-        // storage so the buttons cannot disagree with the page.
-        syncLayoutControls();
+            sync();
+        };
     }
+
+    // The six orders of the three columns.
+    //
+    //   [rail][nav][content]   [nav][rail][content]   [content][rail][nav]
+    //   [rail][content][nav]   [nav][content][rail]   [content][nav][rail]
+    var initLayout = rootChoice({
+        attr: 'data-layout',
+        key: 'quirky-layout',
+        group: '.quirky-layout',
+        choice: 'data-layout-choice',
+        fallback: 'nav-content-rail',
+        values: ['rail-nav-content', 'rail-content-nav',
+                 'nav-rail-content', 'nav-content-rail',
+                 'content-rail-nav', 'content-nav-rail']
+    });
+
+    // Where the whole frame sits in the window. Independent of the order
+    // above: this moves the container, the layout arranges its contents.
+    var initAlign = rootChoice({
+        attr: 'data-align',
+        key: 'quirky-align',
+        group: '.quirky-align',
+        choice: 'data-align-choice',
+        fallback: 'center',
+        values: ['left', 'center', 'right']
+    });
 
     function initToolbar() {
         var bar = document.querySelector('.quirky-sticky-top-right');
@@ -368,6 +388,7 @@
         initNow();
         initSearch();
         initLayout();
+        initAlign();
         initToolbar();
         initToTop();
     });

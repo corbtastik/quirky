@@ -408,15 +408,6 @@
     color: var(--secondary-color);
   }
 
-  // Whichever alignment is in force takes the accent. The :not covers a
-  // first visit, before anything has been stored and the attribute set.
-  &[data-pull="center"] #align-center,
-  &:not([data-pull]) #align-center,
-  &[data-pull="left"] #align-left,
-  &[data-pull="right"] #align-right {
-    color: var(--tertiary-color);
-  }
-
   // The code toolbar. The header is a panel over the block, not a coloured
   // bar: three icons and a label sitting quietly on top of the code.
   // The header sits on the code block's own surface, not the page's. The

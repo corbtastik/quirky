@@ -4,6 +4,7 @@
  *
  *   - the light/dark attribute on <html>
  *   - the column order, also on <html>
+ *   - where the page sits in the window
  *
  * Both are attributes rather than classes because they are read by CSS alone.
  * The toggles that set them live in assets/js/quirky.js, which runs after the
@@ -33,4 +34,12 @@
     var layout = stored('quirky-layout');
     root.setAttribute('data-layout',
         LAYOUTS.indexOf(layout) >= 0 ? layout : 'nav-content-rail');
+
+    // Left, centred or right. Centred is the default and has no CSS of its
+    // own, but the attribute is written anyway so the radio can read the
+    // current value from one place rather than treating absent as a case.
+    var ALIGNS = ['left', 'center', 'right'];
+    var align = stored('quirky-align');
+    root.setAttribute('data-align',
+        ALIGNS.indexOf(align) >= 0 ? align : 'center');
 })();
