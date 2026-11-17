@@ -63,8 +63,14 @@
   top: 1rem;
   align-self: flex-start;
 
-  // Above the content it overlaps while scrolling, below the palette menu.
-  z-index: 5;
+  // Above everything else in the row: the nav (5) and the stream's sticky
+  // search head (6).
+  //
+  // It cannot simply match the nav. Flex items paint in `order`-modified
+  // order, and the layouts reorder them - so with the rail set first, an
+  // equal z-index let the nav paint over it and the open palette menu
+  // appeared underneath the nav links.
+  z-index: 7;
 }
 
 .quirky-theme-picker {

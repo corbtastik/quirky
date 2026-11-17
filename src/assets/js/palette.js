@@ -121,30 +121,73 @@
         });
     }
 
+    // How close the menu may come to the window edge.
+    var EDGE_PAD = 8;
+
     function init() {
         var toggle = document.getElementById('palette-toggle');
         var menu = document.getElementById('palette-menu');
+        var picker = document.getElementById('theme-picker');
         if (!toggle || !menu) return;
 
         // No theme data means no menu. Better an absent icon than one that
         // opens an empty list.
         if (!Object.keys(themesById).length) {
-            var picker = document.getElementById('theme-picker');
             if (picker) picker.hidden = true;
             return;
         }
 
         var built = false;
 
+        /**
+         * Keep the open menu inside the window.
+         *
+         * The stylesheet hangs it off the picker's right edge, which was
+         * right when the picker was fixed chrome in the top-right corner.
+         * The rail is a column in the page now and can be the leftmost one,
+         * so opening leftward put the menu 150px off the left of the screen
+         * with only its last 60px showing.
+         *
+         * Preference is unchanged - right edges flush - and it only slides
+         * when that would leave the window. The right edge is pulled in
+         * first and the left edge checked second, so a menu too wide for the
+         * window overflows the side you are not reading from.
+         */
+        function placeMenu() {
+            if (!picker) return;
+            menu.style.right = 'auto';
+            menu.style.left = '0px';
+
+            var box = picker.getBoundingClientRect();
+            var vw = document.documentElement.clientWidth;
+            var w = menu.offsetWidth;
+
+            var left = box.width - w;
+            if (box.left + left + w > vw - EDGE_PAD) left = vw - EDGE_PAD - w - box.left;
+            if (box.left + left < EDGE_PAD) left = EDGE_PAD - box.left;
+            menu.style.left = Math.round(left) + 'px';
+        }
+
         function setOpen(open) {
             if (open && !built) { renderMenu(menu); built = true; }
             menu.hidden = !open;
             toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
             if (open) {
+                // After unhiding - a hidden element has no width to measure.
+                placeMenu();
                 var current = menu.querySelector('[aria-pressed="true"]');
                 if (current) current.scrollIntoView({ block: 'nearest' });
+            } else {
+                // Hand the position back to the stylesheet.
+                menu.style.left = '';
+                menu.style.right = '';
             }
         }
+
+        // The window can change shape under an open menu.
+        window.addEventListener('resize', function() {
+            if (!menu.hidden) placeMenu();
+        });
 
         toggle.addEventListener('click', function(e) {
             e.stopPropagation();

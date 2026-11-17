@@ -153,7 +153,8 @@ ul.post-list {
     position: sticky;
     top: 0;
     align-self: flex-start;
-    // Above the stream rows it overlaps, below the fixed theme controls.
+    // Above the stream rows it overlaps, below the control rail - see
+    // _controls.scss for why that one has to outrank this rather than match it.
     z-index: 5;
   }
 
