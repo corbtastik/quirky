@@ -3,6 +3,7 @@ title: "The Fruit Pie Project"
 date: 2021-02-14
 tags: ["food", "fried-pies", "painting", "pop-art", "procreate"]
 description: "Yummo Pop-Art"
+subtitle: "Pop-art fruit pies, drawn in Procreate."
 ---
 
 The Fruit Pie Pop-Art project making Fruit Pies appear out of thin air with

@@ -3,6 +3,7 @@ title: "Merlin: Smart Watermarks + Web-Ready Photos from the CLI 🧙‍♂️�
 date: 2026-01-19
 tags: ["bash", "imagemagick", "cli", "photography", "automation", "watermark"]
 description: "A Bash-powered image wizard that batch resizes, converts, and applies a smart black/white watermark based on background brightness."
+subtitle: "A bash script that resizes images and watermarks them."
 ---
 
 ## TL;DR 🎯

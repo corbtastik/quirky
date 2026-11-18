@@ -3,6 +3,7 @@ title: "Chinatown Stroll: Lanterns, Hills, and Dim Sum"
 date: 2026-01-19
 tags: ["san-francisco", "california", "chinatown", "travel", "photography", "food"]
 description: "An afternoon walking Grant Avenue, soaking in the red lanterns and historic architecture."
+subtitle: "An afternoon on Grant Avenue."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/chinatown-afternoon/sf-chinatown-dragon-gate-entrance.jpg"
     description: "Enter the Dragon Gate."

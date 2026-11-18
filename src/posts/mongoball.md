@@ -3,6 +3,7 @@ title: "Mongoball"
 date: 2026-02-14
 tags: ["baseball", "analytics", "data", "mongodb"]
 description: "Baseball and MongoDB, now that's a walkoff."
+subtitle: "Baseball statistics in MongoDB."
 ---
 
 Mongoball downloads and consolidates MLB baseball data from three sources.

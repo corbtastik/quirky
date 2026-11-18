@@ -1,6 +1,7 @@
 ---
 title: Blockquotes
 description: Blockquote styles including nested and markdown content.
+subtitle: "Blockquote styles, including nested ones."
 date: 2026-01-09
 tags:
   - blockquotes

@@ -1,6 +1,7 @@
 ---
 title: Lists
 description: Unordered and ordered list styles in Yolo.
+subtitle: "Unordered and ordered list styles."
 date: 2026-01-11
 tags:
   - lists

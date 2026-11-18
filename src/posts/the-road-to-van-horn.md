@@ -3,6 +3,7 @@ title: "The road to Van Horn"
 date: 2020-07-22
 tags: ["van-horn-tx", "photos", "texas", "vacay"]
 description: "Travelling on the edge of the central time zone"
+subtitle: "Driving the edge of the central time zone."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/road-to-van-horn/bird-in-clouds-1.jpg"
     description: "Soaring high against the dramatic contrast of sun and storm"

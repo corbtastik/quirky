@@ -3,6 +3,7 @@ title: "To Broken Bow we Go!"
 date: 2021-05-02
 tags: ["broken-bow", "oklahoma", "paris-tx", "photos", "texas", "vacay"]
 description: "Hi-Ho-Hi-Ho to Broken Bow we Go..."
+subtitle: "A family weekend in Broken Bow, Oklahoma."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/broken-bow-we-go/big-tongue-bucky.jpg"
     description: "Big Tongue Bucky"

@@ -3,6 +3,7 @@ title: "Deploying 11ty to Google Firebase"
 date: 2026-01-08
 tags: ["tutorial", "firebase", "11ty", "hosting"]
 description: "A quick guide on setting up the Firebase CLI and deploying a static 11ty site."
+subtitle: "Deploying an 11ty site with the Firebase CLI."
 ---
 
 I moved this blog to Google Firebase Hosting. It is fast. It runs on a global

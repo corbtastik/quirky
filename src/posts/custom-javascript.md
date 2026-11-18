@@ -1,6 +1,7 @@
 ---
 title: Custom JavaScript
 description: Add custom JavaScript to individual pages.
+subtitle: "Adding JavaScript to a single page."
 date: 2026-01-21
 tags:
   - javascript

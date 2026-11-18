@@ -1,6 +1,7 @@
 ---
 title: More Snippets
 description: Code snippet examples in various programming languages.
+subtitle: "Code snippets in several languages."
 date: 2026-01-23
 tags:
   - code

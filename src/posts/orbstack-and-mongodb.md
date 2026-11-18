@@ -3,6 +3,7 @@ title: "OrbStack and MongoDB"
 date: 2025-12-28
 tags: ["tutorial", "orbstack", "mongodb", "docker", "database"]
 description: "How to run a secure, persistent MongoDB Community instance on using OrbStack."
+subtitle: "Running MongoDB Community on OrbStack."
 ---
 
 [Part 1](/posts/getting-started-with-orbstack-on-macos/) got OrbStack running

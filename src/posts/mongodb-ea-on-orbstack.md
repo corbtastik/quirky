@@ -3,6 +3,7 @@ title: "MongoDB EA on OrbStack"
 date: 2026-01-06
 tags: ["tutorial", "orbstack", "mongodb", "mongodb-enterprise", "docker", "database"]
 description: "How to run a secure, persistent MongoDB EA instance using OrbStack."
+subtitle: "Running MongoDB Enterprise Advanced on OrbStack."
 ---
 
 This walkthrough stands up a **MongoDB Enterprise Advanced** container on

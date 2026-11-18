@@ -3,6 +3,7 @@ title: "Bash One Pager"
 date: 2025-12-27
 tags: ["tutorial", "bash", "linux"]
 description: "A little ditty about bash"
+subtitle: "One page of the bash I reach for most."
 ---
 
 One page of the Bash I reach for most. File operations at the top, shell

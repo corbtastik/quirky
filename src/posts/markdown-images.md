@@ -1,6 +1,7 @@
 ---
 title: Markdown Images
 description: Standard markdown image styling in Yolo.
+subtitle: "Standard markdown image styling."
 date: 2026-01-13
 tags:
   - images

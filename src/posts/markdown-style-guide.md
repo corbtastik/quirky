@@ -3,6 +3,7 @@ title: "Markdown Style Guide"
 date: 2025-12-24
 tags: ["demo", "features", "css-testing"]
 description: "A comprehensive guide showing how all markdown elements are rendered."
+subtitle: "How every markdown element renders."
 ig_demo:
   - src: "https://placehold.co/150"
     description: "Square 1"

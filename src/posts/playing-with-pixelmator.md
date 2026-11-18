@@ -3,6 +3,7 @@ title: "Playing with Pixelmator"
 date: 2022-02-20
 tags: ["art", "brand", "pixelmator"]
 description: "An 80s'ish looking brand...totally text tubular"
+subtitle: "Making 80s neon logos in Pixelmator Pro."
 ---
 
 80s'ish neon colored logos created with Pixelmator Pro. The

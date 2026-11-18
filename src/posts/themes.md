@@ -1,6 +1,7 @@
 ---
 title: Themes
 description: Preview and customize color themes in Yolo.
+subtitle: "Previewing and customizing color themes."
 date: 2026-01-04
 tags:
   - themes

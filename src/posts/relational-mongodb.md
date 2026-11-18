@@ -3,6 +3,7 @@ title: "Relational MongoDB"
 date: 2026-01-18
 tags: ["mongodb", "relational", "rdbms", "sql", "postgres"]
 description: "A walk down the relational lane with MongoDB"
+subtitle: "MongoDB for people coming from relational databases."
 ---
 
 I used to think of MongoDB as "that place you put JSON when you don't want to

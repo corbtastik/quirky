@@ -1,6 +1,7 @@
 ---
 title: Branding
 description: How Yolo uses themes for colors and fonts.
+subtitle: "How a theme sets the colors and fonts."
 date: 2026-01-03
 tags:
   - branding

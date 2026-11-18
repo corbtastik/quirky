@@ -1,6 +1,7 @@
 ---
 title: Image Lightbox
 description: Full-screen image lightbox with navigation controls.
+subtitle: "A full-screen lightbox with navigation."
 date: 2026-01-17
 tags:
   - images

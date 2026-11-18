@@ -3,6 +3,7 @@ title: "MongoDB Geo Coordinate (Geospatial) Capabilities"
 date: 2026-02-05
 tags: ["mongodb", "atlas", "geospatial", "geojson", "2dsphere", "iot", "telco", "reference"]
 description: "A 1-pager on MongoDB geospatial data modeling, indexing, and query patterns (with IoT + Telco examples) plus a brief Cosmos DB comparison."
+subtitle: "Geospatial data modeling, indexing, and queries in MongoDB."
 ---
 
 ## What MongoDB does with geo coordinates

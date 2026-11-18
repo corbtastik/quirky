@@ -3,6 +3,7 @@ title: "Neon Nights and City Lights"
 date: 2026-01-12
 tags: ["dallas", "texas", "travel", "photography", "food", "nba"]
 description: "Have you ever seen Dallas from a DC9 at Night?"
+subtitle: "Dallas at night, with a camera."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/aac-stadium-exterior-4648.jpg"
     description: "AAC exterior."

@@ -2,7 +2,8 @@
 title: "Running MinIO AIStor in Podman"
 date: 2026-11-12
 tags: ["minio", "aistor", "podman", "containers", "object-storage"]
-description: "A single node on a laptop, with diagrams. Four drives, a license, and the two traps that catch everyone."
+description: "A single node AIstor on a laptop."
+subtitle: "Running a single-node AIstor on a laptop."
 ---
 
 AIStor is MinIO's object store for AI workloads. The container image is public.

@@ -1,6 +1,7 @@
 ---
 title: Quirky Demo
 description: Every feature of this site, on one page.
+subtitle: "Every feature of this site, on one page."
 date: 2026-01-15
 tags:
   - demo

@@ -1,6 +1,7 @@
 ---
 title: Headers
 description: Header styles from H2 to H6 in Yolo.
+subtitle: "Header styles, H2 through H6."
 date: 2026-01-07
 tags:
   - headers

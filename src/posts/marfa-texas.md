@@ -3,6 +3,7 @@ title: "Marfa Texas"
 date: 2020-07-21
 tags: ["marfa", "photos", "texas", "vacay"]
 description: "Quite possibly my favorite place on the planet"
+subtitle: "Why Marfa is my favorite place."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/marfa-tx-2020/IMG_9513.jpg"
     description: "West Texas Welcome"

@@ -1,6 +1,7 @@
 ---
 title: Image Grid
 description: Display images in a grid layout with click-to-enlarge.
+subtitle: "Images in a grid, click to enlarge."
 date: 2026-01-16
 tags:
   - images

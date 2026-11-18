@@ -3,6 +3,7 @@ title: "Text vs Vector Search in MongoDB Atlas"
 date: 2026-01-09
 tags: ["tutorial", "atlas", "mongodb", "ai", "vector-search", "text-search"]
 description: "Feel the Difference - Keyword Search vs Vector Search in MongoDB Atlas"
+subtitle: "Keyword search and vector search, side by side."
 ---
 
 Let's run a search spin-off in MongoDB Atlas. Two contenders, same data, same

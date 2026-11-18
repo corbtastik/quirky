@@ -1,6 +1,7 @@
 ---
 title: Styled Images
 description: Image classes for thumbnails, squares, circles, and aspect ratios.
+subtitle: "Image classes for thumbnails, circles, and aspect ratios."
 date: 2026-01-14
 tags:
   - images

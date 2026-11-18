@@ -1,6 +1,7 @@
 ---
 title: Syntax Themes
 description: Custom syntax highlighting for code blocks in Yolo.
+subtitle: "Syntax highlighting themes for code blocks."
 date: 2026-01-05
 tags:
   - syntax

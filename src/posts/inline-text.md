@@ -1,6 +1,7 @@
 ---
 title: Inline Text
 description: Inline text formatting styles in Yolo.
+subtitle: "Inline text formatting."
 date: 2026-01-10
 tags:
   - inline

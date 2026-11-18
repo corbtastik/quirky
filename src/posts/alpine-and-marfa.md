@@ -3,6 +3,7 @@ title: "Alpine and Marfa TX"
 date: 2013-01-26
 tags: ["alpine", "marfa", "photos", "texas", "vacay"]
 description: "Wide open spaces of Big Bend country."
+subtitle: "Where to stay in Big Bend country."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/alpine-and-marfa/photo1.jpg"
     description: "Alpine and Marfa photo 1"

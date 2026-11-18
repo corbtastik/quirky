@@ -3,6 +3,7 @@ title: "How Neural Networks Work"
 date: 2026-02-03
 tags: ["ai", "neural-networks"]
 description: "A Brain Analogy 🧠"
+subtitle: "Neural networks, explained through the brain."
 ---
 
 Our brain has about

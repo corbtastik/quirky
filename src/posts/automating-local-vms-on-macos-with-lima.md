@@ -3,6 +3,7 @@ title: "Automating Local VMs on macOS (Apple Silicon) with Lima 🦙🍏"
 date: 2026-01-18
 tags: ["apple-silicon", "virtualization", "vm", "lima", "ubuntu", "mongodb", "postgres"]
 description: "A repeatable, CLI-first framework to spin up multiple independent Lima VMs (with optional persistent disks), and provision MongoDB Community or Postgres idempotently."
+subtitle: "Spinning up Lima VMs on macOS from the command line."
 ---
 
 ## Automating local VMs with Lima (VZ) 🦙🍏

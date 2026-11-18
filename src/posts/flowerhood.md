@@ -3,6 +3,7 @@ title: "Flowerhood"
 date: 2021-05-20
 tags: ["casa", "flowers", "texas"]
 description: "blooming in the neighborhood"
+subtitle: "A spring walk and the flowers it turned up."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/flowerhood/dandelion.jpg"
     description: "Dandelion"

@@ -1,6 +1,7 @@
 ---
 title: Getting Started
 description: Get Quirky running in a few minutes.
+subtitle: "Getting Quirky running."
 date: 2026-01-02
 tags:
   - getting-started

@@ -1,6 +1,7 @@
 ---
 title: Custom CSS
 description: Add custom CSS to individual pages.
+subtitle: "Adding CSS to a single page."
 date: 2026-01-20
 tags:
   - css

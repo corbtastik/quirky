@@ -1,6 +1,7 @@
 ---
 title: Presentations
 description: Embed a Google Slides deck with the aspect ratio you want.
+subtitle: "Embedding a Google Slides deck."
 date: 2026-01-19
 tags:
   - presentations

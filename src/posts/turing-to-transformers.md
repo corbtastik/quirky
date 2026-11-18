@@ -3,6 +3,7 @@ title: "Turing to Transformers"
 date: 2025-12-25
 tags: ["ai", "tech", "history", "future"]
 description: "Tracing the evolution of Artificial Intelligence from 1950 to the Agentic era."
+subtitle: "AI from 1950 to the agentic era."
 ---
 
 ## The Imitation Game

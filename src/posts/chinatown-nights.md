@@ -3,6 +3,7 @@ title: "Chinatown Nights: Neon & Noodles"
 date: 2026-01-20
 tags: ["san-francisco", "chinatown", "night-photography", "neon", "travel"]
 description: "Exploring the electric glow of Grant Avenue after dark."
+subtitle: "Grant Avenue after dark."
 post_images:
   - src: "https://storage.googleapis.com/corbs-foto/chinatown-nite/balconies-with-string-lights.jpg"
     description: "String lights above."

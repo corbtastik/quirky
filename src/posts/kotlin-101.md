@@ -3,6 +3,7 @@ title: "Kotlin 101"
 date: 2025-12-28
 tags: ["tutorial", "kotlin", "programming", "backend"]
 description: "A comprehensive guide to learning the Kotlin programming language by building a real-world CLI tool."
+subtitle: "Learning Kotlin by building a CLI tool."
 ---
 
 Welcome to **Kotlin 101**. Coming from Java? Python? Never touched a typed

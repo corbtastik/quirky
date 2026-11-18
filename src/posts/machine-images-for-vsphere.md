@@ -3,6 +3,7 @@ title: "Machine images for vSphere"
 date: 2022-01-08
 tags: ["homelab", "ubuntu", "vmware", "vsphere"]
 description: "Semi-automated Ubuntu image builds - part 1"
+subtitle: "Building Ubuntu images for a vSphere homelab. Part one."
 ---
 
 As a VMware homelab enthusiast I'm always looking for ways to streamline my

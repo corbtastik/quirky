@@ -3,6 +3,7 @@ title: "Atlas and Azure Private Link 🔗"
 date: 2026-01-16
 tags: ["atlas", "mongodb", "security", "private-endpoint", "private-link", "azure"]
 description: "Create an Azure Private Link connection to MongoDB Atlas and connect an application using a Private Endpoint–aware connection string."
+subtitle: "Connecting an app to MongoDB Atlas over Azure Private Link."
 ---
 
 ## What we're doing here 🤔

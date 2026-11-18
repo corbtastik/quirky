@@ -3,6 +3,7 @@ title: "Getting Started with OrbStack on macOS"
 date: 2025-12-28
 tags: ["macos", "devops", "docker", "kubernetes", "orbstack"]
 description: "A fast, lightweight guide to replacing Docker Desktop with OrbStack for containers, Linux VMs, and Kubernetes."
+subtitle: "Replacing Docker Desktop with OrbStack."
 ---
 
 For years Docker Desktop was the only real choice on macOS. It cost you.

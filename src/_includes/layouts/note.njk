@@ -11,7 +11,14 @@ navActive: /
   links in the stream and nothing more.
 #}
 <h1 class="title">{{ title }}</h1>
-{% if description %}<h2 class="subtitle">{{ description }}</h2>{% endif %}
+{#- Two different jobs, so two different fields.
+
+    `subtitle` is the one line under the title here. `description` is the
+    summary in the stream and the one the meta tags carry, where it has room
+    to say more. A note with no subtitle falls back to its description, which
+    is what every note did before the two were split. -#}
+{%- set sub = subtitle if subtitle else description %}
+{% if sub %}<h2 class="subtitle">{{ sub }}</h2>{% endif %}
 {#- The byline sits under the subtitle rather than after the content, so you
     know the date and the subject before you start reading instead of after.
     `topics` drops the "note" tag that put this file in the stream, leaving

@@ -3,6 +3,7 @@ title: "The Great Western Loop"
 date: 2023-08-15
 tags: ["travel", "south-dakota", "wyoming", "colorado", "road-trip", "nature"]
 description: "From the faces of Rushmore to the alien vibes of Devils Tower and the peaks of Estes Park."
+subtitle: "Rushmore, Devils Tower, and Estes Park."
 sd_images:
   - src: "https://storage.googleapis.com/corbs-foto/so-dakota/IMG_2802.jpg"
     description: "Peeking at Presidents"

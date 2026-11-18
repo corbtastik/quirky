@@ -3,6 +3,7 @@ title: "Cracking the Bat"
 date: 2025-12-25
 tags: ["baseball", "analytics", "math", "dev"]
 description: "A guide to understanding and calculating essential baseball batting statistics using custom CSS formulas."
+subtitle: "The formulas behind common batting stats."
 ---
 
 Whether you are looking at a Hall of Famer's plaque or a modern analytical

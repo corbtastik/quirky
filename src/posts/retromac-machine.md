@@ -3,6 +3,7 @@ title: "Retromac Machine"
 date: 2018-11-23
 tags: ["homelab", "macpro", "apple"]
 description: "Mac Pro powered homelab"
+subtitle: "A homelab built on an old Mac Pro."
 compare_images:
   - src: "https://storage.googleapis.com/corbs-foto/retromac-lab/RetroMacSetup.png"
     description: "Mac Pro (Mid 2010) setup"
