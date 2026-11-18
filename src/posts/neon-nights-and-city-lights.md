@@ -7,15 +7,15 @@ post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/aac-stadium-exterior-4648.jpg"
     description: "AAC exterior."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/adairs-saloon-deep-ellum-2153.jpg"
-    description: "Adair's Saloon vibe."
+    description: "Adair's Saloon."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/airplane-window-clouds-0872.jpg"
-    description: "Sky high views."
+    description: "Clouds from the window."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/bar-interior-9599.jpg"
     description: "Bar seating."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/blue-lighting-interior-8762.jpg"
-    description: "Mood lighting."
+    description: "Blue light inside."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/burger-and-fries-1456.jpg"
-    description: "Burger time."
+    description: "Burger and fries."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/bush-lib-architecture-6048.jpg"
     description: "Bush library angles."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/bush-lib-museum-architecture-6049.jpg"
@@ -35,7 +35,7 @@ post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/campisis-egyptian-restaurant-sign-1147.jpg"
     description: "Neon history."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/classic-blue-convertible-2154.jpg"
-    description: "Classic blue ride."
+    description: "A classic blue convertible."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/classic-blue-convertible-2160.jpg"
     description: "Vintage dashboard."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/dealey-plaza-old-red-museum-2046.jpg"
@@ -55,11 +55,11 @@ post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/greenville-ave-neon-sign-9935.jpg"
     description: "Greenville neon."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/gumbo-soup-bowl-0569.jpg"
-    description: "Gumbo goodness."
+    description: "A bowl of gumbo."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/hard-rock-cafe-guitar-neon-3211.jpg"
     description: "Neon guitar."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/italian-pasta-dish-0867.jpg"
-    description: "Carb loading."
+    description: "Pasta."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/mavs-game-american-airlines-center-4655.jpg"
     description: "Mavs warmups."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/mavs-game-american-airlines-center-4680.jpg"
@@ -69,13 +69,13 @@ post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/mavs-game-american-airlines-center-4714.jpg"
     description: "Game action."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/mavs-game-american-airlines-center-4720.jpg"
-    description: "Luka Magic."
+    description: "Mavs game."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/mavs-game-american-airlines-center-4727.jpg"
     description: "Full court."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/pegasus-red-flying-horse-neon-1158.jpg"
     description: "Red flying horse."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/pegasus-red-flying-horse-neon-1163.jpg"
-    description: "Pegasus power."
+    description: "The Pegasus."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/pegasus-red-flying-horse-neon-1164.jpg"
     description: "Neon wings."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/pegasus-red-flying-horse-neon-1170.jpg"
@@ -103,9 +103,9 @@ post_images:
   - src: "https://storage.googleapis.com/corbs-foto/bigd/pegasus-red-flying-horse-neon-1210.jpg"
     description: "Red glow."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/restaurant-food-counter-7862.jpg"
-    description: "Order up."
+    description: "The food counter."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/sprinkles-cupcakes-atm-6695.jpg"
-    description: "Cupcake withdrawal."
+    description: "A cupcake ATM."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/steak-dinner-dallas-0278.jpg"
     description: "Texas steak."
   - src: "https://storage.googleapis.com/corbs-foto/bigd/vitruvian-park-christmas-lights-4073.jpg"
@@ -122,16 +122,14 @@ post_images:
     description: "Tunnel of lights."
 ---
 
-The city glows. A red horse flies over downtown. Campisi's keeps the Egyptian
-Lounge sign burning. Deep Ellum paints the blues right on the wall.
+Dallas glows at night. A red horse flies over downtown. Campisi's keeps the
+Egyptian Lounge sign lit. Deep Ellum paints the blues on its walls.
 
-So I walked it with a camera. A burger. A bowl of gumbo. A steak, because
-Texas. A Mavs game at the AAC. Hard angles and glass out at the Bush library.
-A cupcake ATM, which is exactly what it sounds like.
+I walked the city with a camera. I ate a burger, a bowl of gumbo, and a
+steak. I watched the Mavs at the AAC. The Bush library is all hard angles and
+glass. I passed a cupcake ATM.
 
-Then Vitruvian Park at Christmas. Purple trees. A tunnel of light you can walk
-through.
-
-Neon nights and city lights.
+Vitruvian Park was lit for Christmas. The trees glowed purple. One tunnel of
+lights ran long enough to walk through.
 
 {% lightbox "post_images" %}
