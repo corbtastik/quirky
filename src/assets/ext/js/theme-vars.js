@@ -253,7 +253,7 @@
     if (!subtitle) {
       // No second candidate, so soften the title toward the page instead:
       // clearly the same colour, visibly quieter. One fixed blend does not
-      // work across 70 palettes - too gentle and it is still the title, too
+      // work across 75 palettes - too gentle and it is still the title, too
       // strong and it stops being readable - so walk from subtle to strong
       // and take the first that is far enough from the title, far enough
       // from the body text, and still readable.
