@@ -47,7 +47,7 @@ $palette-gutter: 0.9rem;
   right: 0;
   z-index: 1;
   min-width: 13rem;
-  // 69 themes will not fit on a phone, so the list scrolls rather than
+  // 70 themes will not fit on a phone, so the list scrolls rather than
   // running off the viewport.
   max-height: min(60vh, 24rem);
   overflow-y: auto;
@@ -116,7 +116,7 @@ $palette-gutter: 0.9rem;
 }
 
 // Two-tone dot: the theme's page background outside, its link color inside.
-// Enough to tell 69 themes apart at a glance.
+// Enough to tell 70 themes apart at a glance.
 .quirky-themes-swatch {
   position: relative;
   flex: none;
