@@ -1,8 +1,14 @@
+{#
+  The footer: when this build ran, and what version it claims to be.
+
+  The version comes from settings.yml and falls back to the latest git tag,
+  the same order /site.json uses - so the footer and the feed can never
+  disagree about which version a reader is looking at.
+
+  The site name and the profile links used to sit here too. The name is in
+  the nav on every page and the links are under it, so the footer was
+  repeating what was already on screen.
+#}
 <div class="quirky-footer">
-    <p>
-        {{ settings.name }} &middot; built {{ build.date }}
-        {%- for name, url in settings.profiles %}
-        &middot; <a href="{{ url }}" target="_blank" rel="noopener noreferrer" class="external-link">{{ name }}</a>
-        {%- endfor %}
-    </p>
+    <p>built {{ build.date }} &middot; {{ settings.version | default(build.version) }}</p>
 </div>
