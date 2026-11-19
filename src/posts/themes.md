@@ -1,6 +1,6 @@
 ---
 title: Themes
-description: Preview and customize color themes in Yolo.
+description: Preview and customize color themes in Quirky.
 subtitle: "Previewing and customizing color themes."
 date: 2026-01-04
 tags:

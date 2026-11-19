@@ -1,6 +1,6 @@
 ---
 title: Tables
-description: Sortable table styles with column alignment in Yolo.
+description: Sortable table styles with column alignment in Quirky.
 subtitle: "Sortable tables with column alignment."
 date: 2026-01-12
 tags:

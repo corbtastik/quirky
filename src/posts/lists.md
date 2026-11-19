@@ -1,6 +1,6 @@
 ---
 title: Lists
-description: Unordered and ordered list styles in Yolo.
+description: Unordered and ordered list styles in Quirky.
 subtitle: "Unordered and ordered list styles."
 date: 2026-01-11
 tags:

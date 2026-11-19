@@ -1,6 +1,6 @@
 ---
 title: Paragraph Text
-description: Standard paragraph text styling in Yolo.
+description: Standard paragraph text styling in Quirky.
 subtitle: "Standard paragraph styling."
 date: 2026-01-08
 tags:

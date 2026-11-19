@@ -1,6 +1,6 @@
 ---
 title: Markdown Images
-description: Standard markdown image styling in Yolo.
+description: Standard markdown image styling in Quirky.
 subtitle: "Standard markdown image styling."
 date: 2026-01-13
 tags:

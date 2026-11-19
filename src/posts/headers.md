@@ -1,6 +1,6 @@
 ---
 title: Headers
-description: Header styles from H2 to H6 in Yolo.
+description: Header styles from H2 to H6 in Quirky.
 subtitle: "Header styles, H2 through H6."
 date: 2026-01-07
 tags:
@@ -12,7 +12,7 @@ permalink: /posts/headers/
 
 ## Headers
 
-> Yolo keeps H1 for the site title.
+> Quirky keeps H1 for the site title.
 
 ## H2 Heading
 {:.no-toc}

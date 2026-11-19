@@ -13,7 +13,7 @@ permalink: /posts/styled-images/
 
 ## Styled Images
 
-Yolo has classes for common aspect ratios.
+Quirky has classes for common aspect ratios.
 
 > Click an image to enlarge. 🔎
 

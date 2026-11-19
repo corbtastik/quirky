@@ -1,6 +1,6 @@
 ---
 title: Inline Text
-description: Inline text formatting styles in Yolo.
+description: Inline text formatting styles in Quirky.
 subtitle: "Inline text formatting."
 date: 2026-01-10
 tags:

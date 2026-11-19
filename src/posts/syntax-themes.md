@@ -1,6 +1,6 @@
 ---
 title: Syntax Themes
-description: Custom syntax highlighting for code blocks in Yolo.
+description: Custom syntax highlighting for code blocks in Quirky.
 subtitle: "Syntax highlighting themes for code blocks."
 date: 2026-01-05
 tags:
@@ -13,7 +13,7 @@ permalink: /posts/syntax-themes/
 
 ## Syntax Themes
 
-Yolo highlights code with custom syntax themes. Each color theme includes a matching syntax theme.
+Quirky highlights code with custom syntax themes. Each color theme includes a matching syntax theme.
 
 > **Syntax files:**
 > * `src/_data/themes.json` - the `sh*` keys hold syntax colors
@@ -32,9 +32,9 @@ Syntax themes map colors to code tokens like keywords, strings, and comments.
 
 {% code "settings.yml" %}
 ```yaml
-name: Yolo
-title: Yolo on my friend
-description: Loveable single pages
+name: Quirky Blog
+title: Quirky Blog
+description: Notes
 brand:
   theme: reveal
   syntax: reveal

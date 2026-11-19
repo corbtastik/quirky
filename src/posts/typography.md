@@ -1,6 +1,6 @@
 ---
 title: Typography
-description: Customize fonts in your Yolo theme.
+description: Customize fonts in your Quirky theme.
 subtitle: "Changing the fonts."
 date: 2026-01-06
 tags:
