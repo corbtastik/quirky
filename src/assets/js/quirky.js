@@ -1,7 +1,7 @@
 /**
  * Site chrome and stream search.
  *
- * Seven jobs, all optional - each one looks for its element and returns if the
+ * Eight jobs, all optional - each one looks for its element and returns if the
  * page does not have it, so this single file can load everywhere:
  *
  *   1. the light/dark toggle (the palette picker is palette.js, in <head>)
@@ -9,8 +9,9 @@
  *   3. filtering the stream as you type
  *   4. the page layout: which order the three columns sit in
  *   5. the page alignment: where that frame sits in the window
- *   6. the control rail's roving tab stop
- *   7. back to top
+ *   6. focus mode, on f
+ *   7. the control rail's roving tab stop
+ *   8. back to top
  *
  * The light/dark attribute itself is set by theme.js in <head>, before the
  * first paint. All this does is swap the icon and flip the attribute on click,
@@ -277,7 +278,16 @@
             } catch (e) { /* private window */ }
         }
 
-        return function init() {
+        // What the reader last chose, as opposed to what is on screen now.
+        // Focus mode overrides the attribute without touching storage, so
+        // these two can differ while it is on.
+        function preference() {
+            var v = null;
+            try { v = localStorage.getItem(spec.key); } catch (e) { /* private window */ }
+            return spec.values.indexOf(v) >= 0 ? v : spec.fallback;
+        }
+
+        function init() {
             var group = document.querySelector(spec.group);
             if (!group) return;
             Array.prototype.forEach.call(group.querySelectorAll(sel), function (b) {
@@ -286,14 +296,16 @@
                 });
             });
             sync();
-        };
+        }
+
+        return { init: init, set: set, current: current, preference: preference };
     }
 
     // The six orders of the three columns.
     //
     //   [rail][nav][content]   [nav][rail][content]   [content][rail][nav]
     //   [rail][content][nav]   [nav][content][rail]   [content][nav][rail]
-    var initLayout = rootChoice({
+    var layoutChoice = rootChoice({
         attr: 'data-layout',
         key: 'quirky-layout',
         group: '.quirky-layout',
@@ -306,7 +318,7 @@
 
     // Where the whole frame sits in the window. Independent of the order
     // above: this moves the container, the layout arranges its contents.
-    var initAlign = rootChoice({
+    var alignChoice = rootChoice({
         attr: 'data-align',
         key: 'quirky-align',
         group: '.quirky-align',
@@ -314,6 +326,9 @@
         fallback: 'center',
         values: ['left', 'center', 'right']
     });
+
+    var initLayout = layoutChoice.init;
+    var initAlign = alignChoice.init;
 
     function initToolbar() {
         var bar = document.querySelector('.quirky-sticky-top-right');
@@ -371,6 +386,72 @@
         if (first) setStop(first);
     }
 
+    /**
+     * Focus mode: `f` strips the page to what you came to read.
+     *
+     * A bare letter rather than a chord. Unmodified letters are not browser
+     * shortcuts at all, so there is nothing to collide with and nothing to
+     * cancel - Ctrl+O, which this replaces, is the browser's Open File and
+     * only worked because the event was cancelled.
+     *
+     * The cost of a bare letter is that it has to stand aside wherever a
+     * keystroke already means something: a text field, an open lightbox, or
+     * an IME mid-composition. Those are the guards below.
+     *
+     * A flag rather than one of a list, so the attribute is absent when off
+     * and the stylesheet only looks for the "on" case. theme.js puts it back
+     * before the first paint, so a reader who left it on never sees the
+     * sidebar drawn and then removed.
+     */
+    function initFocus() {
+        var html = document.documentElement;
+
+        function typing(el) {
+            if (!el) return false;
+            if (el.isContentEditable) return true;
+            var tag = el.tagName;
+            return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+        }
+
+        // Both galleries open by setting display on their container, so the
+        // DOM is the only state this needs to read.
+        function lightboxOpen() {
+            var boxes = document.querySelectorAll('.lb-modal, [id^="ig-target-"]');
+            for (var i = 0; i < boxes.length; i++) {
+                if (getComputedStyle(boxes[i]).display !== 'none') return true;
+            }
+            return false;
+        }
+
+        function set(on) {
+            if (on) html.setAttribute('data-focus', 'on');
+            else html.removeAttribute('data-focus');
+
+            // Centred while focused: with the nav and the rail gone there is
+            // nothing for an edge to align against, and a column pinned left
+            // on a wide screen is the opposite of what focus mode is for.
+            //
+            // `false` so storage is not touched. The reader's alignment is
+            // still their alignment; focus mode only overrides what is drawn,
+            // which is what lets it be handed straight back here.
+            alignChoice.set(on ? 'center' : alignChoice.preference(), false);
+
+            try {
+                if (on) localStorage.setItem('quirky-focus', 'on');
+                else localStorage.removeItem('quirky-focus');
+            } catch (e) { /* private window */ }
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.isComposing || e.keyCode === 229) return;
+            if ((e.key || '').toLowerCase() !== 'f') return;
+            if (typing(e.target) || lightboxOpen()) return;
+            e.preventDefault();
+            set(!html.hasAttribute('data-focus'));
+        });
+    }
+
     // ------------------------------------------------------------------
     // Back to top
     // ------------------------------------------------------------------
@@ -389,6 +470,7 @@
         initSearch();
         initLayout();
         initAlign();
+        initFocus();
         initToolbar();
         initToTop();
     });

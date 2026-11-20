@@ -1,0 +1,28 @@
+@use "layout" as *;
+// ----------------------------------------------------------------------------
+// Focus mode
+//
+// `f` strips the page back to what you came to read: the stream and its
+// search box, or the post. The nav column and the control rail go away.
+//
+// Driven by one attribute on <html>, set by quirky.js and put back before
+// the first paint by theme.js - so a reader who left focus mode on does not
+// watch the sidebar appear and then vanish.
+//
+// Back to top stays. With the rail gone it is the only chrome left, and it
+// is navigation rather than a setting.
+// ----------------------------------------------------------------------------
+
+[data-focus="on"] {
+  header[role="banner"],
+  .quirky-rail {
+    display: none;
+  }
+
+  // The row reserves the rail's width in its max-width - see _layout.scss.
+  // With the rail gone that reservation would just widen the measure, so
+  // take it back and leave the reading column at exactly $measure.
+  main[role="main"] {
+    max-width: $measure;
+  }
+}

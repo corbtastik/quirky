@@ -5,6 +5,7 @@
  *   - the light/dark attribute on <html>
  *   - the column order, also on <html>
  *   - where the page sits in the window
+ *   - focus mode, if it was left on
  *
  * Both are attributes rather than classes because they are read by CSS alone.
  * The toggles that set them live in assets/js/quirky.js, which runs after the
@@ -42,4 +43,15 @@
     var align = stored('quirky-align');
     root.setAttribute('data-align',
         ALIGNS.indexOf(align) >= 0 ? align : 'center');
+
+    // Focus mode. Unlike the two above this is a flag, not a choice from a
+    // list, so the attribute is absent rather than carrying a default - the
+    // stylesheet only ever looks for the "on" case.
+    if (stored('quirky-focus') === 'on') {
+        root.setAttribute('data-focus', 'on');
+        // Focus mode centres the page. Applied here too, or a reader who
+        // left it on while aligned left would see the column jump across
+        // once quirky.js caught up.
+        root.setAttribute('data-align', 'center');
+    }
 })();
