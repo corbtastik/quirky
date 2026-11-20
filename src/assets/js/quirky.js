@@ -372,7 +372,7 @@
         if (!bar) return;
 
         /** The controls, in document order, skipping the ones not on show.
-            The palette menu's 75 options live inside this element too; they
+            The palette menu's 79 options live inside this element too; they
             belong to the open menu, not to the toolbar. */
         function items() {
             return Array.prototype.filter.call(

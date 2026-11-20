@@ -66,7 +66,7 @@ brand:
   syntax: minio     # paints code blocks
 ```
 
-The palette icon in the corner lets a reader try any of the other 74 themes,
+The palette icon in the corner lets a reader try any of the other 78 themes,
 and the choice sticks. Light or dark and the chosen palette both apply before
 the first paint, so the compiled-in theme never flashes.
 
