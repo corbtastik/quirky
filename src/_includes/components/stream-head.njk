@@ -1,0 +1,24 @@
+{#
+  The clock and the search box, on every page.
+
+  Search reads one index for the whole site, so a note is as findable from a
+  post as it is from the stream. What the results replace differs: on the
+  stream it is the list of notes, everywhere else it is the page itself -
+  quirky.js picks whichever of the two is on the page.
+
+  Sticky only on the stream. See _sass/quirky/_stream.scss: everywhere else
+  main carries a top margin that a sticky head would slide up through on the
+  first scroll.
+#}
+<div class="stream-head">
+    <div class="quirky-now">
+        <span id="quirky-date"></span>
+        <span id="quirky-time"></span>
+    </div>
+
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search&hellip;" autocomplete="off"
+               aria-label="Search notes" aria-controls="results-container">
+    </div>
+</div>
+<ul id="results-container" aria-live="polite"></ul>

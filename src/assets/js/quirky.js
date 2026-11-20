@@ -90,19 +90,45 @@
     function initSearch() {
         var input = document.getElementById('search-input');
         var results = document.getElementById('results-container');
-        var stream = document.getElementById('stream');
-        var indexEl = document.getElementById('quirky-search-index');
-        if (!input || !results || !stream || !indexEl) return;
+        if (!input || !results) return;
 
-        var notes;
-        try {
-            notes = JSON.parse(indexEl.textContent);
-        } catch (e) {
-            QuirkyUtils.error('search index did not parse');
-            return;
-        }
+        // What the results stand in for. On the stream that is the list of
+        // notes; on every other page it is the page itself.
+        var stream = document.getElementById('stream') ||
+                     document.getElementById('page-content');
+        if (!stream) return;
 
         var base = (window.QuirkyConfig && window.QuirkyConfig.baseurl) || '';
+
+        // One index for the whole site, fetched rather than inlined - see
+        // search-index.njk for why. It is asked for as soon as the box is
+        // touched, which is usually a moment before the first keystroke, and
+        // a query typed before it lands is held and run on arrival.
+        var notes = null;
+        var loading = null;
+        var pending = null;
+
+        function load() {
+            if (loading) return loading;
+            loading = fetch(base + '/search-index.json')
+                .then(function (r) {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(function (data) {
+                    notes = data;
+                    if (pending !== null) { var q = pending; pending = null; show(q); }
+                })
+                .catch(function (e) {
+                    QuirkyUtils.error('search index did not load: ' + e.message);
+                    notes = [];
+                    if (pending !== null) { pending = null; render([], ''); }
+                });
+            return loading;
+        }
+
+        input.addEventListener('focus', load);
+        input.addEventListener('pointerenter', load);
 
         function href(note) {
             return note.external ? note.url : base + note.url;
@@ -125,6 +151,13 @@
                    '<time datetime="' + escape(note.date) + '">' + escape(note.date) + '</time></li>';
         }
 
+        function render(matches, query) {
+            results.classList.add('visible');
+            results.innerHTML = matches.length
+                ? matches.map(function(note) { return row(note, query); }).join('')
+                : '<li class="search-no-results">No notes match that.</li>';
+        }
+
         function show(query) {
             if (!query.trim()) {
                 results.innerHTML = '';
@@ -133,14 +166,18 @@
                 return;
             }
 
-            var matches = QuirkyUtils.filterByQuery(
-                notes, query, ['title', 'description', 'tags']);
-
             stream.hidden = true;
-            results.classList.add('visible');
-            results.innerHTML = matches.length
-                ? matches.map(function(note) { return row(note, query); }).join('')
-                : '<li class="search-no-results">No notes match that.</li>';
+
+            // Still in flight. Hold the query rather than saying nothing
+            // matches - that reads as an answer, and it would be wrong.
+            if (notes === null) {
+                pending = query;
+                load();
+                return;
+            }
+
+            render(QuirkyUtils.filterByQuery(
+                notes, query, ['title', 'description', 'tags']), query);
         }
 
         // --------------------------------------------------------------

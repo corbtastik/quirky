@@ -1,20 +1,7 @@
 {
   "user": "corbtastik",
-  "fetchedAt": "2026-11-19T18:21:41.613Z",
+  "fetchedAt": "2026-11-20T16:33:19.839Z",
   "repos": [
-    {
-      "name": "quirky",
-      "url": "https://github.com/corbtastik/quirky",
-      "description": "My soon to be new personal blog - quirky",
-      "language": "SCSS",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "homepage": "",
-      "isFork": false,
-      "isArchived": false,
-      "pushed": "2026-11-19T18:21:39Z"
-    },
     {
       "name": "buddy-and-the-bible",
       "url": "https://github.com/corbtastik/buddy-and-the-bible",
@@ -26,7 +13,20 @@
       "homepage": "https://buddy-and-the-bible.web.app/",
       "isFork": false,
       "isArchived": false,
-      "pushed": "2026-11-18T14:45:32Z"
+      "pushed": "2026-11-20T16:29:08Z"
+    },
+    {
+      "name": "quirky",
+      "url": "https://github.com/corbtastik/quirky",
+      "description": "My soon to be new personal blog - quirky",
+      "language": "SCSS",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "homepage": "",
+      "isFork": false,
+      "isArchived": false,
+      "pushed": "2026-11-19T19:02:08Z"
     },
     {
       "name": "yolo-11ty",

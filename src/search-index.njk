@@ -1,0 +1,11 @@
+---
+permalink: /search-index.json
+eleventyExcludeFromCollections: true
+---
+{#- Every note, as one file the search box fetches.
+
+    It used to be inlined on the stream, which was the only page that could
+    search. The box is on every page now, and 12.5KB of JSON on each of 200
+    pages is 2.4MB of duplicated index - so it is served once and cached,
+    and quirky.js fetches it the first time the box is touched. -#}
+{{ collections.searchIndex | dump | safe }}

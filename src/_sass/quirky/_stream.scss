@@ -123,7 +123,7 @@ ul.post-list {
 }
 
 // ----------------------------------------------------------------------------
-// Sticky stream chrome (the home page only, via `bodyClass: is-stream`)
+// Sticky page chrome, on every page
 //
 // The nav column and the search bar follow you down 33 notes. Position sticky
 // rather than fixed, so both stay inside the layout and need no spacer to
@@ -135,46 +135,49 @@ ul.post-list {
 // <main>, its parent, so the nav scrolls away naturally at the end of the
 // list instead of hanging over the footer.
 // ----------------------------------------------------------------------------
-.is-stream {
-  // No travel before the stick. <main> normally opens with 2rem of margin and
-  // 1rem of padding, so the nav and the search bar began 48px down and slid up
-  // to meet the top edge on the first flick of the wheel - the bump.
-  //
-  // Removing both puts them at top: 0 to begin with, so they are already where
-  // they will stay and nothing moves. The spacing is not lost, just relocated:
-  // the nav and the stream head each carry their own padding, which travels
-  // with them instead of being page margin they have to cross.
-  main[role="main"] {
-    margin-top: 0;
-    padding-top: 0;
-  }
+// No travel before the stick. <main> normally opens with 2rem of margin and
+// 1rem of padding, so the nav and the search bar began 48px down and slid up
+// to meet the top edge on the first flick of the wheel - the bump.
+//
+// Removing both puts them at top: 0 to begin with, so they are already where
+// they will stay and nothing moves. The spacing is not lost, just relocated:
+// the nav and the stream head each carry their own padding, which travels
+// with them instead of being page margin they have to cross.
+//
+// This was the stream's alone, which is what made the top of the page jump
+// 48px on the way to a post: the stream opened at 0 and everything else at
+// 48. The search box is on every page now, so the treatment is too, and the
+// chrome sits in one place whichever page you land on.
+main[role="main"] {
+  margin-top: 0;
+  padding-top: 0;
+}
 
-  header[role="banner"] {
-    position: sticky;
-    top: 0;
-    align-self: flex-start;
-    // Above the stream rows it overlaps, below the control rail - see
-    // _controls.scss for why that one has to outrank this rather than match it.
-    z-index: 5;
-  }
+header[role="banner"] {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  // Above the content it overlaps, below the control rail - see
+  // _controls.scss for why that one has to outrank this rather than match it.
+  z-index: 5;
+}
 
-  .stream-head {
-    position: sticky;
-    top: 0;
-    z-index: 6;
-    // Pulled out to the section's padding edge and padded back in, so the
-    // rows passing underneath are covered to the full width of the column
-    // rather than showing in the gutters.
-    margin: -1rem -1rem 0;
-    padding: 1rem 1rem 0.6rem;
-  }
+.stream-head {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  // Pulled out to the section's padding edge and padded back in, so what
+  // passes underneath is covered to the full width of the column rather than
+  // showing in the gutters.
+  margin: -1rem -1rem 0;
+  padding: 1rem 1rem 0.6rem;
 }
 
 // Below the breakpoint the nav is a horizontal strip across the top. Sticking
 // that would pin two or three lines of links to the roof of a phone screen
 // and leave very little behind it, so only the search bar stays.
 @media screen and (max-width: $break-stack) {
-  .is-stream header[role="banner"] {
+  header[role="banner"] {
     position: static;
   }
 }

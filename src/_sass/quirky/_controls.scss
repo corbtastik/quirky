@@ -60,7 +60,15 @@
   // keeps the flex row from stretching it to the full height - a stretched
   // item fills its container and has nowhere to travel.
   position: sticky;
-  top: 1rem;
+  // 0, not 1rem. main used to open with padding, so the rail's resting
+  // position was already below the top edge and a 1rem offset never had to
+  // move it. With that padding gone the offset does the moving, and on a
+  // page too short to hold the rail plus the offset it gets clamped - the
+  // tag pages sat 14px higher than everywhere else.
+  //
+  // Pinning at 0 and letting the rail's own padding make the gap is what the
+  // nav and the stream head already do, and it cannot be clamped.
+  top: 0;
   align-self: flex-start;
 
   // Above everything else in the row: the nav (5) and the stream's sticky

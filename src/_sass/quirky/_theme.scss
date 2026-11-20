@@ -442,8 +442,8 @@
     background-color: var(--primary-container-color);
   }
 
-  // Opaque, or the stream shows through the search bar as it scrolls under.
-  .is-stream .stream-head {
+  // Opaque, or the page shows through the search bar as it scrolls under.
+  .stream-head {
     background-color: var(--primary-color);
   }
 

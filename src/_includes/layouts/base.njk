@@ -39,6 +39,7 @@
     </header>
     {% include "components/controls.njk" %}
     <section class="{{ sectionClass | default('post') }}">
+      {% include "components/stream-head.njk" %}
       <div id="page-content" class="page-content">
         {{ content | safe }}
       </div>
