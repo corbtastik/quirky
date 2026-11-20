@@ -16,6 +16,14 @@
     <meta property="og:type" content="{% if layout == 'layouts/note.njk' %}article{% else %}website{% endif %}">
     <meta name="twitter:card" content="summary">
 
+    <!-- Favicons. SVG first: a browser that understands it takes it and
+         scales cleanly to any size the OS asks for. The .ico carries 16, 32
+         and 48 for the ones that do not, and sits at the root because that is
+         where a browser looks without being told. -->
+    <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="16x16 32x32 48x48">
+    <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
+
     <link rel="alternate" type="application/atom+xml" title="{{ settings.name }}" href="{{ '/atom.xml' | relative_url }}">
     <link rel="alternate" type="application/json" title="{{ settings.name }}" href="{{ '/feed.json' | relative_url }}">
     <link rel="sitemap" type="application/xml" title="sitemap" href="{{ '/sitemap.xml' | relative_url }}">

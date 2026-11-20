@@ -225,6 +225,15 @@ module.exports = function(eleventyConfig) {
   // -------------------------------------------------------------------------
   eleventyConfig.addPassthroughCopy("src/assets");
 
+  // Root-level, not under /assets: a browser asks for /favicon.ico before it
+  // has parsed any markup, and an apple-touch-icon is looked for at the root
+  // too. favicon.svg is built from a template rather than copied - see
+  // src/favicon.svg.njk.
+  eleventyConfig.addPassthroughCopy({
+    "src/assets/favicon/favicon.ico": "favicon.ico",
+    "src/assets/favicon/apple-touch-icon.png": "apple-touch-icon.png"
+  });
+
   // -------------------------------------------------------------------------
   // Filters
   // -------------------------------------------------------------------------
